@@ -5,6 +5,7 @@
 	}
 
 	interface Player {
+		teamID: number
 		championName: string;
 		playerName: string;
 		stats: Stat[];
@@ -27,26 +28,13 @@
 		{#each players as player (player.playerName)}
 			{@const value = Math.round(player.stats[0]?.value) ?? 0}
 			{@const widthPct = maxValue > 0 ? (value / maxValue) * 100 : 0}
+			{@const direction = player.teamID}
 
 
-			<div class={['flex items-center gap-2', direction === 'rtl' ? 'flex-row-reverse' : 'flex-row']}>
+			<div class="flex">
 				<!-- Label -->
-				<div class={['flex flex-col shrink-0 w-28', direction === 'rtl' ? 'items-end text-right' : 'items-start text-left']}>
-					<span class="text-xs text-gray-300 font-medium leading-tight">{player.playerName}</span>
+				<div>
 					<img class="size-10" src="./champion/{player.championName}.png">
-				</div>
-
-				<!-- Value -->
-				<span class="text-xs text-indigo-300 font-medium whitespace-nowrap shrink-0 w-14 {direction === 'rtl' ? 'text-left' : 'text-right'}">
-					{value.toLocaleString()}
-				</span>
-
-				<!-- Bar -->
-				<div class="flex-1 flex {direction === 'rtl' ? 'justify-end' : 'justify-start'}">
-					<div
-						class="h-8 bg-indigo-600 rounded transition-all duration-500"
-						style="width: {widthPct}%; min-width: 2px;"
-					></div>
 				</div>
 			</div>
 		{/each}
