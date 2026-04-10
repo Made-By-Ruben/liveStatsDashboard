@@ -43,7 +43,7 @@
 				</div>
 				<div class="h-10 {teamIndex === 1 ? 'justify-end' : ''} bg-white" style="width: {trueDmgPercentage}%;"></div>
 			</div>
-			<h1 class="font-bold text-white">{stats['TOTAL_DAMAGE_DEALT_TO_CHAMPIONS']}</h1>
+			<h1 class="font-bold {teamIndex === 1 ? 'text-green-400' : 'text-amber-500'}">{stats['TOTAL_DAMAGE_DEALT_TO_CHAMPIONS']}</h1>
 		</div>
 	{/each}
 </div>
