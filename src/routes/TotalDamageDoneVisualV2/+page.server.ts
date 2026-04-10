@@ -9,7 +9,7 @@ export type VisualStats = Record<number, TeamStats>;
 export const load = (async () => {
 	try {
 		const apiResponse = await fetch(
-			'http://localhost:3000/analyticalVisuals/TOTAL_DAMAGE_DEALT_TO_CHAMPIONS/306'
+			'http://localhost:3000/analyticalVisuals/TOTAL_DAMAGE_DEALT_TO_CHAMPIONS/250'
 		);
 		if (apiResponse.ok) {
 			const data = await apiResponse.json();
