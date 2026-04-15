@@ -15,15 +15,13 @@
 </script>
 
 <div
-	class="w-20 shrink-0 flex-col items-center justify-center justify-self-end bg-egyptian px-3 py-1 {isRight
+	class="w-24 shrink-0 flex-col items-center justify-center justify-self-end bg-egyptian px-3 py-1 {isRight
 		? 'damage-badge-right'
 		: 'damage-badge-left'}"
 >
-	<div class="font-heading text-white">
+	<div class="font-heading text-white text-3xl">
 		{Math.floor(statAnimated.current).toLocaleString()}
 	</div>
-
-	<div class="font-label text-[9px] tracking-widest text-brand-blue uppercase">DMG</div>
 </div>
 
 <style>

@@ -31,8 +31,10 @@
 	});
 </script>
 
-<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
-	<div class="h-full bg-lime" style="width: {physicalPctAnimation.current}%;"></div>
-	<div class="h-full bg-brand-blue" style="width: {magicPctAnimation.current}%;"></div>
-	<div class="h-full bg-off-white" style="width: {truePctAnimation.current}%;"></div>
+<div class="flex h-full w-full bg-royal {isRight ? ' flex-row-reverse' : ''}">
+	<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
+		<div class="h-full bg-lime" style="width: {physicalPctAnimation.current}%;"></div>
+		<div class="h-full bg-brand-blue" style="width: {magicPctAnimation.current}%;"></div>
+		<div class="h-full bg-off-white" style="width: {truePctAnimation.current}%;"></div>
+	</div>
 </div>

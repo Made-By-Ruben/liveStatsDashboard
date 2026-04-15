@@ -23,23 +23,26 @@
 	</div>
 
 	<!-- Graph Legend -->
-	<div
-		class="mt-6 flex w-full items-center justify-center gap-8"
-		style="font-family: var(--font-label);"
-	>
-		<span class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-off-white">
+	<div class="mt-6 flex w-full items-center justify-center gap-8 font-label">
+		<span
+			class="flex items-center gap-2 text-xs font-bold tracking-widest text-off-white uppercase"
+		>
 			<span class="inline-block h-3 w-3 bg-lime"></span>
-			PHYSICAL
+			PHYSICAL DAMAGE
 		</span>
-		<span class="text-off-white/30 text-xs">/</span>
-		<span class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-off-white">
+		<span class="text-xs text-off-white/30">/</span>
+		<span
+			class="flex items-center gap-2 text-xs font-bold tracking-widest text-off-white uppercase"
+		>
 			<span class="inline-block h-3 w-3 bg-brand-blue"></span>
-			MAGIC
+			MAGIC DAMAGE
 		</span>
-		<span class="text-off-white/30 text-xs">/</span>
-		<span class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-off-white">
+		<span class="text-xs text-off-white/30">/</span>
+		<span
+			class="flex items-center gap-2 text-xs font-bold tracking-widest text-off-white uppercase"
+		>
 			<span class="inline-block h-3 w-3 border border-off-white"></span>
-			TRUE
+			TRUE DAMAGE
 		</span>
 	</div>
 </div>
