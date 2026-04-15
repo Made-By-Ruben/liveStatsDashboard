@@ -33,8 +33,18 @@
 
 <div class="flex h-full w-full bg-royal {isRight ? ' flex-row-reverse' : ''}">
 	<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
-		<div class="h-full bg-lime" style="width: {physicalPctAnimation.current}%;"></div>
-		<div class="h-full bg-brand-blue" style="width: {magicPctAnimation.current}%;"></div>
-		<div class="h-full bg-off-white" style="width: {truePctAnimation.current}%;"></div>
+		<div
+			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange flex-row-reverse' : 'bg-brand-blue'}"
+			style="width: {physicalPctAnimation.current}%;"
+		>
+			<img class="brightness-0 invert-100 size-5 absolute" src="./StatModsIcons/StatModsPhysical DamageIcon.png" />
+		</div>
+		<div
+			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange-2 flex-row-reverse' : 'bg-blue-800'}"
+			style="width: {magicPctAnimation.current}%;"
+		>
+			<img class="brightness-0 invert-100 size-5 absolute" src="./StatModsIcons/StatModsMagic DamageIcon.png" />
+		</div>
+		<div class="h-full bg-off-white z-10" style="width: {truePctAnimation.current}%;"></div>
 	</div>
 </div>
