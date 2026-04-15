@@ -17,7 +17,7 @@
 -->
 
 <!-- Main Container -->
-<div class="mx-auto h-60 w-visual-width flex-col bg-linear-150 from-royal to-brand-blue py-1">
+<div class="mx-auto border border-brand-blue h-60 w-visual-width flex-col bg-linear-150 from-royal to-brand-blue py-1">
 	<div class="flex h-[90%] w-full justify-between">
 		<TeamChart team={team1} teamIndex={0} {maxDamage} />
 		<TeamChart team={team2} teamIndex={1} {maxDamage} />
