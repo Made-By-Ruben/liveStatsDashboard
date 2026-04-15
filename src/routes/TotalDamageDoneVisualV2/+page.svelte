@@ -24,5 +24,5 @@
 	</div>
 
 	<!-- Add meta data here -->
-	<GraphLegend stats={['PHYSICAL DAMAGE', 'MAGIC DAMAGE', 'TRUE DAMAGE']} />
+	<GraphLegend stats={['Physical Damage', 'Magic Damage', 'True Damage']} />
 </div>
