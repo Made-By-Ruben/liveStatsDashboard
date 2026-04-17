@@ -1,10 +1,4 @@
 <script lang="ts">
-	const socials = [
-		{ name: 'Twitch', at: '/ROAD_OF_LEGENDS' },
-		{ name: 'YouTube', href: '@ROADOFLEGENDS' },
-		{ name: 'Instagram', href: '/ROAD.OF.LEGENDS' },
-		{ name: 'TikTok', href: '@ROAD.OF.LEGENDS' },
-	];
 </script>
 
 <div class="flex h-full w-full">
