@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* In order to change some of the recurring values in this application, 
+consider changing these global values. */
+
 @theme {
 	--color-night: #0c0c0c;
 	--color-brand-blue: #0066ff;
@@ -7,7 +10,12 @@
 	--color-royal: #092660;
 	--color-lime: #d3fe31;
 	--color-off-white: #fcfcfc;
+	--color-brand-orange: #ff6600;
+	--color-brand-orange-2: #d65600;
 	--font-heading: 'Bebas Neue', sans-serif;
 	--font-body: 'Space Grotesk', sans-serif;
 	--font-label: 'Rajdhani', sans-serif;
+	--container-visual-height: 258px;
+	--container-visual-width: 1339px;
 }
+
