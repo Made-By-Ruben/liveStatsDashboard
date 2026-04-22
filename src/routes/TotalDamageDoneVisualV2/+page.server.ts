@@ -14,7 +14,6 @@ export const load = (async () => {
 
 	if (apiResponse.ok) {
 		const data = await apiResponse.json();
-		console.log(data);
 		return {
 			team1: data.data[100],
 			team2: data.data[200],
