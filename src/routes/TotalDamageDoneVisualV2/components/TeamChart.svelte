@@ -3,11 +3,8 @@
 	import Bar from './Bar.svelte';
 	import StatBadge from './StatBadge.svelte';
 
-	let { team, teamIndex, maxDamage }: { team: TeamStats; teamIndex: number; maxDamage: number } =
+	let { team, teamIndex, maxDamage } =
 		$props();
-
-	type ChampionStats = Record<string, number>;
-	type TeamStats = Record<string, ChampionStats>;
 
 	const totalDmgChamps = 'TOTAL_DAMAGE_DEALT_TO_CHAMPIONS';
 	const physicalDmgChamps = 'PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS';
@@ -18,15 +15,15 @@
 </script>
 
 <div class="flex w-1/2 flex-col">
-	{#each Object.entries(team) as [player, stats], index (player)}
-		{@const barWidth = calcPercentage(stats[totalDmgChamps], maxDamage)}
-		{@const physicalPct = calcPercentage(stats[physicalDmgChamps], stats[totalDmgChamps])}
-		{@const magicPct = calcPercentage(stats[magicDmgChamps], stats[totalDmgChamps])}
-		{@const truePct = calcPercentage(stats[trueDmgChamps], stats[totalDmgChamps])}
+	{#each team as player, index}
+		{@const barWidth = calcPercentage(player.filteredStats[totalDmgChamps], maxDamage)}
+		{@const physicalPct = calcPercentage(player.filteredStats[physicalDmgChamps], player.filteredStats[totalDmgChamps])}
+		{@const magicPct = calcPercentage(player.filteredStats[magicDmgChamps], player.filteredStats[totalDmgChamps])}
+		{@const truePct = calcPercentage(player.filteredStats[trueDmgChamps], player.filteredStats[totalDmgChamps])}
 
 		<div class="flex h-1/5 w-full px-2 py-2 {isRight ? 'flex-row-reverse' : ''} ">
 			<div class="flex w-full items-center gap-2 {isRight ? 'flex-row-reverse' : ''} ">
-				<img class="size-10 border border-brand-blue" src="./champion/{player}.png" alt={player} />
+				<img class="size-10 border border-brand-blue" src="./champion/{player.championName}.png" alt={player} />
 
 				<!-- Player name -->
 				<div
@@ -34,13 +31,13 @@
 						? 'text-right'
 						: 'text-left'}"
 				>
-					{player}
+					{player.championName}
 				</div>
 
 				<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} />
 			</div>
 
-			<StatBadge stat={stats[totalDmgChamps]} />
+			<StatBadge stat={player.filteredStats[totalDmgChamps]} />
 		</div>
 	{/each}
 </div>
