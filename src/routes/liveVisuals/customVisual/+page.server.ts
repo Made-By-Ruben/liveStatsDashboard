@@ -11,7 +11,10 @@ const matchID = 100;
 
 export const load = (async () => {
 	const data = await getCustomVisual(config, matchID);
-	return { ...data };
+    console.log(data.data)
+	return {
+        playerArray: data.data
+    };
 }) satisfies PageServerLoad;
 
 async function getCustomVisual(config: string, matchID: number) {

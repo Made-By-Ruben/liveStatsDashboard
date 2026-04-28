@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="mx-auto h-62 w-visual-width flex-col border border-brand-blue bg-linear-150 from-royal to-brand-blue py-1"
+	class="mx-auto h-62 w-visual-width flex-col border border-brand-blue bg-linear-150 from-royal to-brand-blue"
 >
 	{@render children()}
 </div>
