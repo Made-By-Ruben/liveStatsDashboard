@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import GraphLegend from './components/GraphLegend.svelte';
-	import TeamChart from './components/TeamChart.svelte';
+	import GraphLegend from '$lib/components/GraphLegend.svelte';
+	import TeamChart from '$lib/components/TeamChart.svelte';
 	type ChampionStats = Record<string, number>;
 	type TeamStats = Record<string, ChampionStats>;
 
 	let { data }: PageProps = $props();
 
+	$inspect(data)
 	let team1 = $derived(data.team1) as TeamStats;
 	let team2 = $derived(data.team2) as TeamStats;
 	let maxDamage = $derived(data.maxDamage);

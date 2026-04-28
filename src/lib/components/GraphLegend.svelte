@@ -1,5 +1,8 @@
 <script lang="ts">
 	let { stats }: { stats: string[] } = $props();
+
+	import physicalDmgIcon from '$lib/assets/StatModsIcons/StatModsPhysical DamageIcon.png'
+	import magicalDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png'
 </script>
 
 <!-- TODO: add Stats icon folder and create a src:./statsIcons/{stat} instead of a box with colour-->
@@ -12,7 +15,7 @@
 			{#if stat === 'True Damage'}
 				<span class="mr-2 inline-block h-3 w-3 bg-off-white"></span>
 			{:else}
-				<img class="brightness-0 invert-100 size-5" src="./StatModsIcons/StatMods{stat}Icon.png" />{/if}
+				<img class="brightness-0 invert-100 size-5" src={stat === 'Magic Damage' ? magicalDmgIcon : physicalDmgIcon} />{/if}
 			{stat}
 		</span>
 

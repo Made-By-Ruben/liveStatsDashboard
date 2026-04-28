@@ -1,11 +1,13 @@
 <script lang="ts">
+
+import errorImg from '$lib/assets/ROL_Logo_Vertical_RGB_Color 2026 - white.png'
 </script>
 
 <div class="flex h-full w-full">
 	<!-- Left: Logo -->
 	<div class="flex w-2/5 items-center justify-center">
 		<img
-			src="/ROL_Logo_Vertical_RGB_Color 2026 - white.png"
+			src={errorImg}
 			alt="ROL Logo"
 			class="w-56 object-contain"
 		/>
