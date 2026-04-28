@@ -6,8 +6,6 @@
 	type TeamStats = Record<string, ChampionStats>;
 
 	let { data }: PageProps = $props();
-
-	$inspect(data)
 	let team1 = $derived(data.team1) as TeamStats;
 	let team2 = $derived(data.team2) as TeamStats;
 	let maxDamage = $derived(data.maxDamage);
