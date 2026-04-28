@@ -13,7 +13,7 @@ export const load = (async () => {
 	const data = await getCustomVisual(config, matchID);
     console.log(data.data)
 	return {
-        playerArray: data.data
+        spotlightedPlayer: data.data
     };
 }) satisfies PageServerLoad;
 

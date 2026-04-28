@@ -27,7 +27,6 @@
 		delay: 300 + index * 150
 	});
 
-	// Run the animation via Tweens
 	$effect(() => {
 		physicalPctAnimation.target = physicalPct;
 		magicPctAnimation.target = magicPct;
@@ -41,13 +40,13 @@
 			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange flex-row-reverse' : 'bg-brand-blue'}"
 			style="width: {physicalPctAnimation.current}%;"
 		>
-			<img class="brightness-0 invert-100 size-5 absolute" src={physicalDmgIcon} />
+			<img class="brightness-0 invert-100 size-5 absolute" src={physicalDmgIcon} alt="PHYSICAL" />
 		</div>
 		<div
 			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange-2 flex-row-reverse' : 'bg-blue-800'}"
 			style="width: {magicPctAnimation.current}%;"
 		>
-			<img class="brightness-0 invert-100 size-5 absolute" src={magicalDmgIcon} />
+			<img class="brightness-0 invert-100 size-5 absolute" src={magicalDmgIcon} alt="MAGIC" />
 		</div>
 		<div class="h-full bg-off-white z-10" style="width: {truePctAnimation.current}%;"></div>
 	</div>

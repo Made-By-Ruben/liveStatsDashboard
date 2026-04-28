@@ -1,23 +1,33 @@
 <script lang="ts">
 	import z from 'zod';
+	import Top from '$lib/assets/roleIconsGreen/Top.png';
+	import Jungle from '$lib/assets/roleIconsGreen/Jungle.png';
+	import Mid from '$lib/assets/roleIconsGreen/Mid.png';
+	import Bot from '$lib/assets/roleIconsGreen/Bot.png';
+	import Support from '$lib/assets/roleIconsGreen/Support.png';
+
+	const roleIcons: Record<string, string> = {
+		Top,
+		Jungle,
+		Mid,
+		Bot,
+		Support
+	};
 
 	const FilteredPlayerData = z.object({
 		championName: z.string(),
-        playerName: z.string(),
-        role: z.string(),
+		playerName: z.string(),
+		role: z.string(),
 		teamID: z.number(),
 		filteredStats: z.record(z.string(), z.number())
 	});
 	type FilteredPlayerData = z.infer<typeof FilteredPlayerData>;
 
-	const VisualData = z.array(FilteredPlayerData);
-	type VisualData = z.infer<typeof VisualData>;
-
 	let { data } = $props();
 
-    $inspect(data)
+	$inspect(data);
 
-	const playerArray: VisualData = $derived(data.playerArray);
+	const spotlightedPlayer: FilteredPlayerData = $derived(data.spotlightedPlayer);
 </script>
 
 <div class="flex">
@@ -25,15 +35,22 @@
 	<div>
 		<img
 			class="h-61.5"
-			src="https://cdn.communitydragon.org/latest/champion/{playerArray[0].championName}/splash-art"
+			src="https://cdn.communitydragon.org/latest/champion/{spotlightedPlayer.championName}/splash-art"
 			alt=""
 		/>
 	</div>
 	<!-- Information section -->
-     <div>
-        <div class="flex gap-5 px-10 py-5">
-            <p class="font-heading tracking-widest text-off-white uppercase">{playerArray[0].role.toUpperCase()}</p>
-            <p>PLAYING {playerArray[0].championName.toUpperCase()}</p>
-        </div>
-     </div>
+	<div class="px-10 py-5 font-heading tracking-widest">
+		<span class="flex items-center gap-5">
+			<span class="flex items-center gap-1 font-heading tracking-widest text-lime uppercase">
+				<img class="size-4" src={roleIcons[spotlightedPlayer.role]} />
+				<p>{spotlightedPlayer.role} lane</p>
+			</span>
+			<span class="flex gap-1">
+				<p class="text-off-white/75">PLAYING:</p>
+				<p class="text-off-white">{spotlightedPlayer.championName}</p>
+			</span>
+		</span>
+		<span class="text-8xl text-off-white">{spotlightedPlayer.playerName}</span>
+	</div>
 </div>
