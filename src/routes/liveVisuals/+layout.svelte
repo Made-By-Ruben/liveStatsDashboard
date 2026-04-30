@@ -4,8 +4,14 @@
 	let { data, children }: LayoutProps = $props();
 </script>
 
-<div
-	class="mx-auto h-62 w-visual-width flex-col border border-brand-blue bg-linear-150 from-royal to-brand-blue"
->
-	{@render children()}
-</div>
+<main class="flex h-270 w-480 flex-col justify-end bg-[url(/src/lib/assets/Background.avif)]">
+	<div class="flex h-62 w-full">
+		<div class=" w-75.5 border border-border-blue"></div>
+		<div class="62 w-visual-width flex-col border border-border-blue">
+			{@render children()}
+		</div>
+		<div class=" w-76.5 border border-border-blue"></div>
+	</div>
+</main>
+
+<!-- bg-[url(/src/lib/assets/Background.avif)] bg-cover bg-top-left -->

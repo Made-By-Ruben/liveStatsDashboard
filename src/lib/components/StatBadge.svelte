@@ -14,8 +14,6 @@
 	});
 </script>
 
-<div class="w-20 text-center">
-	<div class="font-heading text-2xl text-white">
-		{Math.floor(statAnimated.current).toLocaleString()}
-	</div>
+<div class="font-heading text-white line-clamp-1" style="font-size: var(--font-size); line-height: 1;">
+	{Math.floor(statAnimated.current).toLocaleString()}
 </div>

@@ -23,7 +23,7 @@
 
 		<div class="flex h-1/5 w-full px-2 py-2 {isRight ? 'flex-row-reverse' : ''} ">
 			<div class="flex w-full items-center gap-2 {isRight ? 'flex-row-reverse' : ''} ">
-				<img class="size-10 border border-brand-blue" src="/champion/{player.championName}.png" alt={player} />
+				<img class="size-10 border border-border-blue" src="/champion/{player.championName}.png" alt={player} />
 
 				<!-- Player name -->
 				<div
@@ -37,7 +37,9 @@
 				<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} />
 			</div>
 
-			<StatBadge stat={player.filteredStats[totalDmgChamps]} />
+			<div class="w-20 text-center">
+				<StatBadge stat={player.filteredStats[totalDmgChamps]} --font-size="x-large" />
+			</div>
 		</div>
 	{/each}
 </div>
