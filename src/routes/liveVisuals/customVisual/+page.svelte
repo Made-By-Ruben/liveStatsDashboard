@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Top from '$lib/assets/roleIconsGreen/Top.png';
 	import Jungle from '$lib/assets/roleIconsGreen/Jungle.png';
-	import Mid from '$lib/assets/roleIconsGreen/Mid.png';
-	import Bot from '$lib/assets/roleIconsGreen/Bot.png';
+	import Middle from '$lib/assets/roleIconsGreen/Mid.png';
+	import Bottom from '$lib/assets/roleIconsGreen/Bot.png';
 	import Support from '$lib/assets/roleIconsGreen/Support.png';
 	import StatBadge from '$lib/components/StatBadge.svelte';
 	import Arrow from '$lib/assets/arrow.png';
@@ -11,8 +11,8 @@
 	const roleIcons: Record<string, string> = {
 		Top,
 		Jungle,
-		Mid,
-		Bot,
+		Middle,
+		Bottom,
 		Support
 	};
 
