@@ -14,4 +14,3 @@
 	</div>
 </main>
 
-<!-- bg-[url(/src/lib/assets/Background.avif)] bg-cover bg-top-left -->

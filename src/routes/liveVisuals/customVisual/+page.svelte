@@ -23,7 +23,7 @@
 
 <div class="flex h-full">
 	<!-- Hero section -->
-	<div class="w-1/3 h-61.5 border-r border-border-blue overflow-hidden ">
+	<div class="h-61.5 w-1/3 overflow-hidden border-r border-border-blue">
 		<img
 			src="https://cdn.communitydragon.org/latest/champion/{data.spotlightedPlayer
 				.championName}/splash-art"
@@ -32,17 +32,17 @@
 	</div>
 
 	<!-- Information section -->
-	<div class="flex h-full w-2/3 flex-col justify-evenly font-heading tracking-widest">
+	<div class="flex w-2/3 flex-col justify-evenly font-heading tracking-widest">
 		<!-- Player Lane & Champion  -->
 		<div class="flex justify-between border-b border-border-blue px-10 py-2">
-			<div class="flex items-center gap-5 leading-none">
-				<span class="flex items-center justify-center gap-1 text-lime uppercase">
+			<div class="flex gap-5">
+				<span class="flex items-center gap-1 text-lime uppercase">
 					<img class="size-5" src={roleIcons[data.spotlightedPlayer.role]} alt="" />
-					<p class="leading-none">{data.spotlightedPlayer.role}</p>
+					<p class="pt-0.75 leading-none">{data.spotlightedPlayer.role}</p>
 				</span>
-				<span class="flex items-center gap-1">
-					<p class="leading-none text-off-white/75">PLAYING:</p>
-					<p class="leading-none text-off-white">{data.spotlightedPlayer.championName}</p>
+				<span class="flex items-center gap-1 pt-0.75 leading-none">
+					<p class="text-off-white/75">PLAYING:</p>
+					<p class=" text-off-white">{data.spotlightedPlayer.championName}</p>
 				</span>
 			</div>
 			<img class="h-8" src={Logo} alt="ROL" />

@@ -5,8 +5,6 @@
 	import magicalDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png'
 </script>
 
-<!-- TODO: add Stats icon folder and create a src:./statsIcons/{stat} instead of a box with colour-->
-
 <div class="flex h-[10%] w-full items-center justify-center font-label border-t border-border-blue">
 	{#each stats as stat, i}
 		<span
