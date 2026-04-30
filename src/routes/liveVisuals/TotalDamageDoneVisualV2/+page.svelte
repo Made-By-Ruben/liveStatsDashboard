@@ -16,7 +16,7 @@
 -->
 
 <!-- Main Container -->
-<div class="flex h-[90%] w-full justify-between">
+<div class="flex h-[90%] w-full justify-between p-2">
 	<TeamChart team={team1} teamIndex={0} {maxDamage} />
 	<TeamChart team={team2} teamIndex={1} {maxDamage} />
 </div>

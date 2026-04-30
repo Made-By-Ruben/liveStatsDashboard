@@ -14,7 +14,9 @@
 	const isRight = $derived(teamIndex === 1);
 </script>
 
-<div class="flex w-1/2 flex-col">
+<!-- TODO: move Percentage calculation to the back-end -->
+
+<div class={["flex w-1/2 flex-col border-border-blue", isRight ? "border-l" : "border-r"]}>
 	{#each team as player, index}
 		{@const barWidth = calcPercentage(player.filteredStats[totalDmgChamps], maxDamage)}
 		{@const physicalPct = calcPercentage(player.filteredStats[physicalDmgChamps], player.filteredStats[totalDmgChamps])}
@@ -23,11 +25,11 @@
 
 		<div class="flex h-1/5 w-full px-2 py-2 {isRight ? 'flex-row-reverse' : ''} ">
 			<div class="flex w-full items-center gap-2 {isRight ? 'flex-row-reverse' : ''} ">
-				<img class="size-10 border border-border-blue" src="/champion/{player.championName}.png" alt={player} />
+				<img class="size-10 border-2 border-border-blue" src="/champion/{player.championName}.png" alt={player} />
 
 				<!-- Player name -->
 				<div
-					class="w-24 font-label text-xs font-bold tracking-widest text-off-white uppercase {isRight
+					class="w-24 leading-none font-label text-xs font-bold tracking-widest text-off-white uppercase {isRight
 						? 'text-right'
 						: 'text-left'}"
 				>

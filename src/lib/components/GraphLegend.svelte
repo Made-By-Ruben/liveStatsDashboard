@@ -7,10 +7,10 @@
 
 <!-- TODO: add Stats icon folder and create a src:./statsIcons/{stat} instead of a box with colour-->
 
-<div class="flex h-[10%] w-full items-center justify-center font-label">
+<div class="flex h-[10%] w-full items-center justify-center font-label border-t border-border-blue">
 	{#each stats as stat, i}
 		<span
-			class="flex w-1/6 items-center justify-center text-xs font-bold tracking-widest text-off-white uppercase"
+			class="flex w-1/6 items-center justify-center text-xs font-bold tracking-widest text-lime uppercase"
 		>
 			{#if stat === 'True Damage'}
 				<span class="mr-2 inline-block h-3 w-3 bg-off-white"></span>
@@ -20,7 +20,7 @@
 		</span>
 
 		{#if i < stats.length - 1}
-			<span>/</span>
+			<span class="text-border-blue">/</span>
 		{/if}
 	{/each}
 </div>
