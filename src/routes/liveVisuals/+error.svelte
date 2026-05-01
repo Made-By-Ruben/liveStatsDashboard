@@ -1,6 +1,6 @@
 <script lang="ts">
 
-import errorImg from '$lib/assets/ROL_Logo_Vertical_RGB_Color 2026 - white.png'
+import errorImg from '$lib/assets/rolLogoVertical.avif'
 </script>
 
 <div class="flex h-full w-full">

@@ -1,5 +1,5 @@
 <script>
-	import logo from '$lib/assets/ROL_Logo_Vertical_RGB_Color 2026 - white.png';
+	import logo from '$lib/assets/rolLogoVertical.avif';
 </script>
 
 <div class={['relative flex h-full w-full', 'background']}>
