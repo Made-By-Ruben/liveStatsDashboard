@@ -23,7 +23,7 @@
 
 <div class="flex h-full">
 	<!-- Hero section -->
-	<div class="h-61.5 w-1/3 overflow-hidden border-r border-border-blue">
+	<div class="h-full w-1/3 overflow-hidden border-r border-border-blue">
 		<img
 			src="https://cdn.communitydragon.org/latest/champion/{data.spotlightedPlayer
 				.championName}/splash-art"
