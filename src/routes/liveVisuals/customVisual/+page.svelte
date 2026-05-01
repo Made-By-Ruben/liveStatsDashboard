@@ -7,6 +7,7 @@
 	import StatBadge from '$lib/components/StatBadge.svelte';
 	import Arrow from '$lib/assets/arrow.png';
 	import Logo from '$lib/assets/jaar + logo.png';
+	import { fade } from 'svelte/transition';
 
 	const roleIcons: Record<string, string> = {
 		Top,
@@ -21,7 +22,7 @@
 	const statEntries = $derived(Object.entries(data.spotlightedPlayer.filteredStats));
 </script>
 
-<div class="flex h-full">
+<div class="flex h-full" transition:fade>
 	<!-- Hero section -->
 	<div class="h-full w-1/3 overflow-hidden border-r border-border-blue">
 		<img
