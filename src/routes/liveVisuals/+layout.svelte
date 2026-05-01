@@ -13,7 +13,7 @@
 
 <main class="relative h-270 w-480">
 	<div
-		class="mainContainer absolute bottom-0 left-75.5 flex h-64.5 w-334.5 flex-col border border-border-blue bg-[url(/src/lib/assets/croppedBg.avif)] bg-contain"
+		class="mainContainer absolute bottom-0 left-75.5 flex h-62.5 w-334.5 flex-col border border-border-blue bg-[url(/src/lib/assets/croppedBg.avif)]"
 	>
 		{#if stingerPlaying}
 			<Stinger />
@@ -35,7 +35,7 @@
 			background: transparent;
 		}
 		100% {
-			background: url(/src/lib/assets/Background.avif);
+			background-image: url(/src/lib/assets/Background.avif);
 		}
 	}
 </style>
