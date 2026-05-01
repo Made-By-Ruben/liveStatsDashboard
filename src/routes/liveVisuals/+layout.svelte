@@ -7,7 +7,7 @@
 <main class="flex h-270 w-480 flex-col justify-end bg-[url(/src/lib/assets/Background.avif)]">
 	<div class="flex h-64.5 w-full">
 		<div class="w-75.5"></div>
-		<div class="w-328 flex-col">
+		<div class="w-328 flex-col border border-border-blue">
 			{@render children()}
 		</div>
 		<div class="w-76.5"></div>
