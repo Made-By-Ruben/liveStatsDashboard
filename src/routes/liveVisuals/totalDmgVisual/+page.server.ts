@@ -5,7 +5,7 @@ const config = JSON.stringify({
 	isCustom: false,
 	visualName: 'TOTAL_DAMAGE_DONE_H2H'
 });
-const matchID = 140;
+const matchID = 144;
 
 export const load = (async () => {
 	const data = await getDefaultVisual(config, matchID);

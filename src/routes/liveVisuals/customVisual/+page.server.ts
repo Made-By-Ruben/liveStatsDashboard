@@ -4,10 +4,10 @@ import type { PageServerLoad } from './$types';
 const config = JSON.stringify({
 	isCustom: true,
 	visualFormat: 'SPOTLIGHT',
-    requestedPlayers: ['SNSH Middle'],
-	requestedStats: ["CHAMPIONS_KILLED", "ASSISTS", "TOTAL_DAMAGE_DEALT"]
+    requestedPlayers: ['ZNT Middle'],
+	requestedStats: ["CHAMPIONS_KILLED", "ASSISTS", "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS"]
 });
-const matchID = 138;
+const matchID = 144;
 
 export const load = (async () => {
 	const data = await getCustomVisual(config, matchID);
