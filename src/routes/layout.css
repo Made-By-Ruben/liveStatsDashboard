@@ -24,8 +24,10 @@ consider changing these global values. */
 	Aspect Ratio:
 		Total width: 1920px
 		Total height: 1080px
-	Lower HUD:
-		Height: 250px (OLD WORKING WAS: 258px)
+
+	Lower HUD (scoreboard / minimap etc.)
+		Height: 250px 
 		left el width: 302px
-		middle el width: 1338px
-		right el width: 280px   */
+		middle el width: 1338px (Place for visuals)
+		right el width: 280px  
+*/

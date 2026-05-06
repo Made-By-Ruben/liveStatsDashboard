@@ -2,7 +2,7 @@
 	import Notice from '$lib/components/ui/Notice.svelte';
 
 	let confirmed = $state(false);
-	let matchId = $state(0);
+	let matchId = $state();
 </script>
 
 <form
@@ -16,7 +16,7 @@
 		<div class="flex flex-col gap-2 text-center">
 			<h1 class="font-heading text-6xl leading-none tracking-wide">Connect to live match</h1>
 			<p class="font-body text-sm text-off-white/70">
-				Enter the matchId to start streaming live stats.
+				Enter the match ID to start streaming live stats.
 			</p>
 		</div>
 
@@ -27,10 +27,9 @@
 
 		<!-- Input matchId section -->
 		<div class="flex flex-col gap-2">
-			<label class="font-label text-lg tracking-wider uppercase" for="matchId"> matchId </label>
+			<label class="font-label text-lg tracking-wider uppercase" for="matchId"> match ID </label>
 			<input
 				bind:value={matchId}
-				min="0"
 				type="number"
 				id="matchId"
 				name="matchId"
@@ -49,6 +48,7 @@
 			/>
 			<span>Confirmed match in DataMonster</span>
 		</label>
+
 
 		<!-- submit button -->
 		<button
