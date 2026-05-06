@@ -12,6 +12,7 @@ consider changing these global values. */
 	--color-off-white: #fcfcfc;
 	--color-brand-orange: #ff6600;
 	--color-brand-orange-2: #d65600;
+	--color-border-blue: #0b37a5;
 	--font-heading: 'Bebas Neue', sans-serif;
 	--font-body: 'Space Grotesk', sans-serif;
 	--font-label: 'Rajdhani', sans-serif;
@@ -19,3 +20,12 @@ consider changing these global values. */
 	--container-visual-width: 1339px;
 }
 
+/* Current config for stream:
+	Aspect Ratio:
+		Total width: 1920px
+		Total height: 1080px
+	Lower HUD:
+		Height: 250px (OLD WORKING WAS: 258px)
+		left el width: 302px
+		middle el width: 1338px
+		right el width: 280px   */

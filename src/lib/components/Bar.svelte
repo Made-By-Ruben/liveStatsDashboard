@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
+
+	import physicalDmgIcon from '$lib/assets/StatModsIcons/StatModsPhysical DamageIcon.png'
+	import magicalDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png'
+
 	let { isRight, barWidth, physicalPct, magicPct, truePct, index } = $props();
 
 	// svelte-ignore state_referenced_locally
@@ -23,7 +27,6 @@
 		delay: 300 + index * 150
 	});
 
-	// Run the animation via Tweens
 	$effect(() => {
 		physicalPctAnimation.target = physicalPct;
 		magicPctAnimation.target = magicPct;
@@ -31,19 +34,19 @@
 	});
 </script>
 
-<div class="flex h-full w-full bg-royal {isRight ? ' flex-row-reverse' : ''}">
+<div class="flex h-full w-full border border-border-blue bg-royal {isRight ? ' flex-row-reverse pl-1' : 'pr-1'}">
 	<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
 		<div
 			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange flex-row-reverse' : 'bg-brand-blue'}"
 			style="width: {physicalPctAnimation.current}%;"
 		>
-			<img class="brightness-0 invert-100 size-5 absolute" src="./StatModsIcons/StatModsPhysical DamageIcon.png" />
+			<img class="size-5 absolute" src={physicalDmgIcon} alt="PHYSICAL" />
 		</div>
 		<div
 			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange-2 flex-row-reverse' : 'bg-blue-800'}"
 			style="width: {magicPctAnimation.current}%;"
 		>
-			<img class="brightness-0 invert-100 size-5 absolute" src="./StatModsIcons/StatModsMagic DamageIcon.png" />
+			<img class="size-5 absolute" src={magicalDmgIcon} alt="MAGIC" />
 		</div>
 		<div class="h-full bg-off-white z-10" style="width: {truePctAnimation.current}%;"></div>
 	</div>
