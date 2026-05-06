@@ -20,7 +20,6 @@ async function getDefaultVisual(config: string, matchID: number) {
 	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchID}`, {
 		method: 'POST',
 		headers: {
-			'X-Powered-By': 'Express',
 			'Content-Type': 'application/json; charset=utf-8'
 		},
 		body: config
