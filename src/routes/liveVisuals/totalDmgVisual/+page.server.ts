@@ -5,10 +5,15 @@ const config = JSON.stringify({
 	isCustom: false,
 	visualName: 'TOTAL_DAMAGE_DONE_H2H'
 });
-const matchID = 144;
 
-export const load = (async () => {
-	const data = await getDefaultVisual(config, matchID);
+export const load = (async ({ cookies }) => {
+	const matchId = Number(cookies.get('matchId'));
+
+	if (matchId === undefined) {
+		error(400);
+	}
+
+	const data = await getDefaultVisual(config, matchId);
 	return {
 		team1: data.data[100],
 		team2: data.data[200],
@@ -16,8 +21,8 @@ export const load = (async () => {
 	};
 }) satisfies PageServerLoad;
 
-async function getDefaultVisual(config: string, matchID: number) {
-	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchID}`, {
+async function getDefaultVisual(config: string, matchId: number) {
+	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchId}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8'

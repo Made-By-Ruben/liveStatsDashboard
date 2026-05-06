@@ -7,17 +7,22 @@ const config = JSON.stringify({
     requestedPlayers: ['ZNT Middle'],
 	requestedStats: ["CHAMPIONS_KILLED", "ASSISTS", "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS"]
 });
-const matchID = 144;
 
-export const load = (async () => {
-	const data = await getCustomVisual(config, matchID);
+export const load = (async ({cookies}) => {
+		const matchId = Number(cookies.get('matchId'));
+
+	if (matchId === undefined) {
+		error(400);
+	}
+
+	const data = await getCustomVisual(config, matchId);
 	return {
         spotlightedPlayer: data.data
     };
 }) satisfies PageServerLoad;
 
-async function getCustomVisual(config: string, matchID: number) {
-	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchID}`, {
+async function getCustomVisual(config: string, matchId: number) {
+	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchId}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8',
