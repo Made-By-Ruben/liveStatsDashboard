@@ -13,7 +13,7 @@
 			{#if stat === 'True Damage'}
 				<span class="mr-2 inline-block h-3 w-3 bg-off-white"></span>
 			{:else}
-				<img class="brightness-0 invert-100 size-5" src={stat === 'Magic Damage' ? magicalDmgIcon : physicalDmgIcon} />{/if}
+				<img class="size-5" src={stat === 'Magic Damage' ? magicalDmgIcon : physicalDmgIcon} />{/if}
 			{stat}
 		</span>
 
