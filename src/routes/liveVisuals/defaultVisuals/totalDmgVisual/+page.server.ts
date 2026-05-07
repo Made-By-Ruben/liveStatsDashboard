@@ -6,6 +6,8 @@ const config = JSON.stringify({
 	visualName: 'TOTAL_DAMAGE_DONE_H2H'
 });
 
+const baseUrl = 'localhost';
+
 export const load = (async ({ cookies }) => {
 	const matchId = Number(cookies.get('matchId'));
 
@@ -22,7 +24,7 @@ export const load = (async ({ cookies }) => {
 }) satisfies PageServerLoad;
 
 async function getDefaultVisual(config: string, matchId: number) {
-	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchId}`, {
+	const apiResponse = await fetch(`http://${baseUrl}:3000/getVisual/${matchId}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8'

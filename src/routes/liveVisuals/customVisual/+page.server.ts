@@ -16,6 +16,8 @@ const config = JSON.stringify({
 	requestedStats: ['CHAMPIONS_KILLED', 'ASSISTS', 'TOTAL_DAMAGE_DEALT_TO_CHAMPIONS']
 });
 
+const baseUrl = 'localhost';
+
 export const load: PageServerLoad = async ({ cookies }) => {
 	const matchId = Number(cookies.get('matchId'));
 
@@ -30,7 +32,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 };
 
 async function getCustomVisual(config: string, matchId: number) {
-	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchId}`, {
+	const apiResponse = await fetch(`http://${baseUrl}:3000/getVisual/${matchId}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8'
