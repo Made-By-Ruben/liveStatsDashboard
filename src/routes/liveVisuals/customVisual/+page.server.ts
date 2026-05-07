@@ -1,6 +1,14 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
+type SpotlightedPlayer = {
+	championName: string;
+	filteredStats: Record<string, number>;
+	playerName: string;
+	role: string;
+	teamID: number;
+};
+
 const config = JSON.stringify({
 	isCustom: true,
 	visualFormat: 'SPOTLIGHT',
@@ -8,7 +16,7 @@ const config = JSON.stringify({
 	requestedStats: ['CHAMPIONS_KILLED', 'ASSISTS', 'TOTAL_DAMAGE_DEALT_TO_CHAMPIONS']
 });
 
-export const load = (async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
 	const matchId = Number(cookies.get('matchId'));
 
 	if (matchId === undefined) {
@@ -17,9 +25,9 @@ export const load = (async ({ cookies }) => {
 
 	const data = await getCustomVisual(config, matchId);
 	return {
-		spotlightedPlayer: data.data
+		spotlightedPlayer: data.data as SpotlightedPlayer
 	};
-}) satisfies PageServerLoad;
+};
 
 async function getCustomVisual(config: string, matchId: number) {
 	const apiResponse = await fetch(`http://localhost:3000/getVisual/${matchId}`, {
