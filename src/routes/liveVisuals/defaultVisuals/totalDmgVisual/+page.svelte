@@ -2,7 +2,6 @@
 	import type { PageProps } from './$types';
 	import GraphLegend from '$lib/components/GraphLegend.svelte';
 	import TeamChart from '$lib/components/TeamChart.svelte';
-	import { fade } from 'svelte/transition';
 	type ChampionStats = Record<string, number>;
 	type TeamStats = Record<string, ChampionStats>;
 
