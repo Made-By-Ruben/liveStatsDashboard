@@ -9,7 +9,7 @@
 	>
 		!
 	</span>
-	<p class="font-body text-sm leading-relaxed">
+	<p class="font-body leading-relaxed">
 		<span class="font-bold text-brand-orange">Important:</span>
 		{message}
 	</p>

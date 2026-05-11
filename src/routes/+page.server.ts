@@ -18,6 +18,6 @@ export const actions = {
 			const matchInfo = (await apiResponse.json()) as ApiResponse;
 
 			return { success: true, matchInfo };
-		} else error(apiResponse.status, apiResponse.statusText);
+		} else return error(apiResponse.status, apiResponse.statusText)
 	}
 } satisfies Actions;
