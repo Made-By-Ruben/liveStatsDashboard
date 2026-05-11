@@ -9,13 +9,7 @@ const config = JSON.stringify({
 const baseUrl = 'localhost';
 
 export const load = (async ({ cookies }) => {
-	const matchId = Number(cookies.get('matchId'));
-
-	if (matchId === undefined) {
-		error(400);
-	}
-
-	const data = await getDefaultVisual(config, matchId);
+	const data = await getDefaultVisual(config);
 	return {
 		team1: data.data[100],
 		team2: data.data[200],
@@ -23,8 +17,8 @@ export const load = (async ({ cookies }) => {
 	};
 }) satisfies PageServerLoad;
 
-async function getDefaultVisual(config: string, matchId: number) {
-	const apiResponse = await fetch(`http://${baseUrl}:3000/getVisual/${matchId}`, {
+async function getDefaultVisual(config: string) {
+	const apiResponse = await fetch(`http://${baseUrl}:3000/getVisual`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8'

@@ -1,21 +1,23 @@
-import type { Actions } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { ApiResponse } from '$lib/server/schemas';
 
 export const load = (async () => {
 	return {};
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	default: async ({ request }) => {
 		const data = await request.formData();
-		const matchId = data.get('matchId')?.toString();
-		console.log(matchId);
-		if (matchId === undefined) {
-			return { succes: false };
-		}
+		const matchId = data.get('matchId');
+		const apiResponse = await fetch(`http://localhost:3000/connectMatch/${matchId}`, {
+			method: 'POST'
+		});
 
-		cookies.set('matchId', matchId, { path: '/' });
+		if (apiResponse.ok) {
+			const matchInfo = (await apiResponse.json()) as ApiResponse;
 
-		return { success: true };
+			return { success: true, matchInfo };
+		} else error(apiResponse.status, apiResponse.statusText);
 	}
 } satisfies Actions;
