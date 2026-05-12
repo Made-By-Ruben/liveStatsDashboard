@@ -8,27 +8,30 @@
 	let { data }: PageProps = $props();
 	let selectedTeam = $state('BAN');
 	let selectedPlayer = $state('Top');
+	let selectedStats = $state<[string, number][]>([]);
+	let statsSelectionCap = $derived(selectedStats.length >= 4);
 
 	let matchConfig = $derived<{
 		isCustom: boolean;
 		visualFormat: string;
-		playerRole: string;
 		requestedPlayer: string[];
 		requestedStats: [string, number][];
 	}>({
 		isCustom: true,
 		visualFormat: 'SPOTLIGHT',
-		playerRole: selectedPlayer,
 		requestedPlayer: [selectedTeam + ' ' + selectedPlayer],
-		requestedStats: []
+		requestedStats: selectedStats
 	});
 
-	let statsSelectionCap = $derived(matchConfig.requestedStats.length >= 4);
-	let statsSelectionAmount = $derived(matchConfig.requestedStats.length);
-
 	function addStat(stat: string) {
-		matchConfig.requestedStats.push([stat, 999]);
+		selectedStats.push([stat, 999]);
 	}
+
+	function removeStat(i: number) {
+		selectedStats.splice(i, 1);
+	}
+
+	$inspect(matchConfig)
 </script>
 
 <div class="flex h-screen w-full flex-col items-center gap-5 bg-night text-off-white">
@@ -49,7 +52,7 @@
 	>
 		<SpotlightVisual
 			champName={'Ryze'}
-			role={matchConfig.playerRole}
+			role={selectedPlayer}
 			playerName={matchConfig.requestedPlayer}
 			statEntries={matchConfig.requestedStats}
 		/>
@@ -69,44 +72,47 @@
 		<CustomisingCard title={'Selected Stats'}>
 			{#snippet children()}
 				<div class="grid h-full w-full grid-cols-4 p-5">
-					{#if statsSelectionAmount === 0}
-						<div class="border border-brand-blue/50 p-5">Select a stat</div>
-					{:else}
-						{#each matchConfig.requestedStats as [statName, value], i}
+					{#each Array(4) as _, i (i)}
+						{@const entry = selectedStats[i]}
+						{#if entry}
 							<div class="relative border border-border-blue p-5 wrap-break-word">
 								<button
-									onclick={() => matchConfig.requestedStats[i].pop()}
-									class="absolute top-0 left-[90%]">x</button
+									type="button"
+									aria-label="Remove stat"
+									onclick={() => removeStat(i)}
+									class="absolute top-1 right-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm text-off-white/60 transition-colors hover:bg-royal hover:text-off-white"
 								>
+									×
+								</button>
 								<span
 									class=" items-center gap-1 font-label leading-none tracking-widest text-off-white"
 								>
 									<span class="text-lime">{i + 1}</span>
-									<span>{statName}</span>
+									<span>{entry[0]}</span>
 								</span>
 							</div>
-						{/each}
-					{/if}
+						{:else}
+							<div class="border border-brand-blue/50 p-5 text-off-white/50">Select a stat</div>
+						{/if}
+					{/each}
 				</div>
 			{/snippet}
 		</CustomisingCard>
 
 		<CustomisingCard title={'Choose Statistics'}>
 			{#snippet children()}
-				<div class="flex h-full w-full flex-col">
-					<div class="grid w-full flex-1 border-l border-brand-blue/50">
-						{#each data.allowedStats as { value, label }}
-							<button
-								onclick={() => addStat(value)}
-								disabled={statsSelectionCap}
-								class={[
-									'cursor-pointer border border-brand-blue/50 p-5 text-left font-label tracking-wide transition-colors hover:bg-royal disabled:bg-gray-600'
-								]}
-							>
-								{label}
-							</button>
-						{/each}
-					</div>
+				<div class="grid w-full flex-1 border-l border-brand-blue/50">
+					{#each data.allowedStats as { value, label }}
+						<button
+							onclick={() => addStat(value)}
+							disabled={statsSelectionCap}
+							class={[
+								'cursor-pointer border border-brand-blue/50 p-5 text-left font-label tracking-wide transition-colors hover:bg-royal disabled:bg-gray-600'
+							]}
+						>
+							{label}
+						</button>
+					{/each}
 				</div>
 			{/snippet}
 		</CustomisingCard>

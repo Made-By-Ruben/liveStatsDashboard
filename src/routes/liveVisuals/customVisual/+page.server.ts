@@ -5,8 +5,8 @@ import type { SpotlightedPlayer } from '$lib/server/schemas';
 const config = JSON.stringify({
 	isCustom: true,
 	visualFormat: 'SPOTLIGHT',
-	requestedPlayers: ['ZNT Middle'],
-	requestedStats: ['CHAMPIONS_KILLED', 'ASSISTS', 'TOTAL_DAMAGE_DEALT_TO_CHAMPIONS']
+	requestedPlayers: ["FEC Top"],
+	requestedStats: ['TOTAL_DAMAGE_DEALT_TO_CHAMPIONS', 'CHAMPIONS_KILLED', 'TOTAL_DAMAGE_SELF_MITIGATED']
 });
 
 const baseUrl = 'localhost';
