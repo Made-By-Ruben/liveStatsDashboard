@@ -6,9 +6,10 @@
 	import DropDown from '$lib/components/ui/DropDown.svelte';
 
 	let { data }: PageProps = $props();
-	let selectedTeams = $state(['BAN', 'FEC']);
+	let selectedTeam = $state('BAN');
+	let selectedPlayer = $state('Top');
 
-	let matchConfig = $state<{
+	let matchConfig = $derived<{
 		isCustom: boolean;
 		visualFormat: string;
 		playerRole: string;
@@ -17,12 +18,10 @@
 	}>({
 		isCustom: true,
 		visualFormat: 'SPOTLIGHT',
-		playerRole: '',
-		requestedPlayer: [],
+		playerRole: selectedPlayer,
+		requestedPlayer: [selectedTeam + ' ' + selectedPlayer],
 		requestedStats: []
 	});
-
-	$inspect(matchConfig)
 
 	let statsSelectionCap = $derived(matchConfig.requestedStats.length >= 4);
 	let statsSelectionAmount = $derived(matchConfig.requestedStats.length);
@@ -37,11 +36,6 @@
 		class="flex h-20 w-full items-center justify-between border-b border-brand-blue bg-royal p-4"
 	>
 		<img class="h-[80%]" src={Logo} alt="ROL" />
-		<div class="flex gap-2 font-label">
-			{#each selectedTeams, i}
-				<DropDown bind:value={selectedTeams[i]} items={data.teams} />
-			{/each}
-		</div>
 
 		<button
 			class="rounded-md bg-lime px-4 py-3 font-label text-2xl font-bold tracking-wider text-night uppercase shadow-lg shadow-lime/10 transition-colors hover:bg-lime/80"
@@ -60,60 +54,46 @@
 			statEntries={matchConfig.requestedStats}
 		/>
 	</div>
-	<div class="grid min-h-0 w-334.5 flex-1 grid-cols-2 gap-5 pb-5">
-		<CustomisingCard title={'Select Player'}>
-			{#snippet children()}
-				{#each selectedTeams as selectedTeam}
-					<div class="grid w-full border-l border-brand-blue/50">
-						<div
-							class="border border-brand-blue/50 bg-royal/50 p-5 font-heading text-2xl tracking-widest text-lime"
-						>
-							{selectedTeam}
-						</div>
+	<div class="grid min-h-0 w-334.5 flex-1 gap-5 pb-5">
+		<div class="flex w-full gap-2">
+			<div class="flex w-1/2">
+				<span>Select Team</span>
+				<DropDown bind:value={selectedTeam} items={data.teams} />
+			</div>
+			<div class="flex w-1/2">
+				<span>Select Role</span>
+				<DropDown bind:value={selectedPlayer} items={data.roles} />
+			</div>
+		</div>
 
-						{#each data.roles as { value, label }, i}
-							{@const isSelected = matchConfig.requestedPlayer[0] === selectedTeam + ' ' + value}
-							<button
-								onclick={() => {
-									matchConfig.playerRole = value;
-									matchConfig.requestedPlayer[0] = selectedTeam + ' ' + value;
-								}}
-								class={[
-									'cursor-pointer border border-brand-blue/50 p-5 text-left font-heading text-xl tracking-wide transition-colors hover:bg-royal',
-									isSelected && ' border-lime'
-								]}
-							>
-								{selectedTeam + ' ' + label}
-							</button>
+		<CustomisingCard title={'Selected Stats'}>
+			{#snippet children()}
+				<div class="grid h-full w-full grid-cols-4 p-5">
+					{#if statsSelectionAmount === 0}
+						<div class="border border-brand-blue/50 p-5">Select a stat</div>
+					{:else}
+						{#each matchConfig.requestedStats as [statName, value], i}
+							<div class="relative border border-border-blue p-5 wrap-break-word">
+								<button
+									onclick={() => matchConfig.requestedStats[i].pop()}
+									class="absolute top-0 left-[90%]">x</button
+								>
+								<span
+									class=" items-center gap-1 font-label leading-none tracking-widest text-off-white"
+								>
+									<span class="text-lime">{i + 1}</span>
+									<span>{statName}</span>
+								</span>
+							</div>
 						{/each}
-					</div>
-				{/each}
+					{/if}
+				</div>
 			{/snippet}
 		</CustomisingCard>
 
-		<CustomisingCard title={'Select Statistics'}>
+		<CustomisingCard title={'Choose Statistics'}>
 			{#snippet children()}
 				<div class="flex h-full w-full flex-col">
-					<div class="grid grid-cols-4 p-5">
-						{#if statsSelectionAmount === 0}
-							<div class="border border-brand-blue/50 p-5">Select a stat</div>
-						{:else}
-							{#each matchConfig.requestedStats as [statName, value], i}
-								<div class="relative border border-border-blue p-5 wrap-break-word">
-									<button
-										onclick={() => matchConfig.requestedStats[i].pop()}
-										class="absolute top-0 left-[90%]">x</button
-									>
-									<span
-										class=" items-center gap-1 font-label leading-none tracking-widest text-off-white"
-									>
-										<span class="text-lime">{i + 1}</span>
-										<span>{statName}</span>
-									</span>
-								</div>
-							{/each}
-						{/if}
-					</div>
 					<div class="grid w-full flex-1 border-l border-brand-blue/50">
 						{#each data.allowedStats as { value, label }}
 							<button
