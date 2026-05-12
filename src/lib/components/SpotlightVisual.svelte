@@ -20,7 +20,7 @@
 	let { champName, role, playerName, statEntries } = $props();
 </script>
 
-<div class="flex h-full" transition:fade>
+<div class="flex h-full w-full" transition:fade>
 	<!-- Hero section -->
 	<div class="h-full w-1/3 overflow-hidden border-r border-border-blue">
 		<img src="https://cdn.communitydragon.org/latest/champion/{champName}/splash-art" alt="" />

@@ -5,6 +5,7 @@
 	let { data }: PageProps = $props();
 
 	const statEntries = $derived(Object.entries(data.spotlightedPlayer.filteredStats));
+	$inspect(statEntries)
 </script>
 
 <SpotlightVisual
