@@ -1,9 +1,22 @@
-<script>
+<script lang="ts">
 	import logo from '$lib/assets/rolLogoVertical.avif';
+
+	let { onComplete, onCurtainsMeet }: { onComplete: () => void, onCurtainsMeet: () => void } = $props();
 </script>
 
-<div class={['relative flex h-full w-full', 'background']}>
-	<div class={['h-full w-1 bg-lime absolute opacity-0 drop-shadow-2xl drop-shadow-lime ', 'highlighter']}></div>
+<div
+	class={['relative flex h-full w-full']}
+	onanimationend={(ev) => {
+		ev.animationName.includes('flyIn') ? onCurtainsMeet() : null;
+		ev.animationName.includes('fadeInOut') ? onComplete() : null;
+	}}
+>
+	<div
+		class={[
+			'absolute h-full w-1 bg-lime opacity-0 drop-shadow-2xl drop-shadow-lime ',
+			'highlighter'
+		]}
+	></div>
 	<div class="relative z-10 w-1/2">
 		<div class={['h-full w-0 transform-gpu bg-lime', 'curtainsLeft']}></div>
 	</div>
@@ -16,17 +29,13 @@
 </div>
 
 <style>
-	.curtainsLeft {
-		animation-duration: 1000ms;
-		animation-name: flyInOut;
-		animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+	.curtainsLeft,
+	.curtainsRight {
+		animation:
+			flyIn 500ms cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards,
+			flyOut 500ms 500ms cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
 	}
 
-	.curtainsRight {
-		animation-duration: 1000ms;
-		animation-name: flyInOut;
-		animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
-	}
 	.logo {
 		animation-delay: 800ms;
 		animation-duration: 1200ms;
@@ -37,26 +46,32 @@
 		animation: swipeLTR;
 		animation-delay: 800ms;
 		animation-duration: 1000ms;
-        animation-timing-function: ease-in-out;
+		animation-timing-function: ease-in-out;
 	}
 
 	@keyframes swipeLTR {
 		0% {
-            left: 0;
+			left: 0;
 		}
-        50%{
-            opacity: 50%;
-        }
-        100% {
-            left: 100%;
-        }
+		50% {
+			opacity: 50%;
+		}
+		100% {
+			left: 100%;
+		}
 	}
 
-	@keyframes flyInOut {
+	@keyframes flyIn {
 		0% {
 			width: 0%;
 		}
-		50% {
+		100% {
+			width: 100%;
+		}
+	}
+
+	@keyframes flyOut {
+		0% {
 			width: 100%;
 		}
 		100% {
@@ -75,7 +90,7 @@
 		}
 
 		100% {
-            scale: 0;
+			scale: 0;
 			opacity: 0%;
 		}
 	}

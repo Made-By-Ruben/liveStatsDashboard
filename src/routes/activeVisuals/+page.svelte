@@ -1,18 +1,33 @@
 <script lang="ts">
-	import TotalDamageVisual from '$lib/components/visuals/TotalDamageVisual.svelte';
+	import Stinger from '$lib/components/Stinger.svelte';
+	import StingerOut from '$lib/components/StingerOut.svelte';
+	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
 
-	let selectedVisual = $state<null | 'totalDamageDone'>(null);
+	let visualState = $state<null | 'animateIn' | 'live' | 'animateOut'>(null);
+	let bgVisable = $state(false);
+
 </script>
 
 <main class="relative h-270 w-480">
+	<button onclick={() => (visualState = 'animateIn')}> show Visual </button>
+	<button onclick={() => (visualState = 'animateOut')}> hide Visual </button>
 	<div
-		class="mainContainer absolute bottom-0 left-75.5 flex h-62.5 w-334.5 flex-col border border-border-blue bg-transparent"
+		class={[
+			'absolute bottom-0 left-75.5 flex h-62.5 w-334.5 flex-col border border-border-blue',
+			bgVisable && 'bg-[url(/src/lib/assets/croppedBg.avif)]'
+		]}
 	>
-		{#if selectedVisual === 'totalDamageDone'}
-			<TotalDamageVisual />
+		{#if visualState === 'animateIn'}
+			<Stinger onComplete={() => {visualState = 'live'}} onCurtainsMeet={()=>{bgVisable = true}} />
+		{/if}
+		{#if visualState === 'live'}
+			<LiveVisual
+				url={'http://localhost:3000/defaultVisuals/stream/TOTAL_DAMAGE_DONE_H2H/311'}
+				visualName={'totalDamageDone'}
+			/>
+		{/if}
+		{#if visualState === 'animateOut'}
+				<StingerOut onComplete={() => {visualState = null}} onCurtainsMeet={()=>{bgVisable = false}} />
 		{/if}
 	</div>
 </main>
-
-
-
