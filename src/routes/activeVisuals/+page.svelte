@@ -6,11 +6,21 @@
 	let visualState = $state<null | 'animateIn' | 'live' | 'animateOut'>(null);
 	let bgVisable = $state(false);
 
+	function buttonHandler(value: null | 'animateIn' | 'live' | 'animateOut') {
+		if (value === "animateIn") {
+			visualState === null ? visualState = value : null;
+			return
+		}
+		visualState = value;
+		return;
+	}
+
+	$inspect(visualState)
 </script>
 
 <main class="relative h-270 w-480">
-	<button onclick={() => (visualState = 'animateIn')}> show Visual </button>
-	<button onclick={() => (visualState = 'animateOut')}> hide Visual </button>
+	<button onclick={() => buttonHandler('animateIn')}> show Visual </button>
+	<button onclick={() => buttonHandler('animateOut')}> hide Visual </button>
 	<div
 		class={[
 			'absolute bottom-0 left-75.5 flex h-62.5 w-334.5 flex-col border border-border-blue',

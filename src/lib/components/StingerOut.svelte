@@ -7,7 +7,7 @@
 	class={['relative flex h-full w-full']}
 	onanimationend={(ev) => {
 		ev.animationName.includes('flyIn') ? onCurtainsMeet() : null;
-		ev.animationName.includes('fadeInOut') ? onComplete() : null;
+		ev.animationName.includes('flyOut') ? onComplete() : null;
 	}}
 >
 	<div class="relative z-10 w-1/2">
