@@ -20,6 +20,8 @@
 	onDestroy(() => {
 		stream?.close();
 	});
+
+	$inspect(stream?.data)
 </script>
 
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
