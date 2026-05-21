@@ -13,9 +13,7 @@
 		}
 		visualState = value;
 		return;
-	}
-
-	$inspect(visualState)
+	};
 </script>
 
 <main class="relative h-270 w-480">
