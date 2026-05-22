@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Stinger from '$lib/components/Stinger.svelte';
 	import { fade } from 'svelte/transition';
 	import type { LayoutProps } from '../$types';
 
