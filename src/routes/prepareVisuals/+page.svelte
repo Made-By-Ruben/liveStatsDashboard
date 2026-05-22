@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SpotlightVisual from '$lib/components/SpotlightVisual.svelte';
 	import type { PageProps } from './$types';
-	import Logo from '$lib/assets/jaar + logo.png';
+	import Logo from '$lib/assets/icon2026.png';
 	import CustomisingCard from '$lib/components/ui/CustomisingCard.svelte';
 	import DropDown from '$lib/components/ui/DropDown.svelte';
 

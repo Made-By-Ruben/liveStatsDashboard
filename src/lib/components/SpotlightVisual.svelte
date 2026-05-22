@@ -6,7 +6,7 @@
 	import Support from '$lib/assets/roleIconsGreen/Support.png';
 	import StatBadge from '$lib/components/StatBadge.svelte';
 	import Arrow from '$lib/assets/arrow.png';
-	import Logo from '$lib/assets/jaar + logo.png';
+	import Logo from '$lib/assets/icon2026.png'
 	import { fade } from 'svelte/transition';
 
 	const roleIcons: Record<string, string> = {
