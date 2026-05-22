@@ -15,11 +15,7 @@
 	<div
 		class="mainContainer absolute bottom-0 left-75.5 flex h-62.5 w-334.5 flex-col border border-border-blue bg-[url(/src/lib/assets/croppedBg.avif)]"
 	>
-		{#if stingerPlaying}
-			<Stinger />
-		{:else}
-			<div class="h-full w-full" transition:fade={{ duration: 100 }}>{@render children()}</div>
-		{/if}
+		<div class="h-full w-full" transition:fade={{ duration: 100 }}>{@render children()}</div>
 	</div>
 </main>
 
