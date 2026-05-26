@@ -25,7 +25,6 @@
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
 	{#if stream === undefined || stream.status === 'connecting'}
 		<div class="flex h-[90%] w-full justify-between p-2">
-			<h1 class="self-center text-2xl text-off-white">Connecting...</h1>
 		</div>
 	{:else if stream.data}
 		<TotalDamageDone data={stream.data} />
