@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	import Stinger from '$lib/components/Stinger.svelte';
 	import StingerOut from '$lib/components/StingerOut.svelte';
 	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
@@ -10,7 +11,7 @@
 	let bgVisable = $state(false);
 
 	$effect(() => {
-		const stream = new EventSource('http://localhost:3000/companionRelay/stream');
+		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
 
 		stream.addEventListener('animateIn', (e) => {
 			if (visualState === null) {
@@ -47,8 +48,8 @@
 		{/if}
 		{#if visualState === 'live'}
 			<LiveVisual
-				url={'http://localhost:3000/defaultVisuals/stream/TOTAL_DAMAGE_DONE_H2H'}
-				visualName={'totalDamageDone'}
+				visualCategory={'defaultVisuals'}
+				visualName={'totalDamageDoneH2H'}
 			/>
 		{/if}
 		{#if visualState === 'animateOut'}

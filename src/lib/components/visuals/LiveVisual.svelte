@@ -3,25 +3,23 @@
 	import { onDestroy, onMount } from 'svelte';
 	import TotalDamageDone from './TotalDamageDone.svelte';
 	import { fade } from 'svelte/transition';
+	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	type ChampionStats = Record<string, number>;
 	type TeamStats = Record<string, ChampionStats>;
-
 	// TODO: pass through a generic for the payload type format based on the visual
 	type Payload = { 100: TeamStats; 200: TeamStats; maxDamage: number };
 
-	let { visualName, url }: { visualName: string; url: string } = $props();
+	let { visualCategory, visualName }: { visualCategory: string; visualName: string } = $props();
 
 	let stream = $state<SseConnection<Payload>>();
 
 	onMount(() => {
-		stream = new SseConnection<Payload>(url);
+		stream = new SseConnection<Payload>(`${PUBLIC_SERVER_URL}${visualCategory}/stream/${visualName}`);
 	});
 
 	onDestroy(() => {
 		stream?.close();
 	});
-
-	$inspect(stream?.data)
 </script>
 
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
