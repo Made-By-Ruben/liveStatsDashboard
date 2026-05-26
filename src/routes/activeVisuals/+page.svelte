@@ -47,10 +47,7 @@
 			/>
 		{/if}
 		{#if visualState === 'live'}
-			<LiveVisual
-				visualCategory={'defaultVisuals'}
-				visualName={'totalDamageDoneH2H'}
-			/>
+			<LiveVisual visualCategory={'defaultVisuals'} visualName={'totalDamageDoneH2H'} />
 		{/if}
 		{#if visualState === 'animateOut'}
 			<StingerOut
