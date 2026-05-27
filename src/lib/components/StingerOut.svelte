@@ -11,10 +11,10 @@
 	}}
 >
 	<div class="relative z-10 w-1/2">
-		<div class={['h-full w-0 transform-gpu bg-lime', 'curtainsLeft']}></div>
+		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsLeft']}></div>
 	</div>
 	<div class="flex w-1/2 flex-row-reverse">
-		<div class={['h-full w-0 transform-gpu bg-lime', 'curtainsRight']}></div>
+		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsRight']}></div>
 	</div>
 </div>
 

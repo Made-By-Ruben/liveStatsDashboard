@@ -1,5 +1,6 @@
 <script lang="ts">
 	import logo from '$lib/assets/rolLogoVertical.avif';
+	import nlcLogoGold from '$lib/assets/nlcLogoGold.avif'
 
 	let { onComplete, onCurtainsMeet }: { onComplete: () => void, onCurtainsMeet: () => void } = $props();
 </script>
@@ -13,18 +14,18 @@
 >
 	<div
 		class={[
-			'absolute h-full w-1 bg-lime opacity-0 drop-shadow-2xl drop-shadow-lime ',
+			'absolute h-full w-1 bg-brand-highlight-1 opacity-0 drop-shadow-2xl drop-shadow-brand-highlight-1 ',
 			'highlighter'
 		]}
 	></div>
 	<div class="relative z-10 w-1/2">
-		<div class={['h-full w-0 transform-gpu bg-lime', 'curtainsLeft']}></div>
+		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsLeft']}></div>
 	</div>
 	<div class={['absolute flex h-full w-full items-center justify-center opacity-0', 'logo']}>
 		<img class="h-full p-10" src={logo} alt="ROL" />
 	</div>
 	<div class="flex w-1/2 flex-row-reverse">
-		<div class={['h-full w-0 transform-gpu bg-lime', 'curtainsRight']}></div>
+		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsRight']}></div>
 	</div>
 </div>
 

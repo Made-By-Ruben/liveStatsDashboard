@@ -22,7 +22,7 @@
 
 <div class="flex h-full w-full" transition:fade>
 	<!-- Hero section -->
-	<div class="h-full w-1/3 overflow-hidden border-r border-border-blue">
+	<div class="h-full w-1/3 overflow-hidden border-r border-brand-border">
 		<img
 			src="https://cdn.communitydragon.org/latest/champion/{data.championName}/splash-art"
 			alt=""
@@ -32,36 +32,36 @@
 	<!-- Information section -->
 	<div class="flex w-2/3 flex-col justify-evenly font-heading tracking-widest">
 		<!-- Player Lane & Champion  -->
-		<div class="flex justify-between border-b border-border-blue px-10 py-2">
+		<div class="flex justify-between border-b border-brand-border px-10 py-2">
 			<div class="flex gap-5">
-				<span class="flex items-center gap-1 text-lime uppercase">
+				<span class="flex items-center gap-1 text-brand-highlight-1 uppercase">
 					<img class="size-5" src={roleIcons[data.role]} alt="" />
 					<p class="pt-0.75 leading-none">{data.role}</p>
 				</span>
 				<span class="flex items-center gap-1 pt-0.75 leading-none">
-					<p class="text-off-white/75">PLAYING:</p>
-					<p class=" text-off-white">{data.champName}</p>
+					<p class="text-brand-off-white/75">PLAYING:</p>
+					<p class=" text-brand-off-white">{data.champName}</p>
 				</span>
 			</div>
 			<img class="h-8" src={Logo} alt="ROL" />
 		</div>
 
 		<!-- Player Name -->
-		<span class="border-b border-border-blue px-10 py-2 text-8xl text-off-white"
+		<span class="border-b border-brand-border px-10 py-2 text-8xl text-brand-off-white"
 			>{data.playerName}</span
 		>
 
 		<!-- Player Stats -->
-		<div class="flex border-border-blue px-10">
+		<div class="flex border-brand-border px-10">
 			{#each Object.entries(data.filteredStats) as [statName, value], i}
 				<div
 					class={[
-						'flex min-w-1/4 flex-col items-center border-r border-border-blue p-2',
+						'flex min-w-1/4 flex-col items-center border-r border-brand-border p-2',
 						i === 0 && 'border-l'
 					]}
 				>
 					<span
-						class="flex items-center gap-1 font-label text-xs leading-none tracking-widest text-off-white"
+						class="flex items-center gap-1 font-label text-xs leading-none tracking-widest text-brand-off-white"
 					>
 						<img class="size-2" src={Arrow} alt="" />
 						<span class="leading-none">{statName}</span>

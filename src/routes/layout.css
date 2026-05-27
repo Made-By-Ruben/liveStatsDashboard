@@ -1,23 +1,38 @@
 @import 'tailwindcss';
+@custom-variant nlc ($:where(.nlc, .nlc *));
 
 /* In order to change some of the recurring values in this application, 
 consider changing these global values. */
 
 @theme {
-	--color-night: #0c0c0c;
-	--color-brand-blue: #0066ff;
-	--color-egyptian: #0c38a5;
-	--color-royal: #092660;
-	--color-lime: #d3fe31;
-	--color-off-white: #fcfcfc;
+	--color-brand-dark-1: #0c0c0c;
+	--color-brand-primary-1: #0066ff;
+	--color-brand-primary-2: #0c38a5;
+	--color-brand-primary-3: #092660;	
+	--color-brand-highlight-1: #d3fe31;
+	--color-brand-off-white: #fcfcfc;
 	--color-brand-orange: #ff6600;
 	--color-brand-orange-2: #d65600;
-	--color-border-blue: #0b37a5;
+	--color-brand-border: #0b37a5;
 	--font-heading: 'Bebas Neue', sans-serif;
 	--font-body: 'Space Grotesk', sans-serif;
 	--font-label: 'Rajdhani', sans-serif;
 	--container-visual-height: 258px;
 	--container-visual-width: 1339px;
+	--url-brand-bgCropped: url('$lib/assets/croppedBg.avif');
+	--url-brand-Logo: url('$lib/assets/rolLogoVertical.avif');
+}
+
+.nlc {
+	--color-brand-dark-1: #0c0c0c;
+	--color-brand-primary-1: #560524;
+	--color-brand-primary-2: #4B041E;
+	--color-brand-primary-3: #1D030D;
+	--color-brand-highlight-1: #C7B598;
+	--color-brand-off-white: #FFF7E9;
+	--color-brand-orange: #833F1A;
+	--color-brand-orange-2: #4C2715;
+	--color-brand-border: #C7B598;
 }
 
 /* Current config for stream:

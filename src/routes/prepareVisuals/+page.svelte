@@ -34,21 +34,21 @@
 	$inspect(matchConfig)
 </script>
 
-<div class="flex h-screen w-full flex-col items-center gap-5 bg-night text-off-white">
+<div class="flex h-screen w-full flex-col items-center gap-5 bg-brand-dark-1 text-brand-off-white">
 	<header
-		class="flex h-20 w-full items-center justify-between border-b border-brand-blue bg-royal p-4"
+		class="flex h-20 w-full items-center justify-between border-b border-brand-primary-1 bg-brand-primary-3 p-4"
 	>
 		<img class="h-[80%]" src={Logo} alt="ROL" />
 
 		<button
-			class="rounded-md bg-lime px-4 py-3 font-label text-2xl font-bold tracking-wider text-night uppercase shadow-lg shadow-lime/10 transition-colors hover:bg-lime/80"
+			class="rounded-md bg-brand-highlight-1 px-4 py-3 font-label text-2xl font-bold tracking-wider text-brand-dark-1 uppercase shadow-lg shadow-brand-highlight-1/10 transition-colors hover:bg-brand-highlight-1/80"
 		>
 			Export Visual
 		</button>
 	</header>
 
 	<div
-		class="flex h-62.5 w-334.5 shrink-0 flex-col border border-border-blue bg-[url(/src/lib/assets/croppedBg.avif)]"
+		class="flex h-62.5 w-334.5 shrink-0 flex-col border border-brand-border bg-[url(/src/lib/assets/croppedBg.avif)]"
 	>
 		<SpotlightVisual
 			champName={'Ryze'}
@@ -75,24 +75,24 @@
 					{#each Array(4) as _, i (i)}
 						{@const entry = selectedStats[i]}
 						{#if entry}
-							<div class="relative border border-border-blue p-5 wrap-break-word">
+							<div class="relative border border-brand-border p-5 wrap-break-word">
 								<button
 									type="button"
 									aria-label="Remove stat"
 									onclick={() => removeStat(i)}
-									class="absolute top-1 right-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm text-off-white/60 transition-colors hover:bg-royal hover:text-off-white"
+									class="absolute top-1 right-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm text-brand-off-white/60 transition-colors hover:bg-brand-primary-3 hover:text-brand-off-white"
 								>
 									×
 								</button>
 								<span
-									class=" items-center gap-1 font-label leading-none tracking-widest text-off-white"
+									class=" items-center gap-1 font-label leading-none tracking-widest text-brand-off-white"
 								>
-									<span class="text-lime">{i + 1}</span>
+									<span class="text-brand-highlight-1">{i + 1}</span>
 									<span>{entry[0]}</span>
 								</span>
 							</div>
 						{:else}
-							<div class="border border-brand-blue/50 p-5 text-off-white/50">Select a stat</div>
+							<div class="border border-brand-primary-1/50 p-5 text-brand-off-white/50">Select a stat</div>
 						{/if}
 					{/each}
 				</div>
@@ -101,13 +101,13 @@
 
 		<CustomisingCard title={'Choose Statistics'}>
 			{#snippet children()}
-				<div class="grid w-full flex-1 border-l border-brand-blue/50">
+				<div class="grid w-full flex-1 border-l border-brand-primary-1/50">
 					{#each data.allowedStats as { value, label }}
 						<button
 							onclick={() => addStat(value)}
 							disabled={statsSelectionCap}
 							class={[
-								'cursor-pointer border border-brand-blue/50 p-5 text-left font-label tracking-wide transition-colors hover:bg-royal disabled:bg-gray-600'
+								'cursor-pointer border border-brand-primary-1/50 p-5 text-left font-label tracking-wide transition-colors hover:bg-brand-primary-3 disabled:bg-gray-600'
 							]}
 						>
 							{label}
