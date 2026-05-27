@@ -4,17 +4,14 @@
 	import TotalDamageDone from './TotalDamageDone.svelte';
 	import { fade } from 'svelte/transition';
 	import { PUBLIC_SERVER_URL } from '$env/static/public';
-	type ChampionStats = Record<string, number>;
-	type TeamStats = Record<string, ChampionStats>;
-	// TODO: pass through a generic for the payload type format based on the visual
-	type Payload = { 100: TeamStats; 200: TeamStats; maxDamage: number };
+	import SpotlightVisual from '../SpotlightVisual.svelte';
 
-	let { visualCategory, visualName }: { visualCategory: string; visualName: string } = $props();
+	let { visualType, visualName } = $props();
 
-	let stream = $state<SseConnection<Payload>>();
+	let stream = $state<SseConnection>();
 
 	onMount(() => {
-		stream = new SseConnection<Payload>(`${PUBLIC_SERVER_URL}${visualCategory}/stream/${visualName}`);
+		stream = new SseConnection(`${PUBLIC_SERVER_URL}${visualType}/stream/${visualName}`);
 	});
 
 	onDestroy(() => {
@@ -24,9 +21,12 @@
 
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
 	{#if stream === undefined || stream.status === 'connecting'}
-		<div class="flex h-[90%] w-full justify-between p-2">
-		</div>
+		<div class="flex h-[90%] w-full justify-between p-2"></div>
 	{:else if stream.data}
+		{#if visualType === "customVisuals"}
+		<SpotlightVisual data={stream.data} />
+		{:else}
 		<TotalDamageDone data={stream.data} />
+		{/if}
 	{/if}
 </div>

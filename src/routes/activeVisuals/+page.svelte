@@ -6,15 +6,21 @@
 	import { onDestroy } from 'svelte';
 
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
+	type CompanionEvent = {visualType: "default" | "custom", visualName: number | string}
 
 	let visualState = $state<VisualState>(null);
 	let bgVisable = $state(false);
+	let visualName = $state<string | number>("")
+	let visualType = $state<"default" | "custom">("default")
 
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
 
 		stream.addEventListener('animateIn', (e) => {
 			if (visualState === null) {
+				const data = JSON.parse(e.data) as CompanionEvent;
+				visualName = data.visualName;
+				visualType = data.visualType;
 				visualState = 'animateIn';
 			}
 		});
@@ -47,7 +53,7 @@
 			/>
 		{/if}
 		{#if visualState === 'live'}
-			<LiveVisual visualCategory={'defaultVisuals'} visualName={'totalDamageDoneH2H'} />
+			<LiveVisual visualType={visualType} visualName={visualName} />
 		{/if}
 		{#if visualState === 'animateOut'}
 			<StingerOut

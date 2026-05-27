@@ -39,7 +39,7 @@
 					change match
 				</button>
 
-				<Hyperlink endpoint={'/liveVisuals/customVisual'} buttonText={'To visuals'} />
+				<Hyperlink endpoint={'/activeVisuals'} buttonText={'To visuals'} />
 			</div>
 		{:else}
 		

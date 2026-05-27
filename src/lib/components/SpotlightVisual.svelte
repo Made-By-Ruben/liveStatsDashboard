@@ -6,7 +6,7 @@
 	import Support from '$lib/assets/roleIconsGreen/Support.png';
 	import StatBadge from '$lib/components/StatBadge.svelte';
 	import Arrow from '$lib/assets/arrow.png';
-	import Logo from '$lib/assets/icon2026.png'
+	import Logo from '$lib/assets/icon2026.png';
 	import { fade } from 'svelte/transition';
 
 	const roleIcons: Record<string, string> = {
@@ -17,13 +17,16 @@
 		Support
 	};
 
-	let { champName, role, playerName, statEntries } = $props();
+	let { data } = $props();
 </script>
 
 <div class="flex h-full w-full" transition:fade>
 	<!-- Hero section -->
 	<div class="h-full w-1/3 overflow-hidden border-r border-border-blue">
-		<img src="https://cdn.communitydragon.org/latest/champion/{champName}/splash-art" alt="" />
+		<img
+			src="https://cdn.communitydragon.org/latest/champion/{data.championName}/splash-art"
+			alt=""
+		/>
 	</div>
 
 	<!-- Information section -->
@@ -32,23 +35,25 @@
 		<div class="flex justify-between border-b border-border-blue px-10 py-2">
 			<div class="flex gap-5">
 				<span class="flex items-center gap-1 text-lime uppercase">
-					<img class="size-5" src={roleIcons[role]} alt="" />
-					<p class="pt-0.75 leading-none">{role}</p>
+					<img class="size-5" src={roleIcons[data.role]} alt="" />
+					<p class="pt-0.75 leading-none">{data.role}</p>
 				</span>
 				<span class="flex items-center gap-1 pt-0.75 leading-none">
 					<p class="text-off-white/75">PLAYING:</p>
-					<p class=" text-off-white">{champName}</p>
+					<p class=" text-off-white">{data.champName}</p>
 				</span>
 			</div>
 			<img class="h-8" src={Logo} alt="ROL" />
 		</div>
 
 		<!-- Player Name -->
-		<span class="border-b border-border-blue px-10 py-2 text-8xl text-off-white">{playerName}</span>
+		<span class="border-b border-border-blue px-10 py-2 text-8xl text-off-white"
+			>{data.playerName}</span
+		>
 
 		<!-- Player Stats -->
 		<div class="flex border-border-blue px-10">
-			{#each statEntries as [statName, value], i}
+			{#each Object.entries(data.filteredStats) as [statName, value], i}
 				<div
 					class={[
 						'flex min-w-1/4 flex-col items-center border-r border-border-blue p-2',
