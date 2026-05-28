@@ -11,11 +11,14 @@
 
 <svelte:head>
 	<link rel="icon" href={icon} />
-	<link rel="preload" href={croppedBg} as="image" type="image/avif" />
-	<link rel="preload" href={nlcCroppedBg} as="image" type="image/avif" />
-	<link rel="preload" href={rolLogoVertical} as="image" type="image/avif" />
-	<link rel="preload" href={nlcLogoGold} as="image" type="image/avif" />
+	{#if data.visualStyle === 'NLC'}
+		<link rel="preload" href={nlcLogoGold} as="image" type="image/avif" />
+		<link rel="preload" href={nlcCroppedBg} as="image" type="image/avif" />
+	{:else}
+		<link rel="preload" href={rolLogoVertical} as="image" type="image/avif" />
+		<link rel="preload" href={croppedBg} as="image" type="image/avif" />
+	{/if}
 </svelte:head>
-<main class={[data.visualStyle === "NLC" && "nlc"]}>
+<main class={[data.visualStyle === 'NLC' && 'nlc']}>
 	{@render children()}
 </main>
