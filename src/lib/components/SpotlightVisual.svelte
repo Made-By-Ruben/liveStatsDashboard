@@ -40,7 +40,7 @@
 				</span>
 				<span class="flex items-center gap-1 pt-0.75 leading-none">
 					<p class="text-brand-text/75">PLAYING:</p>
-					<p class=" text-brand-text">{data.champName}</p>
+					<p class=" text-brand-text">{data.championName}</p>
 				</span>
 			</div>
 			<img class="h-8" src={Logo} alt="ROL" />
@@ -64,7 +64,7 @@
 						class="flex items-center gap-1 font-label text-xs leading-none tracking-widest text-brand-text"
 					>
 						<img class="size-2" src={Arrow} alt="" />
-						<span class="leading-none">{statName}</span>
+						<span class="leading-none text-brand-highlight-1">{statName}</span>
 					</span>
 					<StatBadge stat={value} --font-size="50px" />
 				</div>
