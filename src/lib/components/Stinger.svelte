@@ -2,7 +2,7 @@
 	import logo from '$lib/assets/rolLogoVertical.avif';
 	import nlcLogoGold from '$lib/assets/nlcLogoGold.avif'
 
-	let { onComplete, onCurtainsMeet }: { onComplete: () => void, onCurtainsMeet: () => void } = $props();
+	let { onComplete, onCurtainsMeet, visualStyle }: { onComplete: () => void, onCurtainsMeet: () => void, visualStyle: string | undefined } = $props();
 </script>
 
 <div
@@ -22,7 +22,7 @@
 		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsLeft']}></div>
 	</div>
 	<div class={['absolute flex h-full w-full items-center justify-center opacity-0', 'logo']}>
-		<img class="h-full p-10" src={logo} alt="ROL" />
+		<img class="h-full p-10" src={visualStyle === "NLC" ? nlcLogoGold : logo} alt="ROL" />
 	</div>
 	<div class="flex w-1/2 flex-row-reverse">
 		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsRight']}></div>

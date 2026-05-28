@@ -6,12 +6,14 @@
 	import { onDestroy } from 'svelte';
 
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
-	type CompanionEvent = {visualType: "default" | "custom", visualName: number | string}
+	type CompanionEvent = { visualType: 'default' | 'custom'; visualName: number | string };
+
+	let { data } = $props();
 
 	let visualState = $state<VisualState>(null);
 	let bgVisable = $state(false);
-	let visualName = $state<string | number>("")
-	let visualType = $state<"default" | "custom">("default")
+	let visualName = $state<string | number>('');
+	let visualType = $state<'default' | 'custom'>('default');
 
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
@@ -39,7 +41,8 @@
 	<div
 		class={[
 			'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
-			bgVisable && 'bg-[url(/src/lib/assets/croppedBg.avif)]'
+			bgVisable && 'bg-[url(/src/lib/assets/croppedBg.avif)]',
+			bgVisable && data.visualStyle === "NLC" && 'bg-[url(/src/lib/assets/nlcCroppedBg.avif)]',
 		]}
 	>
 		{#if visualState === 'animateIn'}
@@ -50,10 +53,11 @@
 				onCurtainsMeet={() => {
 					bgVisable = true;
 				}}
+				visualStyle={data.visualStyle}
 			/>
 		{/if}
 		{#if visualState === 'live'}
-			<LiveVisual visualType={visualType} visualName={visualName} />
+			<LiveVisual {visualType} {visualName} />
 		{/if}
 		{#if visualState === 'animateOut'}
 			<StingerOut
