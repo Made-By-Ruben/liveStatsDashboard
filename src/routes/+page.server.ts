@@ -3,8 +3,10 @@ import type { PageServerLoad } from './$types';
 import type { ApiResponse } from '$lib/server/schemas';
 import { PUBLIC_SERVER_URL } from '$env/static/public';
 
-export const load = (async () => {
-	return {};
+export const load = (async ({ cookies }) => {
+	return {
+		visualStyle: cookies.get('visualStyle')
+	};
 }) satisfies PageServerLoad;
 
 export const actions = {

@@ -22,7 +22,7 @@
 		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsLeft']}></div>
 	</div>
 	<div class={['absolute flex h-full w-full items-center justify-center opacity-0', 'logo']}>
-		<img class="h-full p-10" src={visualStyle === "NLC" ? nlcLogoGold : logo} alt="ROL" />
+		<img class="h-full p-10" src={visualStyle === "NLC" ? nlcLogoGold : logo} alt={visualStyle} />
 	</div>
 	<div class="flex w-1/2 flex-row-reverse">
 		<div class={['h-full w-0 transform-gpu bg-brand-highlight-1', 'curtainsRight']}></div>

@@ -57,7 +57,7 @@
 			/>
 		{/if}
 		{#if visualState === 'live'}
-			<LiveVisual {visualType} {visualName} />
+			<LiveVisual {visualType} {visualName} visualStyle={data.visualStyle} />
 		{/if}
 		{#if visualState === 'animateOut'}
 			<StingerOut

@@ -30,8 +30,6 @@
 	function removeStat(i: number) {
 		selectedStats.splice(i, 1);
 	}
-
-	$inspect(matchConfig)
 </script>
 
 <div class="flex h-screen w-full flex-col items-center gap-5 bg-brand-dark-1 text-brand-text">

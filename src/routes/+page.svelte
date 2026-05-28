@@ -3,7 +3,7 @@
 	import Hyperlink from '$lib/components/ui/Hyperlink.svelte';
 	import Notice from '$lib/components/ui/Notice.svelte';
 
-	let { form } = $props();
+	let { form, data } = $props();
 
 	let editing = $state(false);
 	let confirmed = $state(false);
@@ -12,7 +12,11 @@
 
 <form
 	method="POST"
-	class="flex min-h-screen w-full items-center justify-center  px-4 py-10 text-brand-text"
+	class={[
+		'flex min-h-screen w-full items-center justify-center  bg-cover px-4 py-10 text-brand-text',
+		data.visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlcBg.avif)]',
+		data.visualStyle !== 'NLC' && 'bg-[url(/src/lib/assets/rolBg.avif)]'
+	]}
 >
 	<div
 		class="flex w-full max-w-xl flex-col gap-8 rounded-2xl border border-brand-border bg-brand-primary-3 p-10 shadow-2xl backdrop-blur-sm"
@@ -42,7 +46,6 @@
 				<Hyperlink endpoint={'/activeVisuals'} buttonText={'To visuals'} />
 			</div>
 		{:else}
-		
 			<Notice
 				message={'Make sure the match you want to connect to is added on the Datamonster Dashboard.'}
 			/>

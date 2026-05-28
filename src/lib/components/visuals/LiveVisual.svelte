@@ -5,8 +5,9 @@
 	import { fade } from 'svelte/transition';
 	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	import SpotlightVisual from '../SpotlightVisual.svelte';
+	import SocialsVisual from './SocialsVisual.svelte';
 
-	let { visualType, visualName } = $props();
+	let { visualType, visualName, visualStyle } = $props();
 
 	let stream = $state<SseConnection>();
 
@@ -20,13 +21,15 @@
 </script>
 
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
-	{#if stream === undefined || stream.status === 'connecting'}
+	{#if stream?.status === 'error'}
+		<SocialsVisual {visualStyle} />
+	{:else if stream === undefined || stream.status === 'connecting'}
 		<div class="flex h-[90%] w-full justify-between p-2"></div>
 	{:else if stream.data}
-		{#if visualType === "customVisuals"}
-		<SpotlightVisual data={stream.data} />
+		{#if visualType === 'customVisuals'}
+			<SpotlightVisual data={stream.data} />
 		{:else}
-		<TotalDamageDone data={stream.data} />
+			<TotalDamageDone data={stream.data} />
 		{/if}
 	{/if}
 </div>
