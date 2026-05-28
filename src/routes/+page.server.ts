@@ -8,7 +8,7 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 		const matchId = data.get('matchId');
 		const apiResponse = await fetch(`${PUBLIC_SERVER_URL}connectMatch/${matchId}`, {
@@ -17,8 +17,10 @@ export const actions = {
 
 		if (apiResponse.ok) {
 			const matchInfo = (await apiResponse.json()) as ApiResponse;
+			const visualStyle = matchInfo.data.includes('NLC') ? 'NLC' : 'ROL';
+			cookies.set('visualStyle', visualStyle, { path: '/' });
 
 			return { success: true, matchInfo };
-		} else return error(apiResponse.status, apiResponse.statusText)
+		} else return error(apiResponse.status, apiResponse.statusText);
 	}
 } satisfies Actions;
