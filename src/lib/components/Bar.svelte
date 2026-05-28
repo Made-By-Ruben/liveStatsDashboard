@@ -37,13 +37,13 @@
 <div class="flex h-full w-full border border-brand-border bg-brand-primary-3 {isRight ? ' flex-row-reverse pl-1' : 'pr-1'}">
 	<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
 		<div
-			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange flex-row-reverse' : 'bg-brand-primary-1'}"
+			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-secondary-1 flex-row-reverse' : 'bg-brand-primary-1'}"
 			style="width: {physicalPctAnimation.current}%;"
 		>
 			<img class="size-5 absolute" src={physicalDmgIcon} alt="PHYSICAL" />
 		</div>
 		<div
-			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange-2 flex-row-reverse' : 'bg-brand-primary-2'}"
+			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-secondary-2 flex-row-reverse' : 'bg-brand-primary-2'}"
 			style="width: {magicPctAnimation.current}%;"
 		>
 			<img class="size-5 absolute" src={magicalDmgIcon} alt="MAGIC" />

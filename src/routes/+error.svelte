@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="flex flex-col gap-5 min-h-screen w-full items-center justify-center bg-brand-primary-3 px-4 py-10 text-brand-off-white"
+	class="flex flex-col gap-5 min-h-screen w-full items-center justify-center bg-brand-primary-3 px-4 py-10 text-brand-text"
 >
 	<Heading title={"Oops, something went wrong"} body={`${page.status}: ${page.error?.message}`} />
 

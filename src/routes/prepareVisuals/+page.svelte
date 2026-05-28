@@ -34,7 +34,7 @@
 	$inspect(matchConfig)
 </script>
 
-<div class="flex h-screen w-full flex-col items-center gap-5 bg-brand-dark-1 text-brand-off-white">
+<div class="flex h-screen w-full flex-col items-center gap-5 bg-brand-dark-1 text-brand-text">
 	<header
 		class="flex h-20 w-full items-center justify-between border-b border-brand-primary-1 bg-brand-primary-3 p-4"
 	>
@@ -80,19 +80,19 @@
 									type="button"
 									aria-label="Remove stat"
 									onclick={() => removeStat(i)}
-									class="absolute top-1 right-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm text-brand-off-white/60 transition-colors hover:bg-brand-primary-3 hover:text-brand-off-white"
+									class="absolute top-1 right-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm text-brand-text/60 transition-colors hover:bg-brand-primary-3 hover:text-brand-text"
 								>
 									×
 								</button>
 								<span
-									class=" items-center gap-1 font-label leading-none tracking-widest text-brand-off-white"
+									class=" items-center gap-1 font-label leading-none tracking-widest text-brand-text"
 								>
 									<span class="text-brand-highlight-1">{i + 1}</span>
 									<span>{entry[0]}</span>
 								</span>
 							</div>
 						{:else}
-							<div class="border border-brand-primary-1/50 p-5 text-brand-off-white/50">Select a stat</div>
+							<div class="border border-brand-primary-1/50 p-5 text-brand-text/50">Select a stat</div>
 						{/if}
 					{/each}
 				</div>

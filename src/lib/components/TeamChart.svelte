@@ -29,7 +29,7 @@
 
 				<!-- Player name -->
 				<div
-					class="w-24 leading-none font-label text-xs font-bold tracking-widest text-brand-off-white uppercase {isRight
+					class="w-24 leading-none font-label text-xs font-bold tracking-widest text-brand-text uppercase {isRight
 						? 'text-right'
 						: 'text-left'}"
 				>

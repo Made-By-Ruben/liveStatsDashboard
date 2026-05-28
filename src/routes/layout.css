@@ -11,8 +11,9 @@ consider changing these global values. */
 	--color-brand-primary-3: #092660;	
 	--color-brand-highlight-1: #d3fe31;
 	--color-brand-off-white: #fcfcfc;
-	--color-brand-orange: #ff6600;
-	--color-brand-orange-2: #d65600;
+	--color-brand-text: #fcfcfc;
+	--color-brand-secondary-1: #ff6600;
+	--color-brand-secondary-2: #d65600;
 	--color-brand-border: #0b37a5;
 	--font-heading: 'Bebas Neue', sans-serif;
 	--font-body: 'Space Grotesk', sans-serif;
@@ -24,15 +25,16 @@ consider changing these global values. */
 }
 
 .nlc {
-	--color-brand-dark-1: #0c0c0c;
-	--color-brand-primary-1: #560524;
-	--color-brand-primary-2: #4B041E;
-	--color-brand-primary-3: #1D030D;
-	--color-brand-highlight-1: #C7B598;
+	--color-brand-dark-1: #0A001A;
+	--color-brand-primary-1: #6700FF;
+	--color-brand-primary-2: #43108E;
+	--color-brand-primary-3: #0A001A;
+	--color-brand-highlight-1: #BF9D6D;
 	--color-brand-off-white: #FFF7E9;
-	--color-brand-orange: #833F1A;
-	--color-brand-orange-2: #4C2715;
-	--color-brand-border: #C7B598;
+	--color-brand-text: #FFF7E9;
+	--color-brand-secondary-1: #6700FF;
+	--color-brand-secondary-2: #43108E;
+	--color-brand-border: #BF9D6D;
 }
 
 /* Current config for stream:

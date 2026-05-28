@@ -39,15 +39,15 @@
 					<p class="pt-0.75 leading-none">{data.role}</p>
 				</span>
 				<span class="flex items-center gap-1 pt-0.75 leading-none">
-					<p class="text-brand-off-white/75">PLAYING:</p>
-					<p class=" text-brand-off-white">{data.champName}</p>
+					<p class="text-brand-text/75">PLAYING:</p>
+					<p class=" text-brand-text">{data.champName}</p>
 				</span>
 			</div>
 			<img class="h-8" src={Logo} alt="ROL" />
 		</div>
 
 		<!-- Player Name -->
-		<span class="border-b border-brand-border px-10 py-2 text-8xl text-brand-off-white"
+		<span class="border-b border-brand-border px-10 py-2 text-8xl text-brand-text"
 			>{data.playerName}</span
 		>
 
@@ -61,7 +61,7 @@
 					]}
 				>
 					<span
-						class="flex items-center gap-1 font-label text-xs leading-none tracking-widest text-brand-off-white"
+						class="flex items-center gap-1 font-label text-xs leading-none tracking-widest text-brand-text"
 					>
 						<img class="size-2" src={Arrow} alt="" />
 						<span class="leading-none">{statName}</span>
