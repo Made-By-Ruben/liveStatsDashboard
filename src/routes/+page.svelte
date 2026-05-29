@@ -2,20 +2,31 @@
 	import Heading from '$lib/components/ui/Heading.svelte';
 	import Hyperlink from '$lib/components/ui/Hyperlink.svelte';
 	import Notice from '$lib/components/ui/Notice.svelte';
+	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
+	import { onMount } from 'svelte';
 
-	let { form, data } = $props();
+	let { form } = $props();
 
 	let editing = $state(false);
 	let confirmed = $state(false);
 	let matchId = $state();
+	let visualStyle = $state("ROL")
+
+	$effect(() => {
+		localStorage.setItem('visualStyle', form?.visualStyle ?? "ROL");
+	});
+
+	onMount(()=>{
+		visualStyle = getVisualStyle();
+	})
 </script>
 
 <form
 	method="POST"
 	class={[
-		'flex min-h-screen w-full items-center justify-center  bg-cover px-4 py-10 text-brand-text',
-		data.visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlcBg.avif)]',
-		data.visualStyle !== 'NLC' && 'bg-[url(/src/lib/assets/rolBg.avif)]'
+		'flex min-h-screen w-full items-center justify-center bg-cover px-4 py-10 text-brand-text',
+		visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlcBg.avif)]',
+		visualStyle !== 'NLC' && 'bg-[url(/src/lib/assets/rolBg.avif)]'
 	]}
 >
 	<div

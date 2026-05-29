@@ -20,9 +20,8 @@ export const actions = {
 		if (apiResponse.ok) {
 			const matchInfo = (await apiResponse.json()) as ApiResponse;
 			const visualStyle = matchInfo.data.includes('NLC') ? 'NLC' : 'ROL';
-			cookies.set('visualStyle', visualStyle, { path: '/' });
 
-			return { success: true, matchInfo };
+			return { success: true, matchInfo, visualStyle };
 		} else return error(apiResponse.status, apiResponse.statusText);
 	}
 } satisfies Actions;

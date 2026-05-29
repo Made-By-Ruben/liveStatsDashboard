@@ -1,48 +1,57 @@
 <script lang="ts">
 	import { PUBLIC_SERVER_URL } from '$env/static/public';
+	import { ActiveVisual } from '$lib/activeVisual.svelte.js';
 	import Stinger from '$lib/components/Stinger.svelte';
 	import StingerOut from '$lib/components/StingerOut.svelte';
 	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
-	import { onDestroy } from 'svelte';
-
+	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
+	import { onDestroy, onMount } from 'svelte';
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
 	type CompanionEvent = { visualType: 'default' | 'custom'; visualName: number | string };
-
-	let { data } = $props();
-
+	
 	let visualState = $state<VisualState>(null);
 	let bgVisable = $state(false);
-	let visualName = $state<string | number>('');
-	let visualType = $state<'default' | 'custom'>('default');
+	let visual = $state<ActiveVisual>();
+	let visualStyle = $state<string>("ROL");
 
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
 
-		stream.addEventListener('animateIn', (e) => {
+		stream.addEventListener('animateIn', async (e) => {
 			if (visualState === null) {
-				const data = JSON.parse(e.data) as CompanionEvent;
-				visualName = data.visualName;
-				visualType = data.visualType;
 				visualState = 'animateIn';
+				const data = JSON.parse(e.data) as CompanionEvent;
+				visual = new ActiveVisual(data.visualName, data.visualType);
+				visual.getData(PUBLIC_SERVER_URL);
 			}
 		});
 
 		stream.addEventListener('animateOut', (e) => {
 			visualState = 'animateOut';
+			visual?.clearVisual()
 		});
 
 		onDestroy(() => {
 			stream.close();
 		});
 	});
+
+	onMount(() => {
+		visualStyle = getVisualStyle();
+	})
 </script>
+
+<!-- TODO: conditional preloading -->
+<svelte:head>
+
+</svelte:head>
 
 <main class="relative h-270 w-480">
 	<div
 		class={[
 			'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
 			bgVisable && 'bg-[url(/src/lib/assets/croppedBg.avif)]',
-			bgVisable && data.visualStyle === "NLC" && 'bg-[url(/src/lib/assets/nlcCroppedBg.avif)]',
+			bgVisable && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlcCroppedBg.avif)]'
 		]}
 	>
 		{#if visualState === 'animateIn'}
@@ -53,11 +62,11 @@
 				onCurtainsMeet={() => {
 					bgVisable = true;
 				}}
-				visualStyle={data.visualStyle}
+				visualStyle={visualStyle}
 			/>
 		{/if}
 		{#if visualState === 'live'}
-			<LiveVisual {visualType} {visualName} visualStyle={data.visualStyle} />
+			<LiveVisual {visual} visualStyle={visualStyle} />
 		{/if}
 		{#if visualState === 'animateOut'}
 			<StingerOut

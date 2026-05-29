@@ -1,35 +1,21 @@
 <script lang="ts">
-	import { SseConnection } from '$lib/sseStream.svelte';
-	import { onDestroy, onMount } from 'svelte';
 	import TotalDamageDone from './TotalDamageDone.svelte';
 	import { fade } from 'svelte/transition';
-	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	import SpotlightVisual from '../SpotlightVisual.svelte';
 	import SocialsVisual from './SocialsVisual.svelte';
+	import type { ActiveVisual } from '$lib/activeVisual.svelte';
 
-	let { visualType, visualName, visualStyle } = $props();
-
-	let stream = $state<SseConnection>();
-
-	onMount(() => {
-		stream = new SseConnection(`${PUBLIC_SERVER_URL}${visualType}/stream/${visualName}`);
-	});
-
-	onDestroy(() => {
-		stream?.close();
-	});
+	let { visual, visualStyle }: { visual: ActiveVisual | undefined, visualStyle: string | undefined } = $props();
 </script>
 
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
-	{#if stream?.status === 'error'}
-		<SocialsVisual {visualStyle} />
-	{:else if stream === undefined || stream.status === 'connecting'}
-		<div class="flex h-[90%] w-full justify-between p-2"></div>
-	{:else if stream.data}
-		{#if visualType === 'customVisuals'}
-			<SpotlightVisual data={stream.data} />
+	{#if visual?.status === 'success'}
+		{#if visual.visualType === 'customVisuals'}
+			<SpotlightVisual data={visual.data.data} />
 		{:else}
-			<TotalDamageDone data={stream.data} />
+			<TotalDamageDone data={visual.data.data} />
 		{/if}
+	{:else if visual?.status === 'error'}
+		<SocialsVisual {visualStyle} />
 	{/if}
 </div>
