@@ -1,7 +1,7 @@
 <script lang="ts">
 	import TotalDamageDone from './TotalDamageDone.svelte';
 	import { fade } from 'svelte/transition';
-	import SpotlightVisual from '../SpotlightVisual.svelte';
+	import SpotlightVisual from './SpotlightVisual.svelte';
 	import SocialsVisual from './SocialsVisual.svelte';
 	import type { ActiveVisual } from '$lib/activeVisual.svelte';
 

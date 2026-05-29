@@ -25,7 +25,7 @@
 
 		<div class="flex h-1/5 w-full px-2 py-2 {isRight ? 'flex-row-reverse' : ''} ">
 			<div class="flex w-full items-center gap-2 {isRight ? 'flex-row-reverse' : ''} ">
-				<img class="size-10 border-2 border-brand-border" src="/champion/{player.championName}.png" alt={player} />
+				<img class="size-10 border-2 border-brand-border" src="/champion/{player.championName}.png" alt={player.championName} />
 
 				<!-- Player name -->
 				<div

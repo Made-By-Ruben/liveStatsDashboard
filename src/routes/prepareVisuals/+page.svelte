@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SpotlightVisual from '$lib/components/SpotlightVisual.svelte';
+	import SpotlightVisual from '$lib/components/visuals/SpotlightVisual.svelte';
 	import type { PageProps } from './$types';
 	import Logo from '$lib/assets/icon2026.png';
 	import CustomisingCard from '$lib/components/ui/CustomisingCard.svelte';
