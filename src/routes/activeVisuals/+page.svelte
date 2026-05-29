@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	import { ActiveVisual } from '$lib/activeVisual.svelte.js';
-	import Stinger from '$lib/components/Stinger.svelte';
-	import StingerOut from '$lib/components/StingerOut.svelte';
+	import Stinger from '$lib/components/visuals/stingers/Stinger.svelte';
+	import StingerOut from '$lib/components/visuals/stingers/StingerOut.svelte';
 	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
 	import { onDestroy, onMount } from 'svelte';
