@@ -15,7 +15,7 @@
 	<!-- Right: Social links -->
 	<div class="flex w-3/5 items-center justify-center gap-3">
 		<h1 class="text-center font-heading text-4xl text-brand-text">
-			Volg onze socials om up-to-date te blijven van al onze matches!
+			{ visualStyle === "NLC" ? "Follow our socials for updates on all our matches!" : "Volg onze socials om up-to-date te blijven van al onze matches!"}
 		</h1>
 	</div>
 </div>
