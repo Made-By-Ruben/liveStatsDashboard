@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
-	import magicDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png';
-	import physicalDmgIcon from '$lib/assets/StatModsIcons/StatModsPhysical DamageIcon.png';
+	import magicDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png';
+	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png';
 	import { getVisualAssets } from '$lib/visualAssetsConfig';
 	let { children } = $props();
 

@@ -43,6 +43,7 @@
 
 <!-- TODO: conditional preloading -->
 <svelte:head>
+
 </svelte:head>
 
 <main class="relative h-270 w-480">

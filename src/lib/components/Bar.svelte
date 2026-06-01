@@ -2,8 +2,8 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 
-	import physicalDmgIcon from '$lib/assets/StatModsIcons/StatModsPhysical DamageIcon.png'
-	import magicalDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png'
+	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png'
+	import magicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png'
 
 	let { isRight, barWidth, physicalPct, magicPct, truePct, index } = $props();
 

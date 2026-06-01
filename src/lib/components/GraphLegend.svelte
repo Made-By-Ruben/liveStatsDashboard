@@ -1,8 +1,8 @@
 <script lang="ts">
 	let { stats }: { stats: string[] } = $props();
 
-	import physicalDmgIcon from '$lib/assets/StatModsIcons/StatModsPhysical DamageIcon.png'
-	import magicalDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png'
+	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png'
+	import magicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png'
 </script>
 
 <div class="flex h-[10%] w-full items-center justify-center font-label border-t border-brand-border">
