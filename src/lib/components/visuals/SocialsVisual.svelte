@@ -1,7 +1,7 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import logo from '$lib/assets/rolLogoVertical.avif';
-	import nlcLogoGold from '$lib/assets/nlcLogoGold.avif'
+	import nlcLogoGold from '$lib/assets/nlc/nlcLogoGold.avif'
 
     let {visualStyle} = $props();
 </script>

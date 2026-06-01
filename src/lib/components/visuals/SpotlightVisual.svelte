@@ -7,6 +7,7 @@
 	import StatBadge from '$lib/components/StatBadge.svelte';
 	import Arrow from '$lib/assets/arrow.png';
 	import Logo from '$lib/assets/icon2026.png';
+	import Star from '$lib/assets/nlc/star 2.avif'
 	import { fade } from 'svelte/transition';
 
 	const roleIcons: Record<string, string> = {
@@ -17,7 +18,7 @@
 		Support
 	};
 
-	let { data } = $props();
+	let { data, visualStyle } = $props();
 </script>
 
 <div class="flex h-full w-full" transition:fade>
@@ -43,7 +44,7 @@
 					<p class=" text-brand-text">{data.championName}</p>
 				</span>
 			</div>
-			<img class="h-8" src={Logo} alt="ROL" />
+			<img class="h-8" src={ visualStyle === "ROL" ? Logo : Star} alt="ROL" />
 		</div>
 
 		<!-- Player Name -->

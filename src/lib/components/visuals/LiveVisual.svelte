@@ -11,7 +11,7 @@
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
 	{#if visual?.status === 'success'}
 		{#if visual.visualType === 'customVisuals'}
-			<SpotlightVisual data={visual.data.data} />
+			<SpotlightVisual data={visual.data.data} visualStyle={visualStyle}/>
 		{:else}
 			<TotalDamageDone data={visual.data.data} />
 		{/if}

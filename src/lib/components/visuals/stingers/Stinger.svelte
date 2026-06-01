@@ -1,6 +1,6 @@
 <script lang="ts">
 	import logo from '$lib/assets/rolLogoVertical.avif';
-	import nlcLogoGold from '$lib/assets/nlcLogoGold.avif'
+	import nlcLogoGold from '$lib/assets/nlc/nlcLogoGold.avif'
 
 	let { onComplete, onCurtainsMeet, visualStyle }: { onComplete: () => void, onCurtainsMeet: () => void, visualStyle: string | undefined } = $props();
 </script>

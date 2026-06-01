@@ -1,14 +1,45 @@
 @import 'tailwindcss';
 @custom-variant nlc ($:where(.nlc, .nlc *));
 
-/* In order to change some of the recurring values in this application, 
+@font-face {
+  font-family: 'Aileron';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('$lib/assets/fonts/Aileron-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Aileron';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('$lib/assets/fonts/Aileron-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Meltmino';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('$lib/assets/fonts/Meltmino-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Meltmino';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('$lib/assets/fonts/Meltmino-Bold.woff2') format('woff2');
+}
+/* In order to change the styles in this application, 
 consider changing these global values. */
 
 @theme {
 	--color-brand-dark-1: #0c0c0c;
 	--color-brand-primary-1: #0066ff;
 	--color-brand-primary-2: #0c38a5;
-	--color-brand-primary-3: #092660;	
+	--color-brand-primary-3: #092660;
 	--color-brand-highlight-1: #d3fe31;
 	--color-brand-off-white: #fcfcfc;
 	--color-brand-text: #fcfcfc;
@@ -20,21 +51,22 @@ consider changing these global values. */
 	--font-label: 'Rajdhani', sans-serif;
 	--container-visual-height: 258px;
 	--container-visual-width: 1339px;
-	--url-brand-bgCropped: url('$lib/assets/croppedBg.avif');
-	--url-brand-Logo: url('$lib/assets/rolLogoVertical.avif');
 }
 
 .nlc {
-	--color-brand-dark-1: #0A001A;
-	--color-brand-primary-1: #6700FF;
-	--color-brand-primary-2: #43108E;
-	--color-brand-primary-3: #0A001A;
-	--color-brand-highlight-1: #BF9D6D;
-	--color-brand-off-white: #FFF7E9;
-	--color-brand-text: #FFF7E9;
-	--color-brand-secondary-1: #6700FF;
-	--color-brand-secondary-2: #43108E;
-	--color-brand-border: #BF9D6D;
+	--color-brand-dark-1: #0a001a;
+	--color-brand-primary-1: #6700ff;
+	--color-brand-primary-2: #43108e;
+	--color-brand-primary-3: #0a001a;
+	--color-brand-highlight-1: #fff7e9;
+	--color-brand-off-white: #fff7e9;
+	--color-brand-text: #fff7e9;
+	--color-brand-secondary-1: #C7B598;
+	--color-brand-secondary-2: #7A6B53;
+	--color-brand-border: #7a6b53;
+	--font-heading: 'Bebas Neue', sans-serif;
+	--font-body: 'Aileron', sans-serif;
+	--font-label: 'Meltmino', sans-serif;
 }
 
 /* Current config for stream:
