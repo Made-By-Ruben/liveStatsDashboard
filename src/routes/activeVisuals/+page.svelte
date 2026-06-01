@@ -8,11 +8,17 @@
 	import { onDestroy, onMount } from 'svelte';
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
 	type CompanionEvent = { visualType: 'default' | 'custom'; visualName: number | string };
-	
+	type ActiveChamps = {
+		championName: string;
+	}[];
+
+	let { data } = $props();
+
 	let visualState = $state<VisualState>(null);
 	let bgVisable = $state(false);
 	let visual = $state<ActiveVisual>();
 	let visualStyle = $state<string>();
+	let activeChamps = $derived<ActiveChamps>(data.champions.participants);
 
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
@@ -28,7 +34,12 @@
 
 		stream.addEventListener('animateOut', (e) => {
 			visualState = 'animateOut';
-			visual?.clearVisual()
+			visual?.clearVisual();
+		});
+
+		stream.addEventListener('refreshAssets', (e) => {
+			const data = JSON.parse(e.data);
+			activeChamps = data;
 		});
 
 		onDestroy(() => {
@@ -38,12 +49,25 @@
 
 	onMount(() => {
 		visualStyle = getVisualStyle();
-	})
+	});
 </script>
 
 <!-- TODO: conditional preloading -->
 <svelte:head>
-
+	{#each activeChamps as activeChamp}
+		<link
+			rel="preload"
+			href={`https://cdn.communitydragon.org/latest/champion/${activeChamp.championName}/splash-art`}
+			as="image"
+			type="image/jpeg"
+		/>
+		<link
+			rel="preload"
+			href={`https://cdn.communitydragon.org/latest/champion/${activeChamp.championName}/square`}
+			as="image"
+			type="image/jpeg"
+		/>
+	{/each}
 </svelte:head>
 
 <main class="relative h-270 w-480">
@@ -62,11 +86,11 @@
 				onCurtainsMeet={() => {
 					bgVisable = true;
 				}}
-				visualStyle={visualStyle}
+				{visualStyle}
 			/>
 		{/if}
 		{#if visualState === 'live'}
-			<LiveVisual {visual} visualStyle={visualStyle} />
+			<LiveVisual {visual} {visualStyle} />
 		{/if}
 		{#if visualState === 'animateOut'}
 			<StingerOut
