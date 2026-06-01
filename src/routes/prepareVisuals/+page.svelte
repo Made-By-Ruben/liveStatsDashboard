@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SpotlightVisual from '$lib/components/visuals/SpotlightVisual.svelte';
 	import type { PageProps } from './$types';
-	import Logo from '$lib/assets/icon2026.png';
+	import Logo from '$lib/assets/rol/icon2026.png';
 	import CustomisingCard from '$lib/components/ui/CustomisingCard.svelte';
 	import DropDown from '$lib/components/ui/DropDown.svelte';
 
@@ -46,7 +46,7 @@
 	</header>
 
 	<div
-		class="flex h-62.5 w-334.5 shrink-0 flex-col border border-brand-border bg-[url(/src/lib/assets/croppedBg.avif)]"
+		class="flex h-62.5 w-334.5 shrink-0 flex-col border border-brand-border bg-[url(/src/lib/assets/rol/croppedBg.avif)]"
 	>
 		<SpotlightVisual
 			champName={'Ryze'}

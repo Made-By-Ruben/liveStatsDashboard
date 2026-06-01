@@ -12,7 +12,7 @@
 	let visualState = $state<VisualState>(null);
 	let bgVisable = $state(false);
 	let visual = $state<ActiveVisual>();
-	let visualStyle = $state<string>("ROL");
+	let visualStyle = $state<string>();
 
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
@@ -49,8 +49,8 @@
 	<div
 		class={[
 			'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
-			bgVisable && 'bg-[url(/src/lib/assets/croppedBg.avif)]',
-			bgVisable && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlcCroppedBg.avif)]'
+			bgVisable && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
+			bgVisable && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
 		]}
 	>
 		{#if visualState === 'animateIn'}

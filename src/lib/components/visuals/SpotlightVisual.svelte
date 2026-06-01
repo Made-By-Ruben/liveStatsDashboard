@@ -1,24 +1,13 @@
 <script lang="ts">
-	import Top from '$lib/assets/roleIconsGreen/Top.png';
-	import Jungle from '$lib/assets/roleIconsGreen/Jungle.png';
-	import Middle from '$lib/assets/roleIconsGreen/Mid.png';
-	import Bottom from '$lib/assets/roleIconsGreen/Bot.png';
-	import Support from '$lib/assets/roleIconsGreen/Support.png';
 	import StatBadge from '$lib/components/StatBadge.svelte';
-	import Arrow from '$lib/assets/arrow.png';
-	import Logo from '$lib/assets/icon2026.png';
-	import Star from '$lib/assets/nlc/star 2.avif'
+	import Arrow from '$lib/assets/rol/arrow.png';
 	import { fade } from 'svelte/transition';
-
-	const roleIcons: Record<string, string> = {
-		Top,
-		Jungle,
-		Middle,
-		Bottom,
-		Support
-	};
+	import { getVisualAssets } from '$lib/visualAssetsConfig';
 
 	let { data, visualStyle } = $props();
+
+	let visualAssets = $derived(getVisualAssets(visualStyle));
+
 </script>
 
 <div class="flex h-full w-full" transition:fade>
@@ -36,7 +25,7 @@
 		<div class="flex justify-between border-b border-brand-border px-10 py-2">
 			<div class="flex gap-5">
 				<span class="flex items-center gap-1 text-brand-highlight-1 uppercase">
-					<img class="size-5" src={roleIcons[data.role]} alt="" />
+					<img class="size-5" src={visualAssets.roleIcons[data.role]} alt="" />
 					<p class="pt-0.75 leading-none">{data.role}</p>
 				</span>
 				<span class="flex items-center gap-1 pt-0.75 leading-none">
@@ -44,7 +33,7 @@
 					<p class=" text-brand-text">{data.championName}</p>
 				</span>
 			</div>
-			<img class="h-8" src={ visualStyle === "ROL" ? Logo : Star} alt="ROL" />
+			<img class="h-8" src={visualAssets.spotlightLogo} alt="ROL" />
 		</div>
 
 		<!-- Player Name -->

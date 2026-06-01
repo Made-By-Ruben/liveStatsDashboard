@@ -6,7 +6,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('$lib/assets/fonts/Aileron-Regular.woff2') format('woff2');
+  src: url('$lib/assets/nlc/fonts/Aileron-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -14,7 +14,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('$lib/assets/fonts/Aileron-Bold.woff2') format('woff2');
+  src: url('$lib/assets/nlc/fonts/Aileron-Bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -22,7 +22,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('$lib/assets/fonts/Meltmino-Regular.woff2') format('woff2');
+  src: url('$lib/assets/nlc/fonts/Meltmino-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -30,7 +30,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('$lib/assets/fonts/Meltmino-Bold.woff2') format('woff2');
+  src: url('$lib/assets/nlc/fonts/Meltmino-Bold.woff2') format('woff2');
 }
 /* In order to change the styles in this application, 
 consider changing these global values. */

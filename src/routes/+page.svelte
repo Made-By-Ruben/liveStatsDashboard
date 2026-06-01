@@ -25,8 +25,8 @@
 	method="POST"
 	class={[
 		'flex min-h-screen w-full items-center justify-center bg-cover px-4 py-10 text-brand-text',
-		visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlcBg.avif)]',
-		visualStyle !== 'NLC' && 'bg-[url(/src/lib/assets/rolBg.avif)]'
+		visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcBg.avif)]',
+		visualStyle !== 'NLC' && 'bg-[url(/src/lib/assets/rol/rolBg.avif)]'
 	]}
 >
 	<div
