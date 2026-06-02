@@ -1,29 +1,26 @@
 <script lang="ts">
-	import { PUBLIC_SERVER_URL } from '$env/static/public';
+	import { PUBLIC_CDN_URL, PUBLIC_SERVER_URL } from '$env/static/public';
 	import { ActiveVisual } from '$lib/activeVisual.svelte.js';
 	import Stinger from '$lib/components/visuals/stingers/Stinger.svelte';
 	import StingerOut from '$lib/components/visuals/stingers/StingerOut.svelte';
 	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
 	type CompanionEvent = { visualType: 'default' | 'custom'; visualName: number | string };
 	type ActiveChamps = {
 		championName: string;
 	}[];
 
-	let { data } = $props();
-
 	let visualState = $state<VisualState>(null);
 	let bgVisable = $state(false);
 	let visual = $state<ActiveVisual>();
 	let visualStyle = $state<string>();
-	let activeChamps = $derived<ActiveChamps>(data.champions.participants);
 
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
 
-		stream.addEventListener('animateIn', async (e) => {
+		stream.addEventListener('animateIn', async (e: MessageEvent) => {
 			if (visualState === null) {
 				visualState = 'animateIn';
 				const data = JSON.parse(e.data) as CompanionEvent;
@@ -32,43 +29,33 @@
 			}
 		});
 
-		stream.addEventListener('animateOut', (e) => {
+		stream.addEventListener('animateOut', (e: MessageEvent) => {
 			visualState = 'animateOut';
 			visual?.clearVisual();
 		});
 
-		stream.addEventListener('refreshAssets', (e) => {
-			const data = JSON.parse(e.data);
-			activeChamps = data;
+		stream.addEventListener('refreshAssets', (e: MessageEvent) => {
+			const data = JSON.parse(e.data)
+			cacheImages(data.participants);
 		});
 
-		onDestroy(() => {
-			stream.close();
-		});
+		return () => stream.close()
 	});
 
 	onMount(() => {
 		visualStyle = getVisualStyle();
 	});
-</script>
 
-<!-- TODO: conditional preloading -->
-<svelte:head>
-	{#each activeChamps as activeChamp}
-		<link
-			rel="preload"
-			href={`https://cdn.communitydragon.org/latest/champion/${activeChamp.championName}/splash-art`}
-			as="image"
-			type="image/jpeg"
-		/>
-		<link
-			rel="preload"
-			href={`https://cdn.communitydragon.org/latest/champion/${activeChamp.championName}/square`}
-			as="image"
-			type="image/jpeg"
-		/>
-	{/each}
-</svelte:head>
+	function cacheImages(data: ActiveChamps) {
+		data.forEach(champ => {
+			const portrait = new Image()
+			portrait.src = `${PUBLIC_CDN_URL}${champ.championName}/portrait`
+
+			const splash = new Image();
+			splash.src = `${PUBLIC_CDN_URL}${champ.championName}/splash-art`
+		});
+	}
+</script>
 
 <main class="relative h-270 w-480">
 	<div
