@@ -2,14 +2,13 @@
 	import type { Visual } from '$lib/server/schemas';
 	import { fade } from 'svelte/transition';
 	import type { PageProps } from './$types';
+	import { enhance } from '$app/forms';
 
 	let { data }: PageProps = $props();
 	let editVisual = $state(false);
 	let editStats = $state(false);
 	let selectedVisual = $state<Visual | null>(null);
-	let statsAmount = $derived(selectedVisual?.visualConfig.requestedStats.length);
-
-	$inspect(statsAmount);
+	let loading = $state(false);
 
 	function handleClick(visual: Visual) {
 		editVisual = true;
@@ -29,8 +28,6 @@
 		selectedVisual.visualConfig.requestedStats = [...stats, stat];
 		return;
 	}
-
-	$inspect(selectedVisual);
 </script>
 
 <main class="h-screen w-full bg-brand-primary-3">
@@ -59,7 +56,21 @@
 			method="POST"
 			class="flex flex-col border border-brand-border text-brand-off-white"
 			in:fade={{ duration: 200 }}
+			use:enhance={() => {
+				loading = true
+				return async ({result, update}) => {
+					loading = false
+					editVisual = false
+					update()
+				}
+			}}
 		>
+		{#if loading}
+			<div>
+				Updating visual configuration...
+			</div>
+		{:else}
+			<input hidden name="selectedVisual" value={JSON.stringify(selectedVisual)} type="text" />
 			<label class="font-bold" for="visualLabel">Select a name for your visual:</label>
 			<input
 				id="visualLabel"
@@ -89,9 +100,9 @@
 					Select Stats
 				</button>
 			{:else}
-				<div class="w-fit px-5 border border-brand-border shadow-2xl" in:fade={{ duration: 200 }}>
+				<div class="w-fit border border-brand-border px-5 shadow-2xl" in:fade={{ duration: 200 }}>
 					<button onclick={() => (editStats = false)}>Save</button>
-					<ul class="max-h-32 overflow-scroll ">
+					<ul class="max-h-32 overflow-scroll">
 						{#each data.allowedStats as allowedStat}
 							{@const selected = selectedVisual.visualConfig.requestedStats.includes(
 								allowedStat.value
@@ -112,6 +123,13 @@
 						{/each}
 					</ul>
 				</div>
+			{/if}
+			<button
+				type="submit"
+				class="cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1"
+			>
+				Add Visual
+			</button>
 			{/if}
 		</form>
 	{/if}
