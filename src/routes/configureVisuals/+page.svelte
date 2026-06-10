@@ -32,68 +32,77 @@
 
 <main class="h-screen w-full bg-brand-primary-3">
 	{#if !editVisual}
-		<table class="border border-brand-border text-brand-off-white" in:fade={{ duration: 200 }}>
-			<thead>
-				<tr>
-					<th>Visual ID</th>
-					<th>Visual Name</th>
-					<th>Selected Stats</th>
-				</tr>
-			</thead>
+		<div class="grid h-full grid-cols-4 gap-5 px-10 py-10">
+			{#each data.visuals as visual}
+				<button
+					onclick={() => handleClick(visual)}
+					class="group flex cursor-pointer flex-col items-baseline justify-between rounded border border-brand-border p-5 text-brand-off-white transition-all hover:border-brand-highlight-1 hover:shadow-2xl"
+				>
+					<div class="flex w-full justify-between font-label">
+						<p class="">{'Visual: ' + visual.visualID}</p>
+						<p>{visual.visualConfig.selectedTeam} {visual.visualConfig.selectedRole}</p>
+					</div>
 
-			<tbody>
-				{#each data.visuals as visual}
-					<tr onclick={() => handleClick(visual)}>
-						<td>{visual.visualID}</td>
-						<td>{visual.visualLabel}</td>
-						<td>{visual.visualConfig.requestedStats[0]}</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
+					<h1 class="font-heading text-3xl font-bold">{visual.visualLabel}</h1>
+
+					<div class="flex w-full justify-between font-label">
+						<p class="rounded bg-brand-highlight-1 px-5 font-label text-brand-dark-1">
+							Stats: {visual.visualConfig.requestedStats.length}
+						</p>
+						<p class="invisible font-label text-xs text-brand-off-white/80 group-hover:visible">
+							Edit
+						</p>
+					</div>
+				</button>
+			{/each}
+		</div>
 	{:else if editVisual && selectedVisual !== null}
 		<form
 			method="POST"
-			class="flex flex-col border border-brand-border text-brand-off-white"
+			class="flex flex-col border border-brand-border p-10 text-brand-off-white gap-5"
 			in:fade={{ duration: 200 }}
 			use:enhance={() => {
-				loading = true
-				return async ({result, update}) => {
-					loading = false
-					editVisual = false
-					update()
-				}
+				loading = true;
+				return async ({ result, update }) => {
+					loading = false;
+					editVisual = false;
+					update();
+				};
 			}}
 		>
-		{#if loading}
-			<div>
-				Updating visual configuration...
-			</div>
-		{:else}
 			<input hidden name="selectedVisual" value={JSON.stringify(selectedVisual)} type="text" />
-			<label class="font-bold" for="visualLabel">Select a name for your visual:</label>
-			<input
-				id="visualLabel"
-				type="text"
-				placeholder={selectedVisual.visualLabel}
-				bind:value={selectedVisual.visualLabel}
-			/>
 
-			<label class="font-bold" for="visualTeam">Select a team for your visual:</label>
-			<select bind:value={selectedVisual.visualConfig.selectedTeam}>
-				{#each data.teams as team}
-					<option value={team.value}>{team.label}</option>
-				{/each}
-			</select>
-
-			<label class="font-bold" for="visualTeam"
-				>Which role for {selectedVisual.visualConfig.selectedTeam}?:</label
+			<label class="inputLabel"
+				>Visual Name: <input
+					class="input"
+					id="visualLabel"
+					type="text"
+					placeholder={selectedVisual.visualLabel}
+					bind:value={selectedVisual.visualLabel}
+				/></label
 			>
-			<select bind:value={selectedVisual.visualConfig.selectedRole}>
-				{#each data.roles as role}
-					<option value={role.value}>{role.label}</option>
-				{/each}
-			</select>
+
+			<div class="flex w-full gap-2">
+				<label class="inputLabel w-1/2"
+					>Select a team for your visual: <select
+						bind:value={selectedVisual.visualConfig.selectedTeam}
+						class="input"
+					>
+						{#each data.teams as team}
+							<option value={team.value}>{team.label}</option>
+						{/each}
+					</select></label
+				>
+
+				<label class="inputLabel w-1/2"
+					>Which role for {selectedVisual.visualConfig.selectedTeam}?:
+					<select bind:value={selectedVisual.visualConfig.selectedRole} class="input">
+						{#each data.roles as role}
+							<option value={role.value}>{role.label}</option>
+						{/each}
+					</select></label
+				>
+			</div>
 
 			{#if !editStats}
 				<button onclick={() => (editStats = true)} in:fade={{ duration: 200 }}>
@@ -124,13 +133,35 @@
 					</ul>
 				</div>
 			{/if}
-			<button
-				type="submit"
-				class="cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1"
-			>
-				Add Visual
-			</button>
+
+			{#if loading}
+				<div
+					in:fade={{ duration: 200 }}
+					class="cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1"
+				>
+					Loading...
+				</div>
+			{:else}
+				<button
+					in:fade={{ duration: 200 }}
+					type="submit"
+					class="cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1"
+				>
+					Add Visual
+				</button>
 			{/if}
 		</form>
 	{/if}
 </main>
+
+<style>
+	@reference "../layout.css";
+
+	.input {
+		@apply border border-brand-border px-1;
+	}
+
+	.inputLabel {
+		@apply flex flex-col font-heading text-xl;
+	}
+</style>
