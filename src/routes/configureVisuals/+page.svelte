@@ -33,16 +33,33 @@
 		return;
 	}
 
-	$inspect(selectedVisual);
+	function createCompanionConfig() {
+		// TODO
+	}
 
 	onMount(() => {
 		visualStyle = getVisualStyle();
 	});
 </script>
 
-<main class="h-screen w-full bg-brand-primary-3">
+<main class="min-h-screen w-full bg-brand-primary-3 py-5 px-10 flex-col justify-center items-center">
+	<div class="flex h-[10%] w-full items-center justify-between text-brand-off-white">
+		<div>
+			<h1 class="font-heading text-5xl">{editVisual ? "Editing" : "Your Visuals"}</h1>
+			<h2 class="font-label text-2xl italic">{editVisual ? "Configure this visual": "10 configured visuals - click any one to edit it"}</h2>
+		</div>
+		{#if !editVisual}
+			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => createCompanionConfig()}
+				>Export Bitfocus Configuration</button
+			>
+		{:else}
+			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => editVisual = false}
+				>Back to overview</button
+			>
+		{/if}
+	</div>
 	{#if !editVisual}
-		<div class="grid h-full grid-cols-4 gap-5 px-10 py-10" in:fade={{ duration: 200 }}>
+		<div class="grid h-[90%] grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" in:fade={{ duration: 200 }}>
 			{#each data.visuals as visual}
 				<button
 					onclick={() => handleClick(visual)}
@@ -69,7 +86,7 @@
 	{:else if editVisual && selectedVisual !== null}
 		<form
 			method="POST"
-			class="flex w-334.25 flex-col items-center gap-5 border border-brand-border text-brand-off-white"
+			class="flex flex-col items-center gap-5 border border-brand-border text-brand-off-white p-10"
 			in:fade={{ duration: 200 }}
 			use:enhance={() => {
 				loading = true;
@@ -89,7 +106,7 @@
 			>
 				<EditVisual {visualStyle} data={selectedVisual.visualConfig} />
 			</div>
-			<div class="w-full flex flex-col gap-5">
+			<div class="flex w-full flex-col gap-5">
 				<input hidden name="selectedVisual" value={JSON.stringify(selectedVisual)} type="text" />
 
 				<label class="inputLabel"
@@ -104,7 +121,7 @@
 
 				<div class="flex w-full gap-2">
 					<label class="inputLabel w-1/2"
-						>Select a team for your visual: <select
+						>Team: <select
 							bind:value={selectedVisual.visualConfig.selectedTeam}
 							class="input"
 						>
@@ -155,20 +172,9 @@
 				{/if}
 
 				{#if loading}
-					<div
-						in:fade={{ duration: 200 }}
-						class="cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1"
-					>
-						Loading...
-					</div>
+					<div in:fade={{ duration: 200 }} class="ctaButton">Loading...</div>
 				{:else}
-					<button
-						in:fade={{ duration: 200 }}
-						type="submit"
-						class="cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1"
-					>
-						Add Visual
-					</button>
+					<button in:fade={{ duration: 200 }} type="submit" class="ctaButton"> Update Visual </button>
 				{/if}
 			</div>
 		</form>
@@ -179,10 +185,14 @@
 	@reference "../layout.css";
 
 	.input {
-		@apply border border-brand-border px-1;
+		@apply border border-brand-border px-1 text-xl font-label ;
 	}
 
 	.inputLabel {
-		@apply flex flex-col font-heading text-xl;
+		@apply flex flex-col font-heading text-3xl;
+	}
+
+	.ctaButton {
+		@apply cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1;
 	}
 </style>

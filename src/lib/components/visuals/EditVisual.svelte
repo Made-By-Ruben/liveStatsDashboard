@@ -6,15 +6,32 @@
 	let { data, visualStyle } = $props();
 
 	let visualAssets = $derived(getVisualAssets(visualStyle));
+
+	let exampleImage = $derived.by(() => {
+		switch (data.selectedRole) {
+			case 'Support': {
+				return 'Blitzcrank';
+			}
+			case 'Bottom': {
+				return 'Ezreal';
+			}
+			case 'Middle': {
+				return 'Ahri';
+			}
+			case 'Jungle': {
+				return 'Zac';
+			}
+			case 'Top': {
+				return 'Sion';
+			}
+		}
+	});
 </script>
 
 <div class="flex h-full w-full">
 	<!-- Hero section -->
 	<div class="h-full w-1/3 overflow-hidden border-r border-brand-border">
-		<img
-			src="https://cdn.communitydragon.org/latest/champion/Ryze/splash-art"
-			alt=""
-		/>
+		<img src="https://cdn.communitydragon.org/latest/champion/{exampleImage}/splash-art" alt="" />
 	</div>
 
 	<!-- Information section -->
@@ -28,7 +45,7 @@
 				</span>
 				<span class="flex items-center gap-1 pt-0.75 leading-none">
 					<p class="text-brand-text/75">PLAYING:</p>
-					<p class=" text-brand-text">{data.championName ?? "ryze"}</p>
+					<p class=" text-brand-text">{data.championName ?? exampleImage}</p>
 				</span>
 			</div>
 			<img class="h-8" src={visualAssets.spotlightLogo} alt="ROL" />
