@@ -6,11 +6,11 @@
 </script>
 
 <div
-	class="flex flex-col gap-5 min-h-screen w-full items-center justify-center bg-brand-primary-3 px-4 py-10 text-brand-text"
+	class="flex min-h-screen w-full flex-col items-center justify-center gap-5 bg-brand-primary-3 px-4 py-10 text-brand-text"
 >
-	<Heading title={"Oops, something went wrong"} body={`${page.status}: ${page.error?.message}`} />
+	<Heading title={'Oops, something went wrong'} body={`${page.status}: ${page.error?.message}`} />
 
-    <Notice message={"Please check your submitted matchID and try again"} />
-    
-    <Hyperlink buttonText={"Try again"} endpoint={"/"} />
+	<Notice message={'Please check your submitted matchID and try again'} />
+
+	<Hyperlink buttonText={'Try again'} endpoint={'/'} />
 </div>

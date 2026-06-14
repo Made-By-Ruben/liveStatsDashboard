@@ -4,10 +4,10 @@ export class ActiveVisual {
 	status = $state<ConnectionStatus>('closed');
 	data = $state<any>(undefined);
 	error = $state<unknown | Error>(null);
-	visualName = $state<string | number | unknown>();
-	visualType = $state<'default' | 'custom' | unknown>();
+	visualName = $state<string | number | null>();
+	visualType = $state<'defaultVisuals' | 'customVisuals' | null>();
 
-	constructor(visualName: string | number, visualType: 'default' | 'custom') {
+	constructor(visualName: string | number, visualType: 'defaultVisuals' | 'customVisuals') {
 		this.visualName = visualName;
 		this.visualType = visualType;
 	}

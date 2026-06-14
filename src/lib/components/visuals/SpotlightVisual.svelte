@@ -7,7 +7,6 @@
 	let { data, visualStyle } = $props();
 
 	let visualAssets = $derived(getVisualAssets(visualStyle));
-
 </script>
 
 <div class="flex h-full w-full" transition:fade>

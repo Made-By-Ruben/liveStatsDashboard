@@ -34,18 +34,15 @@ const nlcRoleIcons: Record<string, string> = {
 	Support: nlcSupport
 };
 
-type VisualAssets = 	{
-		logo: string;
-		background: string;
-		backgroundCropped: string;
-		spotlightLogo: string;
-		roleIcons: Record<string, string>;
-	}
+type VisualAssets = {
+	logo: string;
+	background: string;
+	backgroundCropped: string;
+	spotlightLogo: string;
+	roleIcons: Record<string, string>;
+};
 
-type VisualAssetsSet = Record<
-	'NLC' | 'ROL',
-    VisualAssets
->;
+type VisualAssetsSet = Record<'NLC' | 'ROL', VisualAssets>;
 
 export const visualAssets: VisualAssetsSet = {
 	NLC: {

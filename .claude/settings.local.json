@@ -1,13 +1,11 @@
 {
-  "permissions": {
-    "allow": [
-      "mcp__svelte__list-sections",
-      "mcp__svelte__get-documentation",
-      "mcp__svelte__svelte-autofixer"
-    ]
-  },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "svelte"
-  ]
+	"permissions": {
+		"allow": [
+			"mcp__svelte__list-sections",
+			"mcp__svelte__get-documentation",
+			"mcp__svelte__svelte-autofixer"
+		]
+	},
+	"enableAllProjectMcpServers": true,
+	"enabledMcpjsonServers": ["svelte"]
 }

@@ -1,11 +1,15 @@
 <script lang="ts">
-	import { getVisualAssets } from "$lib/visualAssetsConfig";
+	import { getVisualAssets } from '$lib/visualAssetsConfig';
 
-	let { onComplete, onCurtainsMeet, visualStyle }: { onComplete: () => void, onCurtainsMeet: () => void, visualStyle: string | undefined } = $props();
+	let {
+		onComplete,
+		onCurtainsMeet,
+		visualStyle
+	}: { onComplete: () => void; onCurtainsMeet: () => void; visualStyle: string | undefined } =
+		$props();
 
 	let logo = $derived(getVisualAssets(visualStyle).logo);
 </script>
-
 
 <div
 	class={['relative flex h-full w-full']}
@@ -15,16 +19,16 @@
 	}}
 >
 	<div
-		class='absolute h-full w-1 bg-brand-highlight-1 opacity-0 drop-shadow-2xl drop-shadow-brand-highlight-1 highlighter'
+		class="highlighter absolute h-full w-1 bg-brand-highlight-1 opacity-0 drop-shadow-2xl drop-shadow-brand-highlight-1"
 	></div>
 	<div class="relative z-10 w-1/2">
-		<div class='h-full w-0 transform-gpu bg-brand-highlight-1 curtainsLeft'></div>
+		<div class="curtainsLeft h-full w-0 transform-gpu bg-brand-highlight-1"></div>
 	</div>
-	<div class='absolute flex h-full w-full items-center justify-center opacity-0 logo'>
+	<div class="logo absolute flex h-full w-full items-center justify-center opacity-0">
 		<img class="h-full p-10" src={logo} alt={visualStyle} />
 	</div>
 	<div class="flex w-1/2 flex-row-reverse">
-		<div class='h-full w-0 transform-gpu bg-brand-highlight-1 curtainsRight'></div>
+		<div class="curtainsRight h-full w-0 transform-gpu bg-brand-highlight-1"></div>
 	</div>
 </div>
 

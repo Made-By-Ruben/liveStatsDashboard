@@ -5,13 +5,16 @@
 	import SocialsVisual from './SocialsVisual.svelte';
 	import type { ActiveVisual } from '$lib/activeVisual.svelte';
 
-	let { visual, visualStyle }: { visual: ActiveVisual | undefined, visualStyle: string | undefined } = $props();
+	let {
+		visual,
+		visualStyle
+	}: { visual: ActiveVisual | undefined; visualStyle: string | undefined } = $props();
 </script>
 
 <div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
 	{#if visual?.status === 'success'}
 		{#if visual.visualType === 'customVisuals'}
-			<SpotlightVisual data={visual.data.data} visualStyle={visualStyle}/>
+			<SpotlightVisual data={visual.data.data} {visualStyle} />
 		{:else}
 			<TotalDamageDone data={visual.data.data} />
 		{/if}

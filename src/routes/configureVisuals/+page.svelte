@@ -42,24 +42,31 @@
 	});
 </script>
 
-<main class="min-h-screen w-full bg-brand-primary-3 py-5 px-10 flex-col justify-center items-center">
+<main
+	class="min-h-screen w-full flex-col items-center justify-center bg-brand-primary-3 px-10 py-5"
+>
 	<div class="flex h-[10%] w-full items-center justify-between text-brand-off-white">
 		<div>
-			<h1 class="font-heading text-5xl">{editVisual ? "Editing" : "Your Visuals"}</h1>
-			<h2 class="font-label text-2xl italic">{editVisual ? "Configure this visual": "10 configured visuals - click any one to edit it"}</h2>
+			<h1 class="font-heading text-5xl">{editVisual ? 'Editing' : 'Your Visuals'}</h1>
+			<h2 class="font-label text-2xl italic">
+				{editVisual ? 'Configure this visual' : '10 configured visuals - click any one to edit it'}
+			</h2>
 		</div>
 		{#if !editVisual}
 			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => createCompanionConfig()}
 				>Export Bitfocus Configuration</button
 			>
 		{:else}
-			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => editVisual = false}
+			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => (editVisual = false)}
 				>Back to overview</button
 			>
 		{/if}
 	</div>
 	{#if !editVisual}
-		<div class="grid h-[90%] grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" in:fade={{ duration: 200 }}>
+		<div
+			class="grid h-[90%] grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4"
+			in:fade={{ duration: 200 }}
+		>
 			{#each data.visuals as visual}
 				<button
 					onclick={() => handleClick(visual)}
@@ -86,7 +93,7 @@
 	{:else if editVisual && selectedVisual !== null}
 		<form
 			method="POST"
-			class="flex flex-col items-center gap-5 border border-brand-border text-brand-off-white p-10"
+			class="flex flex-col items-center gap-5 border border-brand-border p-10 text-brand-off-white"
 			in:fade={{ duration: 200 }}
 			use:enhance={() => {
 				loading = true;
@@ -121,10 +128,7 @@
 
 				<div class="flex w-full gap-2">
 					<label class="inputLabel w-1/2"
-						>Team: <select
-							bind:value={selectedVisual.visualConfig.selectedTeam}
-							class="input"
-						>
+						>Team: <select bind:value={selectedVisual.visualConfig.selectedTeam} class="input">
 							{#each data.teams as team}
 								<option value={team.value}>{team.label}</option>
 							{/each}
@@ -174,7 +178,9 @@
 				{#if loading}
 					<div in:fade={{ duration: 200 }} class="ctaButton">Loading...</div>
 				{:else}
-					<button in:fade={{ duration: 200 }} type="submit" class="ctaButton"> Update Visual </button>
+					<button in:fade={{ duration: 200 }} type="submit" class="ctaButton">
+						Update Visual
+					</button>
 				{/if}
 			</div>
 		</form>
@@ -185,7 +191,7 @@
 	@reference "../layout.css";
 
 	.input {
-		@apply border border-brand-border px-1 text-xl font-label ;
+		@apply border border-brand-border px-1 font-label text-xl;
 	}
 
 	.inputLabel {

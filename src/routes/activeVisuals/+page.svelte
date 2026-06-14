@@ -7,7 +7,10 @@
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
 	import { onMount } from 'svelte';
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
-	type CompanionEvent = { visualType: 'default' | 'custom'; visualName: number | string };
+	type CompanionEvent = {
+		visualType: 'defaultVisuals' | 'customVisuals';
+		visualName: number | string;
+	};
 	type ActiveChamps = {
 		championName: string;
 	}[];
@@ -35,24 +38,26 @@
 		});
 
 		stream.addEventListener('refreshAssets', (e: MessageEvent) => {
-			const data = JSON.parse(e.data)
+			const data = JSON.parse(e.data);
 			cacheImages(data.participants);
 		});
 
-		return () => stream.close()
+		return () => stream.close();
 	});
 
 	onMount(() => {
 		visualStyle = getVisualStyle();
 	});
 
+	$inspect(visual?.visualType);
+
 	function cacheImages(data: ActiveChamps) {
-		data.forEach(champ => {
-			const portrait = new Image()
-			portrait.src = `${PUBLIC_CDN_URL}${champ.championName}/square`
+		data.forEach((champ) => {
+			const portrait = new Image();
+			portrait.src = `${PUBLIC_CDN_URL}${champ.championName}/square`;
 
 			const splash = new Image();
-			splash.src = `${PUBLIC_CDN_URL}${champ.championName}/splash-art`
+			splash.src = `${PUBLIC_CDN_URL}${champ.championName}/splash-art`;
 		});
 	}
 </script>

@@ -1,11 +1,13 @@
 <script lang="ts">
 	let { stats }: { stats: string[] } = $props();
 
-	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png'
-	import magicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png'
+	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png';
+	import magicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png';
 </script>
 
-<div class="flex h-[10%] w-full items-center justify-center font-label border-t border-brand-border">
+<div
+	class="flex h-[10%] w-full items-center justify-center border-t border-brand-border font-label"
+>
 	{#each stats as stat, i}
 		<span
 			class="flex w-1/6 items-center justify-center text-xs font-bold tracking-widest text-brand-highlight-1 uppercase"

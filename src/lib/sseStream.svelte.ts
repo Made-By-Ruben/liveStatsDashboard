@@ -11,8 +11,8 @@ export class SseConnection {
 		this.connection = new EventSource(url);
 		this.connection.onerror = (ev) => {
 			this.error = ev;
-			this.status = 'error'
-		}
+			this.status = 'error';
+		};
 		this.connection.onopen = () => (this.status = 'open');
 		this.connection.onmessage = (ev) => {
 			try {

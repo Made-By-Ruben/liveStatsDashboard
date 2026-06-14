@@ -10,15 +10,15 @@
 	let editing = $state(false);
 	let confirmed = $state(false);
 	let matchId = $state();
-	let visualStyle = $state("ROL")
+	let visualStyle = $state('ROL');
 
 	$effect(() => {
-		localStorage.setItem('visualStyle', form?.visualStyle ?? "ROL");
+		localStorage.setItem('visualStyle', form?.visualStyle ?? 'ROL');
 	});
 
-	onMount(()=>{
+	onMount(() => {
 		visualStyle = getVisualStyle();
-	})
+	});
 </script>
 
 <form

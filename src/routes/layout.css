@@ -2,35 +2,35 @@
 @custom-variant nlc ($:where(.nlc, .nlc *));
 
 @font-face {
-  font-family: 'Aileron';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('$lib/assets/nlc/fonts/Aileron-Regular.woff2') format('woff2');
+	font-family: 'Aileron';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Aileron-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Aileron';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('$lib/assets/nlc/fonts/Aileron-Bold.woff2') format('woff2');
+	font-family: 'Aileron';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Aileron-Bold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Meltmino';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('$lib/assets/nlc/fonts/Meltmino-Regular.woff2') format('woff2');
+	font-family: 'Meltmino';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Meltmino-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Meltmino';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('$lib/assets/nlc/fonts/Meltmino-Bold.woff2') format('woff2');
+	font-family: 'Meltmino';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Meltmino-Bold.woff2') format('woff2');
 }
 /* In order to change the styles in this application, 
 consider changing these global values. */
@@ -61,8 +61,8 @@ consider changing these global values. */
 	--color-brand-highlight-1: #fff7e9;
 	--color-brand-off-white: #fff7e9;
 	--color-brand-text: #fff7e9;
-	--color-brand-secondary-1: #C7B598;
-	--color-brand-secondary-2: #7A6B53;
+	--color-brand-secondary-1: #c7b598;
+	--color-brand-secondary-2: #7a6b53;
 	--color-brand-border: #7a6b53;
 	--font-heading: 'Bebas Neue', sans-serif;
 	--font-body: 'Aileron', sans-serif;
