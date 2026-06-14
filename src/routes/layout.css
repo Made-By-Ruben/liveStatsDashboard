@@ -1,18 +1,51 @@
 @import 'tailwindcss';
+@custom-variant nlc ($:where(.nlc, .nlc *));
 
-/* In order to change some of the recurring values in this application, 
+@font-face {
+	font-family: 'Aileron';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Aileron-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Aileron';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Aileron-Bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Meltmino';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Meltmino-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Meltmino';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('$lib/assets/nlc/fonts/Meltmino-Bold.woff2') format('woff2');
+}
+/* In order to change the styles in this application, 
 consider changing these global values. */
 
 @theme {
-	--color-night: #0c0c0c;
-	--color-brand-blue: #0066ff;
-	--color-egyptian: #0c38a5;
-	--color-royal: #092660;
-	--color-lime: #d3fe31;
-	--color-off-white: #fcfcfc;
-	--color-brand-orange: #ff6600;
-	--color-brand-orange-2: #d65600;
-	--color-border-blue: #0b37a5;
+	--color-brand-dark-1: #0c0c0c;
+	--color-brand-primary-1: #0066ff;
+	--color-brand-primary-2: #0c38a5;
+	--color-brand-primary-3: #092660;
+	--color-brand-highlight-1: #d3fe31;
+	--color-brand-off-white: #fcfcfc;
+	--color-brand-text: #fcfcfc;
+	--color-brand-secondary-1: #ff6600;
+	--color-brand-secondary-2: #d65600;
+	--color-brand-border: #0b37a5;
 	--font-heading: 'Bebas Neue', sans-serif;
 	--font-body: 'Space Grotesk', sans-serif;
 	--font-label: 'Rajdhani', sans-serif;
@@ -20,12 +53,30 @@ consider changing these global values. */
 	--container-visual-width: 1339px;
 }
 
+.nlc {
+	--color-brand-dark-1: #0a001a;
+	--color-brand-primary-1: #6700ff;
+	--color-brand-primary-2: #43108e;
+	--color-brand-primary-3: #0a001a;
+	--color-brand-highlight-1: #fff7e9;
+	--color-brand-off-white: #fff7e9;
+	--color-brand-text: #fff7e9;
+	--color-brand-secondary-1: #c7b598;
+	--color-brand-secondary-2: #7a6b53;
+	--color-brand-border: #7a6b53;
+	--font-heading: 'Bebas Neue', sans-serif;
+	--font-body: 'Aileron', sans-serif;
+	--font-label: 'Meltmino', sans-serif;
+}
+
 /* Current config for stream:
 	Aspect Ratio:
 		Total width: 1920px
 		Total height: 1080px
-	Lower HUD:
-		Height: 250px (OLD WORKING WAS: 258px)
+
+	Lower HUD (scoreboard / minimap etc.)
+		Height: 250px 
 		left el width: 302px
-		middle el width: 1338px
-		right el width: 280px   */
+		middle el width: 1338px (Place for visuals)
+		right el width: 280px  
+*/

@@ -2,8 +2,8 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 
-	import physicalDmgIcon from '$lib/assets/StatModsIcons/StatModsPhysical DamageIcon.png'
-	import magicalDmgIcon from '$lib/assets/StatModsIcons/StatModsMagic DamageIcon.png'
+	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png';
+	import magicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png';
 
 	let { isRight, barWidth, physicalPct, magicPct, truePct, index } = $props();
 
@@ -34,20 +34,28 @@
 	});
 </script>
 
-<div class="flex h-full w-full border border-border-blue bg-royal {isRight ? ' flex-row-reverse pl-1' : 'pr-1'}">
+<div
+	class="flex h-full w-full border border-brand-border bg-brand-primary-3 {isRight
+		? ' flex-row-reverse pl-1'
+		: 'pr-1'}"
+>
 	<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
 		<div
-			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange flex-row-reverse' : 'bg-brand-blue'}"
+			class="z-20 flex h-full items-center overflow-hidden {isRight
+				? 'flex-row-reverse bg-brand-secondary-1'
+				: 'bg-brand-primary-1'}"
 			style="width: {physicalPctAnimation.current}%;"
 		>
-			<img class="size-5 absolute" src={physicalDmgIcon} alt="PHYSICAL" />
+			<img class="absolute size-5" src={physicalDmgIcon} alt="PHYSICAL" />
 		</div>
 		<div
-			class="flex items-center h-full overflow-hidden z-20 {isRight ? 'bg-brand-orange-2 flex-row-reverse' : 'bg-blue-800'}"
+			class="z-20 flex h-full items-center overflow-hidden {isRight
+				? 'flex-row-reverse bg-brand-secondary-2'
+				: 'bg-brand-primary-2'}"
 			style="width: {magicPctAnimation.current}%;"
 		>
-			<img class="size-5 absolute" src={magicalDmgIcon} alt="MAGIC" />
+			<img class="absolute size-5" src={magicalDmgIcon} alt="MAGIC" />
 		</div>
-		<div class="h-full bg-off-white z-10" style="width: {truePctAnimation.current}%;"></div>
+		<div class="z-10 h-full bg-brand-off-white" style="width: {truePctAnimation.current}%;"></div>
 	</div>
 </div>

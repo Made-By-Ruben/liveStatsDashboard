@@ -1,0 +1,101 @@
+<script lang="ts">
+	import { getVisualAssets } from '$lib/visualAssetsConfig';
+
+	let {
+		onComplete,
+		onCurtainsMeet,
+		visualStyle
+	}: { onComplete: () => void; onCurtainsMeet: () => void; visualStyle: string | undefined } =
+		$props();
+
+	let logo = $derived(getVisualAssets(visualStyle).logo);
+</script>
+
+<div
+	class={['relative flex h-full w-full']}
+	onanimationend={(ev) => {
+		ev.animationName.includes('flyIn') ? onCurtainsMeet() : null;
+		ev.animationName.includes('fadeInOut') ? onComplete() : null;
+	}}
+>
+	<div
+		class="highlighter absolute h-full w-1 bg-brand-highlight-1 opacity-0 drop-shadow-2xl drop-shadow-brand-highlight-1"
+	></div>
+	<div class="relative z-10 w-1/2">
+		<div class="curtainsLeft h-full w-0 transform-gpu bg-brand-highlight-1"></div>
+	</div>
+	<div class="logo absolute flex h-full w-full items-center justify-center opacity-0">
+		<img class="h-full p-10" src={logo} alt={visualStyle} />
+	</div>
+	<div class="flex w-1/2 flex-row-reverse">
+		<div class="curtainsRight h-full w-0 transform-gpu bg-brand-highlight-1"></div>
+	</div>
+</div>
+
+<style>
+	.curtainsLeft,
+	.curtainsRight {
+		animation:
+			flyIn 500ms cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards,
+			flyOut 500ms 500ms cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+	}
+
+	.logo {
+		animation-delay: 800ms;
+		animation-duration: 1200ms;
+		animation-name: fadeInOut;
+		animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
+	.highlighter {
+		animation: swipeLTR;
+		animation-delay: 800ms;
+		animation-duration: 1000ms;
+		animation-timing-function: ease-in-out;
+	}
+
+	@keyframes swipeLTR {
+		0% {
+			left: 0;
+		}
+		50% {
+			opacity: 50%;
+		}
+		100% {
+			left: 100%;
+		}
+	}
+
+	@keyframes flyIn {
+		0% {
+			width: 0%;
+		}
+		100% {
+			width: 100%;
+		}
+	}
+
+	@keyframes flyOut {
+		0% {
+			width: 100%;
+		}
+		100% {
+			width: 0%;
+		}
+	}
+
+	@keyframes fadeInOut {
+		0% {
+			scale: 0;
+		}
+
+		50% {
+			scale: 100%;
+			opacity: 100%;
+		}
+
+		100% {
+			scale: 0;
+			opacity: 0%;
+		}
+	}
+</style>

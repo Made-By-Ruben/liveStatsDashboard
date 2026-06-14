@@ -14,6 +14,9 @@
 	});
 </script>
 
-<div class="font-heading text-white line-clamp-1" style="font-size: var(--font-size); line-height: 1;">
+<div
+	class="line-clamp-1 font-heading text-brand-text"
+	style="font-size: var(--font-size); line-height: 1;"
+>
 	{Math.floor(statAnimated.current).toLocaleString()}
 </div>
