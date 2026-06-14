@@ -16,7 +16,7 @@
 	}[];
 
 	let visualState = $state<VisualState>(null);
-	let bgVisable = $state(false);
+	let bgVisible = $state(false);
 	let visual = $state<ActiveVisual>();
 	let visualStyle = $state<string>();
 
@@ -49,8 +49,6 @@
 		visualStyle = getVisualStyle();
 	});
 
-	$inspect(visual?.visualType);
-
 	function cacheImages(data: ActiveChamps) {
 		data.forEach((champ) => {
 			const portrait = new Image();
@@ -66,8 +64,8 @@
 	<div
 		class={[
 			'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
-			bgVisable && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
-			bgVisable && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
+			bgVisible && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
+			bgVisible && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
 		]}
 	>
 		{#if visualState === 'animateIn'}
@@ -76,7 +74,7 @@
 					visualState = 'live';
 				}}
 				onCurtainsMeet={() => {
-					bgVisable = true;
+					bgVisible = true;
 				}}
 				{visualStyle}
 			/>
@@ -90,7 +88,7 @@
 					visualState = null;
 				}}
 				onCurtainsMeet={() => {
-					bgVisable = false;
+					bgVisible = false;
 				}}
 			/>
 		{/if}

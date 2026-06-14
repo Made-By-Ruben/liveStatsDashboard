@@ -19,7 +19,6 @@ export class ActiveVisual {
 			if (!apiResponse.ok) {
 				this.status = 'error';
 				this.error = await apiResponse.json();
-				console.log(this.error);
 			} else {
 				this.data = await apiResponse.json();
 				this.status = 'success';
@@ -27,7 +26,6 @@ export class ActiveVisual {
 		} catch (error) {
 			this.status = 'error';
 			this.error = error;
-			console.log(error);
 		}
 	}
 

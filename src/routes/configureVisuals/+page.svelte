@@ -43,7 +43,7 @@
 </script>
 
 <main
-	class="min-h-screen w-full flex-col items-center justify-center bg-brand-primary-3 px-10 py-5"
+	class="min-h-screen w-full bg-brand-primary-3 px-10 py-5"
 >
 	<div class="flex h-[10%] w-full items-center justify-between text-brand-off-white">
 		<div>
