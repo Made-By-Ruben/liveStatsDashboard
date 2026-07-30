@@ -145,14 +145,13 @@
 					>
 				</div>
 
-				{#if !editStats}
-					<button onclick={() => (editStats = true)} in:fade={{ duration: 200 }}>
-						Select Stats
-					</button>
-				{:else}
-					<div class="w-fit border border-brand-border px-5 shadow-2xl" in:fade={{ duration: 200 }}>
-						<button onclick={() => (editStats = false)}>Save</button>
-						<ul class="max-h-32 overflow-scroll">
+				<button class="text-left w-1/3 cursor-pointer rounded border-brand-highlight-1/20 bg-brand-primary-1 px-4 py-1 font-heading text-brand-off-white font-" type="button" onclick={() => (editStats = !editStats)} in:fade={{ duration: 200 }}>
+					Select Stats
+				</button>
+
+				{#if editStats}
+					<div class="max-w-1/3 border border-brand-border overflow-scroll p-5 shadow-2xl" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>	
+						<ul class="font-label">
 							{#each data.allowedStats as allowedStat}
 								{@const selected = selectedVisual.visualConfig.requestedStats.includes(
 									allowedStat.value
