@@ -32,14 +32,27 @@ export const allowedStats = [
 	{ value: 'TIME_CCING_OTHERS', label: 'Time CCing Others' }
 ];
 export const teams = [
-	{ value: 'BAN', label: 'BAN' },
-	{ value: 'DYN', label: 'DYN' },
-	{ value: 'FEC', label: 'FEC' },
-	{ value: 'MCON', label: 'MCON' },
-	{ value: 'MYTH', label: 'MYTH' },
-	{ value: 'OUAT', label: 'OUAT' },
-	{ value: 'SNSH', label: 'SNSH' },
-	{ value: 'ZNT', label: 'ZNT' }
+	{ value: 'BAN', label: 'ROL | BAN' },
+	{ value: 'DYN', label: 'ROL | DYN' },
+	{ value: 'FEC', label: 'ROL | FEC' },
+	{ value: 'MCON', label: 'ROL | MCON' },
+	{ value: 'MYTH', label: 'ROL | MYTH' },
+	{ value: 'OUAT', label: 'ROL | OUAT' },
+	{ value: 'SNSH', label: 'ROL | SNSH' },
+	{ value: 'BROD', label: 'NLC | BROD' },
+	{ value: 'SE', label: 'NLC | SE' },
+	{ value: 'DMG', label: 'NLC | DMG' },
+	{ value: 'LEO', label: 'NLC | LEO' },
+	{ value: 'RG', label: 'NLC | RG' },
+	{ value: 'B2U', label: 'NLC | ABV' },
+	{ value: 'AP', label: 'NLC | AP' },
+	{ value: 'BDG', label: 'NLC | BDG' },
+	{ value: 'VER', label: 'NLC | VER' },
+	{ value: 'RUD', label: 'NLC | RUD' },
+	{ value: 'LLS', label: 'NLC | LLS' },
+	{ value: 'VES', label: 'NLC | VES' },
+	{ value: 'DEER', label: 'NLC | DEER' },
+	{ value: 'EA', label: 'NLC | EA' }
 ];
 export const roles = [
 	{ value: 'Top', label: 'Top lane' },
