@@ -31,7 +31,7 @@ A SvelteKit application that renders **live broadcast graphics** for GameWaves L
 
 | Concern        | Choice                                  |
 | -------------- | --------------------------------------- |
-| Framework      | SvelteKit 2 + Svelte 5 (runes)          |
+| Framework      | SvelteKit   + Svelte 5                  |
 | Language       | TypeScript                              |
 | Styling        | Tailwind CSS v4                         |
 | Build tool     | Vite 7                                  |
