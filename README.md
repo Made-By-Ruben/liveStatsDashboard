@@ -2,7 +2,7 @@
 
 A SvelteKit application that renders **live broadcast graphics** for GameWaves League of Legends esports productions. It connects to a live match through an external stats backend, streams in-game data over Server-Sent Events (SSE), and drives on-air visuals (player spotlights, team damage breakdowns, socials) with animated stinger transitions — branded per league.
 
-> Built with Svelte 5 (runes mode), SvelteKit 2, TypeScript, and Tailwind CSS v4.
+> Built with Svelte 5, SvelteKit, TypeScript, and Tailwind CSS v4.
 
 ---
 
