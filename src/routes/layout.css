@@ -69,6 +69,18 @@ consider changing these global values. */
 	--font-label: 'Meltmino', sans-serif;
 }
 
+.ctaButton {
+	@apply cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1;
+}
+
+.input {
+	@apply border border-brand-border px-1 font-label text-xl;
+}
+
+.inputLabel {
+	@apply flex flex-col font-heading text-3xl;
+}
+
 /* Current config for stream:
 	Aspect Ratio:
 		Total width: 1920px

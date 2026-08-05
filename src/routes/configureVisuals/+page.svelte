@@ -6,6 +6,12 @@
 	import EditVisual from '$lib/components/visuals/EditVisual.svelte';
 	import { onMount } from 'svelte';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle';
+	import Header from './components/Header.svelte';
+	import VisualOverview from './components/VisualOverview.svelte';
+	import UpdateVisualBtn from './components/UpdateVisualBtn.svelte';
+	import EditStatsMenu from './components/EditStatsMenu.svelte';
+	import SelectStats from './components/SelectStats.svelte';
+	import TeamRoleSelection from './components/TeamRoleSelection.svelte';
 
 	let { data }: PageProps = $props();
 	let editVisual = $state(false);
@@ -14,7 +20,7 @@
 	let loading = $state(false);
 	let visualStyle = $state<string>();
 
-	function handleClick(visual: Visual) {
+	function visualClicked(visual: Visual) {
 		editVisual = true;
 		selectedVisual = visual;
 	}
@@ -34,7 +40,7 @@
 	}
 
 	function createCompanionConfig() {
-		// TODO
+		console.log('To Do');
 	}
 
 	onMount(() => {
@@ -43,51 +49,14 @@
 </script>
 
 <main class="min-h-screen w-full bg-brand-primary-3 px-10 py-5">
-	<div class="flex h-[10%] w-full items-center justify-between text-brand-off-white">
-		<div>
-			<h1 class="font-heading text-5xl">{editVisual ? 'Editing' : 'Your Visuals'}</h1>
-			<h2 class="font-label text-2xl italic">
-				{editVisual ? 'Configure this visual' : '10 configured visuals - click any one to edit it'}
-			</h2>
-		</div>
-		{#if !editVisual}
-			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => createCompanionConfig()}
-				>Export Bitfocus Configuration</button
-			>
-		{:else}
-			<button in:fade={{ duration: 200 }} class="ctaButton" onclick={() => (editVisual = false)}
-				>Back to overview</button
-			>
-		{/if}
-	</div>
+	<Header
+		{editVisual}
+		onExportConfig={createCompanionConfig}
+		onCloseVisual={() => (editVisual = false)}
+	/>
+
 	{#if !editVisual}
-		<div
-			class="grid h-[90%] grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4"
-			in:fade={{ duration: 200 }}
-		>
-			{#each data.visuals as visual}
-				<button
-					onclick={() => handleClick(visual)}
-					class="group flex cursor-pointer flex-col items-baseline justify-between rounded border border-brand-border p-5 text-brand-off-white transition-all hover:border-brand-highlight-1 hover:shadow-2xl"
-				>
-					<div class="flex w-full justify-between font-label">
-						<p class="">{'Visual: ' + visual.visualID}</p>
-						<p>{visual.visualConfig.selectedTeam} {visual.visualConfig.selectedRole}</p>
-					</div>
-
-					<h1 class="font-heading text-3xl font-bold">{visual.visualLabel}</h1>
-
-					<div class="flex w-full justify-between font-label">
-						<p class="rounded bg-brand-highlight-1 px-5 font-label text-brand-dark-1">
-							Stats: {visual.visualConfig.requestedStats.length}
-						</p>
-						<p class="invisible font-label text-xs text-brand-off-white/80 group-hover:visible">
-							Edit
-						</p>
-					</div>
-				</button>
-			{/each}
-		</div>
+		<VisualOverview visuals={data.visuals} onVisualClick={visualClicked} />
 	{:else if editVisual && selectedVisual !== null}
 		<form
 			method="POST"
@@ -95,13 +64,14 @@
 			in:fade={{ duration: 200 }}
 			use:enhance={() => {
 				loading = true;
-				return async ({ result, update }) => {
+				return async ({ update }) => {
 					loading = false;
 					editVisual = false;
-					update();
+					await update();
 				};
 			}}
 		>
+			<input hidden name="selectedVisual" value={JSON.stringify(selectedVisual)} type="text" />
 			<div
 				class={[
 					'flex h-62.25 w-334.25 flex-col border border-brand-border',
@@ -111,9 +81,8 @@
 			>
 				<EditVisual {visualStyle} data={selectedVisual.visualConfig} />
 			</div>
-			<div class="flex w-full flex-col gap-5">
-				<input hidden name="selectedVisual" value={JSON.stringify(selectedVisual)} type="text" />
 
+			<div class="flex w-full flex-col gap-5">
 				<label class="inputLabel"
 					>Visual Name: <input
 						class="input"
@@ -124,93 +93,23 @@
 					/></label
 				>
 
-				<div class="flex w-full gap-2">
-					<label class="inputLabel w-1/2"
-						>Team: <select bind:value={selectedVisual.visualConfig.selectedTeam} class="input">
-							{#each data.teams as team}
-								<option value={team.value}>{team.label}</option>
-							{/each}
-						</select></label
-					>
+				<TeamRoleSelection roles={data.roles} teams={data.teams} bind:selectedTeam={selectedVisual.visualConfig.selectedTeam} bind:selectedRole={selectedVisual.visualConfig.selectedRole} />
 
-					<label class="inputLabel w-1/2"
-						>Which role for {selectedVisual.visualConfig.selectedTeam}?:
-						<select bind:value={selectedVisual.visualConfig.selectedRole} class="input">
-							{#each data.roles as role}
-								<option value={role.value}>{role.label}</option>
-							{/each}
-						</select></label
-					>
-				</div>
-
-				<div class="flex gap-2">
-					<button
-						class="font- w-1/3 cursor-pointer rounded border-brand-highlight-1/20 bg-brand-primary-1 px-4 py-1 text-left font-heading text-brand-off-white"
-						type="button"
-						onclick={() => (editStats = !editStats)}
-						in:fade={{ duration: 200 }}
-					>
-						Select Stats
-					</button>
-
-					<p class="italic">
-						Selected stats: {selectedVisual.visualConfig.requestedStats.length}/4
-					</p>
-				</div>
+				<SelectStats
+					requestedStats={selectedVisual.visualConfig.requestedStats}
+					onFinishEdit={() => (editStats = !editStats)}
+				/>
 
 				{#if editStats}
-					<div
-						class="max-w-1/3 overflow-scroll border border-brand-border p-5 shadow-2xl"
-						in:fade={{ duration: 200 }}
-						out:fade={{ duration: 200 }}
-					>
-						<ul class="font-label">
-							{#each data.allowedStats as allowedStat}
-								{@const selected = selectedVisual.visualConfig.requestedStats.includes(
-									allowedStat.value
-								)}
-								{@const isBlocked =
-									selectedVisual.visualConfig.requestedStats.length >= 4 && !selected}
-								<li>
-									<label>
-										<input
-											type="checkbox"
-											disabled={isBlocked}
-											checked={selected}
-											onchange={() => toggleStat(allowedStat.value)}
-										/>
-										{allowedStat.label}
-									</label>
-								</li>
-							{/each}
-						</ul>
-					</div>
+					<EditStatsMenu
+						allowedStats={data.allowedStats}
+						requestedStats={selectedVisual.visualConfig.requestedStats}
+						onToggleStat={toggleStat}
+					/>
 				{/if}
 
-				{#if loading}
-					<div in:fade={{ duration: 200 }} class="ctaButton">Loading...</div>
-				{:else}
-					<button in:fade={{ duration: 200 }} type="submit" class="ctaButton">
-						Update Visual
-					</button>
-				{/if}
+				<UpdateVisualBtn {loading} />
 			</div>
 		</form>
 	{/if}
 </main>
-
-<style>
-	@reference "../layout.css";
-
-	.input {
-		@apply border border-brand-border px-1 font-label text-xl;
-	}
-
-	.inputLabel {
-		@apply flex flex-col font-heading text-3xl;
-	}
-
-	.ctaButton {
-		@apply cursor-pointer rounded border-brand-highlight-1/20 bg-brand-highlight-1 px-4 py-1 text-center font-label text-2xl font-bold text-brand-dark-1;
-	}
-</style>
