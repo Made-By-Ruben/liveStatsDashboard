@@ -5,9 +5,9 @@ export class ActiveVisual {
 	data = $state<any>(undefined);
 	error = $state<unknown | Error>(null);
 	visualName = $state<string | number | null>();
-	visualType = $state<'defaultVisuals' | 'customVisuals' | null>();
+	visualType = $state<'defaultVisuals' | 'customVisuals' | 'postGame' | null>();
 
-	constructor(visualName: string | number, visualType: 'defaultVisuals' | 'customVisuals') {
+	constructor(visualName: string | number, visualType: 'defaultVisuals' | 'customVisuals' | 'postGame') {
 		this.visualName = visualName;
 		this.visualType = visualType;
 	}

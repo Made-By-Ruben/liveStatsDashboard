@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
 	type CompanionEvent = {
-		visualType: 'defaultVisuals' | 'customVisuals';
+		visualType: 'defaultVisuals' | 'customVisuals' | 'postGame';
 		visualName: number | string;
 	};
 	type ActiveChamps = {
