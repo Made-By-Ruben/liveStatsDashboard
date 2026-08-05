@@ -42,9 +42,7 @@
 	});
 </script>
 
-<main
-	class="min-h-screen w-full bg-brand-primary-3 px-10 py-5"
->
+<main class="min-h-screen w-full bg-brand-primary-3 px-10 py-5">
 	<div class="flex h-[10%] w-full items-center justify-between text-brand-off-white">
 		<div>
 			<h1 class="font-heading text-5xl">{editVisual ? 'Editing' : 'Your Visuals'}</h1>
@@ -145,14 +143,28 @@
 					>
 				</div>
 
-				{#if !editStats}
-					<button onclick={() => (editStats = true)} in:fade={{ duration: 200 }}>
+				<div class="flex gap-2">
+					<button
+						class="font- w-1/3 cursor-pointer rounded border-brand-highlight-1/20 bg-brand-primary-1 px-4 py-1 text-left font-heading text-brand-off-white"
+						type="button"
+						onclick={() => (editStats = !editStats)}
+						in:fade={{ duration: 200 }}
+					>
 						Select Stats
 					</button>
-				{:else}
-					<div class="w-fit border border-brand-border px-5 shadow-2xl" in:fade={{ duration: 200 }}>
-						<button onclick={() => (editStats = false)}>Save</button>
-						<ul class="max-h-32 overflow-scroll">
+
+					<p class="italic">
+						Selected stats: {selectedVisual.visualConfig.requestedStats.length}/4
+					</p>
+				</div>
+
+				{#if editStats}
+					<div
+						class="max-w-1/3 overflow-scroll border border-brand-border p-5 shadow-2xl"
+						in:fade={{ duration: 200 }}
+						out:fade={{ duration: 200 }}
+					>
+						<ul class="font-label">
 							{#each data.allowedStats as allowedStat}
 								{@const selected = selectedVisual.visualConfig.requestedStats.includes(
 									allowedStat.value
