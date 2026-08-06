@@ -44,7 +44,7 @@ export const teams = [
 	{ value: 'DMG', label: 'NLC | DMG' },
 	{ value: 'LEO', label: 'NLC | LEO' },
 	{ value: 'RG', label: 'NLC | RG' },
-	{ value: 'B2U', label: 'NLC | ABV' },
+	{ value: 'ABV', label: 'NLC | ABV' },
 	{ value: 'AP', label: 'NLC | AP' },
 	{ value: 'BDG', label: 'NLC | BDG' },
 	{ value: 'VER', label: 'NLC | VER' },
