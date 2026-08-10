@@ -1,7 +1,17 @@
 import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import type { ApiResponse } from '$lib/server/schemas';
 import { PUBLIC_SERVER_URL } from '$env/static/public';
+
+type MatchInfo = {
+	matchLabel: string;
+	tournamentName: 'ROL' | 'NLC';
+};
+
+type ApiResponse = {
+	success: boolean;
+	message: string;
+	data: MatchInfo
+}
 
 export const load = (async ({ cookies }) => {
 	return {
@@ -18,10 +28,12 @@ export const actions = {
 		});
 
 		if (apiResponse.ok) {
-			const matchInfo = (await apiResponse.json()) as ApiResponse;
-			const visualStyle = matchInfo.data.includes('NLC') ? 'NLC' : 'ROL';
+			const response = (await apiResponse.json()) as ApiResponse;
 
-			return { success: true, matchInfo, visualStyle };
+			const matchLabel = response.data.matchLabel;
+			const visualStyle = response.data.tournamentName;
+
+			return { success: true, matchLabel, visualStyle };
 		} else return error(apiResponse.status, apiResponse.statusText);
 	}
 } satisfies Actions;

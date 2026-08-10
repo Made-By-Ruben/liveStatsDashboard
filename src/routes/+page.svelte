@@ -42,7 +42,7 @@
 				class="flex flex-col rounded-md border border-brand-border bg-brand-dark-1/40 px-4 py-3 font-body text-lg"
 			>
 				<span class="font-label text-2xl font-bold">Connected to match:</span>
-				<span class="text-brand-highlight-1">{form.matchInfo.data}</span>
+				<span class="text-brand-highlight-1">{form.matchLabel}</span>
 			</div>
 
 			<div class="flex justify-evenly">
