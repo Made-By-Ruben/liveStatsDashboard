@@ -4,6 +4,7 @@
 	import SpotlightVisual from './SpotlightVisual.svelte';
 	import SocialsVisual from './SocialsVisual.svelte';
 	import type { ActiveVisual } from '$lib/activeVisual.svelte';
+	import PostGameVisual from './PostGameVisual.svelte';
 
 	let {
 		visual,
@@ -15,6 +16,8 @@
 	{#if visual?.status === 'success'}
 		{#if visual.visualType === 'customVisuals'}
 			<SpotlightVisual data={visual.data.data} {visualStyle} />
+		{:else if visual.visualType === 'postGameVisuals'}
+			<PostGameVisual data={visual.data} {visualStyle} />
 		{:else}
 			<TotalDamageDone data={visual.data.data} />
 		{/if}

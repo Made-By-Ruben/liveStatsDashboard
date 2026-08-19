@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
 	type CompanionEvent = {
-		visualType: 'defaultVisuals' | 'customVisuals' | 'postGame';
+		visualType: 'defaultVisuals' | 'customVisuals' | 'postGameVisuals';
 		visualName: number | string;
 	};
 	type ActiveChamps = {
@@ -16,6 +16,7 @@
 	}[];
 
 	let visualState = $state<VisualState>(null);
+	let event = $state<CompanionEvent>();
 	let bgVisible = $state(false);
 	let visual = $state<ActiveVisual>();
 	let visualStyle = $state<string>();
@@ -27,6 +28,7 @@
 			if (visualState === null) {
 				visualState = 'animateIn';
 				const data = JSON.parse(e.data) as CompanionEvent;
+				event = data;
 				visual = new ActiveVisual(data.visualName, data.visualType);
 				visual.getData(PUBLIC_SERVER_URL);
 			}
@@ -61,36 +63,71 @@
 </script>
 
 <main class="relative h-270 w-480">
-	<div
-		class={[
-			'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
-			bgVisible && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
-			bgVisible && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
-		]}
-	>
-		{#if visualState === 'animateIn'}
-			<Stinger
-				onComplete={() => {
-					visualState = 'live';
-				}}
-				onCurtainsMeet={() => {
-					bgVisible = true;
-				}}
-				{visualStyle}
-			/>
-		{/if}
-		{#if visualState === 'live'}
-			<LiveVisual {visual} {visualStyle} />
-		{/if}
-		{#if visualState === 'animateOut'}
-			<StingerOut
-				onComplete={() => {
-					visualState = null;
-				}}
-				onCurtainsMeet={() => {
-					bgVisible = false;
-				}}
-			/>
-		{/if}
-	</div>
+	{#if event?.visualType === 'postGameVisuals'}
+		<div
+			class={[
+				'h-full w-full flex-col bg-cover',
+				bgVisible && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/rolBg.avif)]',
+				bgVisible && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcBg.avif)]'
+			]}
+		>
+			{#if visualState === 'animateIn'}
+				<Stinger
+					onComplete={() => {
+						visualState = 'live';
+					}}
+					onCurtainsMeet={() => {
+						bgVisible = true;
+					}}
+					{visualStyle}
+				/>
+			{/if}
+			{#if visualState === 'live'}
+				<LiveVisual {visual} {visualStyle} />
+			{/if}
+			{#if visualState === 'animateOut'}
+				<StingerOut
+					onComplete={() => {
+						visualState = null;
+					}}
+					onCurtainsMeet={() => {
+						bgVisible = false;
+					}}
+				/>
+			{/if}
+		</div>
+	{:else}
+		<div
+			class={[
+				'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
+				bgVisible && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
+				bgVisible && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
+			]}
+		>
+			{#if visualState === 'animateIn'}
+				<Stinger
+					onComplete={() => {
+						visualState = 'live';
+					}}
+					onCurtainsMeet={() => {
+						bgVisible = true;
+					}}
+					{visualStyle}
+				/>
+			{/if}
+			{#if visualState === 'live'}
+				<LiveVisual {visual} {visualStyle} />
+			{/if}
+			{#if visualState === 'animateOut'}
+				<StingerOut
+					onComplete={() => {
+						visualState = null;
+					}}
+					onCurtainsMeet={() => {
+						bgVisible = false;
+					}}
+				/>
+			{/if}
+		</div>
+	{/if}
 </main>
