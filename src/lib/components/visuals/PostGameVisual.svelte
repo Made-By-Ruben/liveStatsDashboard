@@ -1,106 +1,76 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import TotalDamageDone from './TotalDamageDone.svelte';
+	import type { ApiResponse } from '$lib/types/api';
+	import type { PostMatchStats } from '$lib/types/postGameStats';
 
-	type FinishedGameMetaInfo = {
-		gameState: 'finished';
-		winningTeam: 100 | 200;
-		gameID: number;
-		gameTimeSec: number;
-		gameTimeDisplay: string;
-	};
-
-	type LiveGameMetaInfo = {
-		gameState: 'live';
-		gameID: number;
-		gameTimeSec: number;
-		gameTimeDisplay: string;
-	};
-
-	type TeamInfo = {
-		teamName: string;
-		teamServerID: number;
-		teamScore: number;
-		teamHasWon: boolean | null;
-	};
-
-	type ScalarRow = {
-		kind: 'scalar';
-		label: string;
-		team100Value: {
-			raw: number;
-			display: string;
-		};
-		team200Value: {
-			raw: number;
-			display: string;
-		};
-	};
-
-	type BansRow = {
-		kind: 'bans';
-		label: string;
-		team100Value: string[];
-		team200Value: string[];
-	};
-
-	type KDARow = {
-		kind: 'KDA';
-		label: string;
-		team100Value: {
-			kills: number;
-			deaths: number;
-			assists: number;
-			display: string;
-		};
-		team200Value: {
-			kills: number;
-			deaths: number;
-			assists: number;
-			display: string;
-		};
-	};
-
-	type FilteredPlayerData = {
-		playerName: string;
-		championName: string;
-		teamID: number;
-		filteredStats: Record<string, number>;
-	};
-
-	type ComparisonRow = ScalarRow | BansRow | KDARow;
-
-	type GoldDiffGraph = {
-		lowestValue: number;
-		highestValue: number;
-		goldDiffValues: number[];
-	};
-
-	type PostMatchStats = {
-		meta: FinishedGameMetaInfo | LiveGameMetaInfo;
-		teams: {
-			100: TeamInfo;
-			200: TeamInfo;
-		};
-		comparisonRows: ComparisonRow[];
-		totalDamageDone: {
-			100: FilteredPlayerData[];
-			200: FilteredPlayerData[];
-		};
-		goldDiffGraph: GoldDiffGraph;
-	};
-
-	type PropsStructure = {
-		success: boolean;
-		message: string;
-		data: PostMatchStats;
-	};
-	let { data, visualStyle }: { data: PropsStructure; visualStyle: string | undefined } = $props();
-	$inspect(data.data);
+	let {
+		data,
+		visualStyle
+	}: { data: ApiResponse<PostMatchStats>; visualStyle: string | undefined } = $props();
 
 	let team100 = $derived(data.data.teams[100]);
 	let team200 = $derived(data.data.teams[200]);
 	let comparisonRows = $derived(data.data.comparisonRows);
 	let meta = $derived(data.data.meta);
+	let goldDiff = $derived(data.data.goldDiffGraph);
+
+	let canvas: HTMLCanvasElement | null = $state(null);
+	let graphWidth = $state(0);
+	let graphHeight = $state(0);
+
+	onMount(() => {
+		if (!canvas) {
+			return;
+		}
+		const ctx = canvas.getContext('2d');
+		if (ctx === null) {
+			return;
+		}
+		let xScale = graphWidth / goldDiff.goldDiffValues.length;
+		let yScale = graphHeight / (goldDiff.highestValue - goldDiff.lowestValue);
+		let yAxisIndex = goldDiff.lowestValue * yScale * -1; // * -1  to make it non-negative
+
+		canvas.width = graphWidth;
+		canvas.height = graphHeight;
+
+		drawLine(ctx, xScale, yScale, yAxisIndex, 0, 0, 0, graphWidth, 1, 'grey');
+
+		goldDiff.goldDiffValues.forEach((g, i) => {
+			const prevValue = goldDiff.goldDiffValues[i - 1];
+			const prevIndex = i - 1;
+			if (i !== 0) {
+				drawLine(ctx, xScale, yScale, yAxisIndex, prevValue, g, prevIndex, i, 3, g >= 0 ? 'yellow' : 'white');
+			}
+		});
+	});
+
+	function drawLine(
+		ctx: CanvasRenderingContext2D,
+		xScale: number,
+		yScale: number,
+		yAxisIndex: number,
+		fromGoldDiffValue: number,
+		toGoldDiffValue: number,
+		fromGameMinute: number,
+		toGameMinute: number,
+		lineThickness: number,
+		colour: string,
+	) {
+		const x1 = Math.floor(fromGameMinute * xScale);
+		const y1 = Math.floor(fromGoldDiffValue * yScale + yAxisIndex);
+		const x2 = Math.floor(toGameMinute * xScale);
+		const y2 = Math.floor(toGoldDiffValue * yScale + yAxisIndex);
+
+		console.log(x1, x2, y1, y2);
+		ctx.lineWidth = lineThickness;
+		ctx.strokeStyle = colour;
+		ctx.beginPath();
+		ctx.moveTo(x1, y1);
+		ctx.lineTo(x2, y2);
+		ctx.closePath();
+		ctx.stroke();
+	}
 </script>
 
 <main class="flex h-full w-full flex-col gap-2.5 p-5">
@@ -133,7 +103,7 @@
 		</div>
 	</section>
 
-	<section class="grid h-full grid-cols-2 gap-2.5">
+	<section class="grid h-full w-full grid-cols-2 gap-2.5">
 		<!-- comparison Rows -->
 		<div class="grid grid-cols-1 border border-brand-border">
 			{#each comparisonRows as row}
@@ -163,10 +133,22 @@
 			{/each}
 		</div>
 		<!-- Graphs etc. -->
-		<div>
+		<div class="flex w-full flex-col gap-2">
 			<div class="border border-brand-border text-center">
-				<h1 class="font-label text-3xl font-bold text-brand-off-white/90">DAMAGE DEALT TO CHAMPIONS</h1>
-				<TotalDamageDone data={data.data.totalDamageDone} isPostGame={true} />
+				<h1 class="font-label text-3xl font-bold text-brand-off-white/90">
+					DAMAGE DEALT TO CHAMPIONS
+				</h1>
+				<TotalDamageDone data={data.data.totalDamageDone}  isPostGame={true} />
+			</div>
+
+			<div class="h-62.25 w-full border border-brand-border p-5 text-center">
+				<canvas
+					class="h-full w-full border border-brand-border bg-black/50"
+					bind:this={canvas}
+					bind:clientHeight={graphHeight}
+					bind:clientWidth={graphWidth}
+				>
+				</canvas>
 			</div>
 		</div>
 	</section>
