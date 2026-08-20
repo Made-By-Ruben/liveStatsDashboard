@@ -3,7 +3,7 @@
 	import Bar from './Bar.svelte';
 	import StatBadge from './StatBadge.svelte';
 
-	let { team, teamIndex, maxDamage } = $props();
+	let { team, teamIndex, maxDamage, isPostGame } = $props();
 
 	const totalDmgChamps = 'TOTAL_DAMAGE_DEALT_TO_CHAMPIONS';
 	const physicalDmgChamps = 'PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS';
@@ -40,19 +40,28 @@
 				/>
 
 				<!-- Player name -->
-				<div
-					class="w-24 font-label text-xs leading-none font-bold tracking-widest text-brand-text uppercase {isRight
-						? 'text-right'
-						: 'text-left'}"
-				>
-					{player.championName}
-				</div>
-
-				<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} />
-			</div>
-
-			<div class="w-20 text-center">
-				<StatBadge stat={player.filteredStats[totalDmgChamps]} --font-size="x-large" />
+				{#if isPostGame !== true}
+					<div
+						class="w-24 font-label text-xs leading-none font-bold tracking-widest text-brand-text uppercase {isRight
+							? 'text-right'
+							: 'text-left'}"
+					>
+						{player.championName}
+					</div>
+					<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} {isPostGame} />
+					<div class="w-20 text-center">
+						<StatBadge stat={player.filteredStats[totalDmgChamps]} --font-size="x-large" />
+					</div>
+				{:else}
+					<div class="flex h-full w-full flex-col {isRight ? 'text-right' : 'text-left'}">
+						<div class="h-1/2">
+							<StatBadge stat={player.filteredStats[totalDmgChamps]} --font-size="x-large" />
+						</div>
+						<div class="h-1/2">
+							<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} {isPostGame} />
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	{/each}

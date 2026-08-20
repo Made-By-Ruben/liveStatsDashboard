@@ -19,7 +19,7 @@
 		{:else if visual.visualType === 'postGameVisuals'}
 			<PostGameVisual data={visual.data} {visualStyle} />
 		{:else}
-			<TotalDamageDone data={visual.data.data} />
+			<TotalDamageDone data={visual.data.data} isPostGame={false} />
 		{/if}
 	{:else if visual?.status === 'error'}
 		<SocialsVisual {visualStyle} />

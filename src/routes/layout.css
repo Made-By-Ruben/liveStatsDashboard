@@ -53,6 +53,10 @@ consider changing these global values. */
 	--container-visual-width: 1339px;
 }
 
+@utility postGameHeader {
+	@apply text-9xl text-brand-off-white font-heading font-black
+}
+
 .nlc {
 	--color-brand-dark-1: #0a001a;
 	--color-brand-primary-1: #6700ff;
