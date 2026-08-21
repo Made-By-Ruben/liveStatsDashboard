@@ -3,7 +3,7 @@
 	import Bar from './Bar.svelte';
 	import StatBadge from './StatBadge.svelte';
 
-	let { team, teamIndex, maxDamage, isPostGame } = $props();
+	let { team, teamIndex, maxDamage, isPostGame, team100Won } = $props();
 
 	const totalDmgChamps = 'TOTAL_DAMAGE_DEALT_TO_CHAMPIONS';
 	const physicalDmgChamps = 'PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS';
@@ -48,7 +48,7 @@
 					>
 						{player.championName}
 					</div>
-					<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} {isPostGame} />
+					<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} {isPostGame} {team100Won} />
 					<div class="w-20 text-center">
 						<StatBadge stat={player.filteredStats[totalDmgChamps]} --font-size="x-large" />
 					</div>
@@ -58,7 +58,7 @@
 							<StatBadge stat={player.filteredStats[totalDmgChamps]} --font-size="x-large" />
 						</div>
 						<div class="h-1/2">
-							<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} {isPostGame} />
+							<Bar {barWidth} {isRight} {magicPct} {physicalPct} {truePct} {index} {isPostGame} {team100Won} />
 						</div>
 					</div>
 				{/if}

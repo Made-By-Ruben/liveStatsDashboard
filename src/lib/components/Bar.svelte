@@ -5,7 +5,8 @@
 	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png';
 	import magicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png';
 
-	let { isRight, barWidth, physicalPct, magicPct, truePct, index, isPostGame } = $props();
+	let { isRight, barWidth, physicalPct, magicPct, truePct, index, isPostGame, team100Won } =
+		$props();
 
 	// svelte-ignore state_referenced_locally
 	let totalAnimation = new Tween(0, {
@@ -50,9 +51,13 @@
 	<div class="flex h-full {isRight ? ' flex-row-reverse' : ''}" style="width: {barWidth}%;">
 		{#if isPostGame}
 			<div
-				class="z-20 flex h-full items-center overflow-hidden {isRight
-					? 'flex-row-reverse bg-brand-secondary-1'
-					: 'bg-brand-primary-1'}"
+				class={[
+					'z-20 flex h-full items-center overflow-hidden',
+					!isRight && !team100Won && 'bg-white',
+					!isRight && team100Won && 'bg-brand-highlight-1',
+					isRight && team100Won && 'bg-white',
+					isRight && !team100Won && 'flex-row-reverse bg-brand-highlight-1'
+				]}
 				style="width: {totalAnimation.current}%;"
 			></div>
 		{:else}
