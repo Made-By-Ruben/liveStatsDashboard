@@ -17,6 +17,7 @@
 	<link rel="preload" href={magicDmgIcon} as="image" type="image/png" />
 	<link rel="preload" href={physicalDmgIcon} as="image" type="image/png" />
 	<link rel="preload" href={visualAssets.backgroundCropped} as="image" type="image/avif" />
+	<link rel="preload" href={visualAssets.background} as="image" type="image/avif" />
 	<link rel="preload" href={visualAssets.logo} as="image" type="image/avif" />
 	<link rel="preload" href={visualAssets.spotlightLogo} as="image" type="image/avif" />
 

@@ -47,6 +47,7 @@
 		const data = JSON.parse(e.data);
 		cacheImages(data.participants);
 	}
+	
 </script>
 
 <main class="relative h-270 w-480">
@@ -87,7 +88,7 @@
 		<div
 			class={[
 				'absolute bottom-0 left-75.5 flex h-62.25 w-334.25 flex-col',
-				bgVisible && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
+				bgVisible && visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/rolCroppedBg.avif)]',
 				bgVisible && visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
 			]}
 		>

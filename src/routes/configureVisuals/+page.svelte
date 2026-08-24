@@ -75,7 +75,7 @@
 			<div
 				class={[
 					'flex h-62.25 w-334.25 flex-col border border-brand-border',
-					visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/croppedBg.avif)]',
+					visualStyle === 'ROL' && 'bg-[url(/src/lib/assets/rol/rolCroppedBg.avif)]',
 					visualStyle === 'NLC' && 'bg-[url(/src/lib/assets/nlc/nlcCroppedBg.avif)]'
 				]}
 			>
