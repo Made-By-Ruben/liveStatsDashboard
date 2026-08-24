@@ -3,6 +3,7 @@
 	import { ActiveVisual } from '$lib/activeVisual.svelte.js';
 	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
 	import Stinger from '$lib/components/visuals/stingers/Stinger.svelte';
+	import StingerBig from '$lib/components/visuals/stingers/StingerBig.svelte';
 	import StingerOut from '$lib/components/visuals/stingers/StingerOut.svelte';
 	import type { VisualState, CompanionEvent } from '$lib/types/activeVisuals';
 	import { cacheImages } from '$lib/utils/cacheImages';
@@ -47,7 +48,6 @@
 		const data = JSON.parse(e.data);
 		cacheImages(data.participants);
 	}
-	
 </script>
 
 <main class="relative h-270 w-480">
@@ -60,25 +60,22 @@
 			]}
 		>
 			{#if visualState === 'animateIn'}
-				<Stinger
+				<StingerBig
 					onComplete={() => {
 						visualState = 'live';
 					}}
-					onCurtainsMeet={() => {
+					onDroppedDown={() => {
 						bgVisible = true;
 					}}
-					{visualStyle}
 				/>
-			{/if}
-			{#if visualState === 'live'}
-				<LiveVisual {visual} {visualStyle} />
-			{/if}
-			{#if visualState === 'animateOut'}
-				<StingerOut
+			{:else if visualState === 'live'}
+				<LiveVisual {visual} {visualStyle} onFadedOut={() => visualState = 'stingerOut'} />
+			{:else if visualState === 'stingerOut'}
+				<StingerBig
 					onComplete={() => {
 						visualState = null;
 					}}
-					onCurtainsMeet={() => {
+					onDroppedDown={() => {
 						bgVisible = false;
 					}}
 				/>
@@ -104,7 +101,7 @@
 				/>
 			{/if}
 			{#if visualState === 'live'}
-				<LiveVisual {visual} {visualStyle} />
+				<LiveVisual {visual} {visualStyle} onFadedOut={() => visualState = 'stingerOut'}  />
 			{/if}
 			{#if visualState === 'animateOut'}
 				<StingerOut

@@ -8,11 +8,14 @@
 
 	let {
 		visual,
-		visualStyle
-	}: { visual: ActiveVisual | undefined; visualStyle: string | undefined } = $props();
+		visualStyle,
+		onFadedOut
+	}: { visual: ActiveVisual | undefined; visualStyle: string | undefined; onFadedOut: () => void } = $props();
 </script>
 
-<div class="h-full w-full" in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
+<div class="h-full w-full" onoutroend={(ev) => {
+	onFadedOut()
+}} in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
 	{#if visual?.status === 'success'}
 		{#if visual.visualType === 'customVisuals'}
 			<SpotlightVisual data={visual.data.data} {visualStyle} />
