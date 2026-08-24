@@ -4,7 +4,7 @@
 	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
 	import Stinger from '$lib/components/visuals/stingers/Stinger.svelte';
 	import StingerOut from '$lib/components/visuals/stingers/StingerOut.svelte';
-	import type { VisualState, CompanionEvent, ActiveChamps } from '$lib/types/activeVisuals';
+	import type { VisualState, CompanionEvent } from '$lib/types/activeVisuals';
 	import { cacheImages } from '$lib/utils/cacheImages';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
 	import { onMount } from 'svelte';
