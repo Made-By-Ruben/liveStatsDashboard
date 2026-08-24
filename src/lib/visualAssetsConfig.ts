@@ -10,7 +10,7 @@ import nlcSupport from '$lib/assets/nlc/roleIcons/Support.avif';
 
 import rolLogo from '$lib/assets/rol/rolLogoVertical.avif';
 import rolBackground from '$lib/assets/rol/rolBg.avif';
-import rolBackgroundCropped from '$lib/assets/rol/croppedBg.avif';
+import rolBackgroundCropped from '$lib/assets/rol/rolCroppedBg.avif';
 import rolSpotlightLogo from '$lib/assets/rol/icon2026.png';
 import rolTop from '$lib/assets/rol/roleIcons/Top.avif';
 import rolJungle from '$lib/assets/rol/roleIcons/Jungle.avif';
