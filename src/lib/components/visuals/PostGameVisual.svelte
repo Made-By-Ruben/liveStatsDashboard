@@ -13,24 +13,25 @@
 		visualStyle
 	}: { data: ApiResponse<PostMatchStats>; visualStyle: string | undefined } = $props();
 
+	$inspect(data)
 	let team100 = $derived(data.data.teams[100]);
 	let team200 = $derived(data.data.teams[200]);
 	let comparisonRows = $derived(data.data.comparisonRows);
 	let meta = $derived(data.data.meta);
 	let goldDiff = $derived(data.data.goldDiffGraph);
-
-	$inspect(visualStyle)
 </script>
 
-<main class={['flex h-full w-full flex-col gap-2.5 p-5']}>
+<main class='flex h-full w-full flex-col gap-2.5 p-5'>
 	<section class="flex w-full items-center justify-between">
-		<GameScore {meta} {team100} {team200} />
+		<GameScore {meta} {team100} {team200} {visualStyle} />
 	</section>
 
-	<section class="grid h-full w-full grid-cols-2 gap-2.5">
-		<ComparisonRows {comparisonRows} {team100} {team200} />
+	<section class="flex h-full w-full justify-between gap-2.5">
+		<div class="w-2/5 h-full">
+			<ComparisonRows {comparisonRows} {team100} {team200} />
+		</div>
 
-		<div class="flex flex-col gap-2">
+		<div class="w-3/5 flex flex-col gap-2">
 			<div class="w-full border border-brand-border text-center">
 				<h1 class="font-label text-3xl font-bold text-brand-off-white/90">
 					DAMAGE DEALT TO CHAMPIONS

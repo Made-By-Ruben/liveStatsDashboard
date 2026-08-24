@@ -54,7 +54,7 @@ consider changing these global values. */
 }
 
 @utility postGameHeader {
-	@apply text-9xl text-brand-off-white font-heading font-black
+	@apply text-7xl text-brand-off-white font-heading font-black
 }
 
 .nlc {

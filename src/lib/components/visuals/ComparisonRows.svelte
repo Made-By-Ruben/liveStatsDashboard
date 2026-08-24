@@ -4,7 +4,7 @@
     let {comparisonRows, team100, team200}: {comparisonRows: ComparisonRow[], team100: TeamInfo, team200: TeamInfo} = $props()
 </script>
 
-<div class="grid grid-cols-1 border border-brand-border">
+<div class="h-full grid grid-cols-1 border border-brand-border">
 	{#each comparisonRows as row, i}
 		{#if row.kind === 'bans'}
 			<!-- ToDo -->

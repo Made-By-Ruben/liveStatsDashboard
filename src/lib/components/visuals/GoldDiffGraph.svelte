@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { GoldDiffGraph } from '$lib/types/postGameStats';
 	import { onMount } from 'svelte';
-	let { goldDiff, team100Won, visualStyle }: { goldDiff: GoldDiffGraph; team100Won: boolean | null, visualStyle: string | undefined } = $props();
+	let {
+		goldDiff,
+		team100Won,
+		visualStyle
+	}: { goldDiff: GoldDiffGraph; team100Won: boolean | null; visualStyle: string | undefined } =
+		$props();
 
 	type GraphOptions = {
 		xScale: number;
@@ -160,7 +165,7 @@
 			if (visualStyle === 'NLC') {
 				return g >= 0 ? '#EFBF04' : 'white';
 			} else {
-				return g >= 0 ? '#d3fe31' : 'white'; 
+				return g >= 0 ? '#d3fe31' : 'white';
 			}
 		} else {
 			if (visualStyle === 'NLC') {
