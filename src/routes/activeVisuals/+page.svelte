@@ -101,7 +101,7 @@
 				/>
 			{/if}
 			{#if visualState === 'live'}
-				<LiveVisual {visual} {visualStyle} onFadedOut={() => visualState = 'stingerOut'}  />
+				<LiveVisual {visual} {visualStyle} onFadedOut={() => visualState = 'animateOut'}  />
 			{/if}
 			{#if visualState === 'animateOut'}
 				<StingerOut
