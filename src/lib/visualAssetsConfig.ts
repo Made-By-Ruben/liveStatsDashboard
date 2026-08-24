@@ -52,9 +52,6 @@ const rolRoleIcons: Record<string, string> = {
 	Support: rolSupport
 };
 
-/* Keyed by the team tag, which is what TeamInfo.teamName carries. Teams we have
-   no artwork for are simply absent, so read these through getTeamIcon rather
-   than indexing them directly. ROL ships no separate loss artwork. */
 const rolTeamIcons: Record<string, string> = {
 	BAN: rolBandits,
 	DYN: rolDynasty,
@@ -133,10 +130,6 @@ export function getVisualAssets(style: string | null | undefined): VisualAssets 
 	return visualAssets[style === 'NLC' ? 'NLC' : 'ROL'];
 }
 
-/**
- * Undefined when the tournament has no artwork for this team. Falls back to the
- * normal mark when the team lost but the tournament ships no loss variant.
- */
 export function getTeamIcon(
 	style: string | null | undefined,
 	teamName: string,
