@@ -1,13 +1,41 @@
 <script lang="ts">
 	import type { GoldDiffGraph } from '$lib/types/postGameStats';
 	import { onMount } from 'svelte';
-	let { goldDiff, team100Won }: { goldDiff: GoldDiffGraph, team100Won: boolean | null} = $props();
+	let { goldDiff, team100Won, visualStyle }: { goldDiff: GoldDiffGraph; team100Won: boolean | null, visualStyle: string | undefined } = $props();
+
+	type GraphOptions = {
+		xScale: number;
+		yScale: number;
+		xBounds: number;
+		yBounds: number;
+	};
 
 	let canvas: HTMLCanvasElement | null = $state(null);
 	let graphWidth = $state(0);
 	let graphHeight = $state(0);
-	let xBounds = $derived(graphWidth * 0.1);
-	let yBounds = $derived(graphHeight * 0.2);
+	let xBounds = $derived(graphWidth * 0.2);
+	let yBounds = $derived(graphHeight * 0.3);
+
+	function scaleValueToGraph(
+		value: number,
+		yAxisIndex: number,
+		scale: number,
+		xOrY: 'x' | 'y',
+		placementPerc: number
+	) {
+		// value * scale + bounds / percentage
+		const scaledValue = value * scale;
+
+		if (xOrY === 'x') {
+			const placementPercentage = xBounds * placementPerc;
+			const placementValue = scaledValue + placementPercentage;
+			return Math.floor(placementValue);
+		} else {
+			const placementPercentage = yBounds * placementPerc + yAxisIndex;
+			const placementValue = scaledValue + placementPercentage;
+			return placementValue;
+		}
+	}
 
 	onMount(() => {
 		if (!canvas) {
@@ -18,7 +46,7 @@
 			return;
 		}
 
-		let graphOptions = {
+		let graphOptions: GraphOptions = {
 			xScale: (graphWidth - xBounds) / goldDiff.goldDiffValues.length,
 			yScale: (graphHeight - yBounds) / (goldDiff.highestValue - goldDiff.lowestValue),
 			xBounds: xBounds,
@@ -60,23 +88,23 @@
 		lineThickness: number,
 		colour: string
 	) {
-		const x1 = Math.floor(fromX * xScale);
-		const y1 = Math.floor(fromY * yScale + yAxisIndex);
-		const x2 = Math.floor(toX * xScale);
-		const y2 = Math.floor(toY * yScale + yAxisIndex);
+		const x1 = scaleValueToGraph(fromX, yAxisIndex, xScale, 'x', 0.5);
+		const y1 = scaleValueToGraph(fromY, yAxisIndex, yScale, 'y', 0.25);
+		const x2 = scaleValueToGraph(toX, yAxisIndex, xScale, 'x', 0.5);
+		const y2 = scaleValueToGraph(toY, yAxisIndex, yScale, 'y', 0.25);
 
 		ctx.lineWidth = lineThickness;
 		ctx.strokeStyle = colour;
 		ctx.beginPath();
-		ctx.moveTo(x1 + xBounds / 2, y1 + yBounds / 2);
-		ctx.lineTo(x2 + xBounds / 2, y2 + yBounds / 2);
+		ctx.moveTo(x1, y1);
+		ctx.lineTo(x2, y2);
 		ctx.closePath();
 		ctx.stroke();
 	}
 
 	function drawXAxis(
 		ctx: CanvasRenderingContext2D,
-		graphOptions: { yScale: number; xScale: number; xBounds: number; yBounds: number },
+		graphOptions: GraphOptions,
 		yAxisIndex: number
 	) {
 		drawLine(
@@ -95,7 +123,7 @@
 
 	function drawYAxis(
 		ctx: CanvasRenderingContext2D,
-		graphOptions: { yScale: number; xScale: number; xBounds: number; yBounds: number },
+		graphOptions: GraphOptions,
 		yAxisIndex: number
 	) {
 		drawLine(
@@ -112,29 +140,40 @@
 		);
 		ctx.textAlign = 'center';
 		ctx.fillStyle = getLineColour(goldDiff.lowestValue);
+		ctx.font = '25px arial';
 		ctx.fillText(
 			(goldDiff.lowestValue * -1).toString(),
-			0 + xBounds / 4,
-			0 + (yBounds + yAxisIndex) / 2
+			scaleValueToGraph(0, yAxisIndex, graphOptions.xScale, 'x', 0.25),
+			scaleValueToGraph(goldDiff.lowestValue, yAxisIndex, graphOptions.yScale, 'y', 0.25)
 		);
-        ctx.fillStyle = getLineColour(goldDiff.highestValue);
+
+		ctx.fillStyle = getLineColour(goldDiff.highestValue);
 		ctx.fillText(
 			goldDiff.highestValue.toString(),
-			0 + xBounds / 4,
-			goldDiff.highestValue * graphOptions.yScale + yAxisIndex + yBounds / 2
+			scaleValueToGraph(goldDiff.goldDiffValues.length, yAxisIndex, graphOptions.xScale, 'x', 0.75),
+			scaleValueToGraph(goldDiff.highestValue, yAxisIndex, graphOptions.yScale, 'y', 0.25)
 		);
 	}
 
-    function getLineColour(g: number) {
-        if (team100Won) {
-            return g >= 0 ? "yellow" : "white"
-        }
-        return g >= 0 ? "white" : "yellow"
-    }
+	function getLineColour(g: number) {
+		if (team100Won) {
+			if (visualStyle === 'NLC') {
+				return g >= 0 ? '#EFBF04' : 'white';
+			} else {
+				return g >= 0 ? '#d3fe31' : 'white'; 
+			}
+		} else {
+			if (visualStyle === 'NLC') {
+				return g >= 0 ? 'white' : '#EFBF04';
+			} else {
+				return g >= 0 ? 'white' : '#d3fe31';
+			}
+		}
+	}
 
 	function fillGraph(
 		ctx: CanvasRenderingContext2D,
-		graphOptions: { yScale: number; xScale: number; xBounds: number; yBounds: number },
+		graphOptions: GraphOptions,
 		yAxisIndex: number
 	) {
 		goldDiff.goldDiffValues.forEach((g, i) => {
@@ -177,10 +216,11 @@
 			if (i % 10 === 0) {
 				ctx.textAlign = 'center';
 				ctx.fillStyle = 'white';
+				ctx.font = '20px arial';
 				ctx.fillText(
 					i.toString(),
-					Math.floor(i * graphOptions.xScale) + graphOptions.xBounds / 2,
-					Math.floor(goldDiff.highestValue * graphOptions.yScale) + graphOptions.yBounds
+					scaleValueToGraph(i, yAxisIndex, graphOptions.xScale, 'x', 0.5),
+					scaleValueToGraph(goldDiff.highestValue, yAxisIndex, graphOptions.yScale, 'y', 0.5)
 				);
 			}
 		});
@@ -188,7 +228,7 @@
 </script>
 
 <canvas
-	class="h-62.25 w-full"
+	class="h-62.25 w-full overflow-hidden"
 	bind:this={canvas}
 	bind:clientHeight={graphHeight}
 	bind:clientWidth={graphWidth}
