@@ -13,7 +13,6 @@
 		visualStyle
 	}: { data: ApiResponse<PostMatchStats>; visualStyle: string | undefined } = $props();
 
-	$inspect(data)
 	let team100 = $derived(data.data.teams[100]);
 	let team200 = $derived(data.data.teams[200]);
 	let comparisonRows = $derived(data.data.comparisonRows);
