@@ -1,19 +1,13 @@
 <script lang="ts">
-	import { PUBLIC_CDN_URL, PUBLIC_SERVER_URL } from '$env/static/public';
+	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	import { ActiveVisual } from '$lib/activeVisual.svelte.js';
+	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
 	import Stinger from '$lib/components/visuals/stingers/Stinger.svelte';
 	import StingerOut from '$lib/components/visuals/stingers/StingerOut.svelte';
-	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
+	import type { VisualState, CompanionEvent, ActiveChamps } from '$lib/types/activeVisuals';
+	import { cacheImages } from '$lib/utils/cacheImages';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
 	import { onMount } from 'svelte';
-	type VisualState = null | 'animateIn' | 'live' | 'animateOut';
-	type CompanionEvent = {
-		visualType: 'defaultVisuals' | 'customVisuals' | 'postGameVisuals';
-		visualName: number | string;
-	};
-	type ActiveChamps = {
-		championName: string;
-	}[];
 
 	let visualState = $state<VisualState>(null);
 	let event = $state<CompanionEvent>();
@@ -21,44 +15,37 @@
 	let visual = $state<ActiveVisual>();
 	let visualStyle = $state<string>();
 
+	onMount(() => {
+		visualStyle = getVisualStyle();
+	});
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
 
-		stream.addEventListener('animateIn', async (e: MessageEvent) => {
-			if (visualState === null) {
-				visualState = 'animateIn';
-				const data = JSON.parse(e.data) as CompanionEvent;
-				event = data;
-				visual = new ActiveVisual(data.visualName, data.visualType);
-				visual.getData(PUBLIC_SERVER_URL);
-			}
-		});
-
-		stream.addEventListener('animateOut', (e: MessageEvent) => {
-			visualState = 'animateOut';
-			visual?.clearVisual();
-		});
-
-		stream.addEventListener('refreshAssets', (e: MessageEvent) => {
-			const data = JSON.parse(e.data);
-			cacheImages(data.participants);
-		});
+		stream.addEventListener('animateIn', onAnimateIn);
+		stream.addEventListener('animateOut', onAnimateOut);
+		stream.addEventListener('refreshAssets', onRefreshAssets);
 
 		return () => stream.close();
 	});
 
-	onMount(() => {
-		visualStyle = getVisualStyle();
-	});
+	async function onAnimateIn(e: MessageEvent) {
+		if (visualState === null) {
+			visualState = 'animateIn';
+			const data = JSON.parse(e.data) as CompanionEvent;
+			event = data;
+			visual = new ActiveVisual(data.visualName, data.visualType);
+			visual.getData(PUBLIC_SERVER_URL);
+		}
+	}
 
-	function cacheImages(data: ActiveChamps) {
-		data.forEach((champ) => {
-			const portrait = new Image();
-			portrait.src = `${PUBLIC_CDN_URL}${champ.championName}/square`;
+	async function onAnimateOut(e: MessageEvent) {
+		visualState = 'animateOut';
+		visual?.clearVisual();
+	}
 
-			const splash = new Image();
-			splash.src = `${PUBLIC_CDN_URL}${champ.championName}/splash-art`;
-		});
+	async function onRefreshAssets(e: MessageEvent) {
+		const data = JSON.parse(e.data);
+		cacheImages(data.participants);
 	}
 </script>
 
