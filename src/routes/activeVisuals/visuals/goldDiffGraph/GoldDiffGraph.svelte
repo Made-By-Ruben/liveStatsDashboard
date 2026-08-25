@@ -78,7 +78,78 @@
 			1,
 			'grey'
 		);
-		fillGraph(ctx, graphOptions, yAxisIndex);
+
+		ctx.lineWidth = 3;
+		ctx.save();
+		ctx.beginPath();
+
+		const area = new Path2D();
+		goldDiff.goldDiffValues.forEach((g, i) => {
+			const X = (i: number) => scaleValueToGraph(i, yAxisIndex, graphOptions.xScale, 'x', 0.5);
+			const Y = (g: number) => scaleValueToGraph(g, yAxisIndex, graphOptions.yScale, 'y', 0.25);
+
+			const highestValue = goldDiff.highestValue;
+			const lowestValue = goldDiff.lowestValue;
+			if (i === 0) {
+				area.moveTo(X(i), Y(g));
+			}
+			area.lineTo(X(i), Y(g));
+
+			// draw a horizontal line for each 5th minute
+			if (i !== 0 && i % 5 === 0) {
+				drawLine(
+					ctx,
+					graphOptions.xScale,
+					graphOptions.yScale,
+					yAxisIndex,
+					goldDiff.lowestValue,
+					goldDiff.highestValue,
+					i,
+					i,
+					1,
+					'grey'
+				);
+			}
+
+			// Add a x axis label every 10 minute mark
+			if (i % 10 === 0) {
+				ctx.textAlign = 'center';
+				ctx.fillStyle = 'white';
+				ctx.font = '20px arial';
+				ctx.fillText(
+					i.toString(),
+					scaleValueToGraph(i, yAxisIndex, graphOptions.xScale, 'x', 0.5),
+					scaleValueToGraph(goldDiff.highestValue, yAxisIndex, graphOptions.yScale, 'y', 0.5)
+				);
+			}
+
+			if (i === goldDiff.goldDiffValues.length - 1) {
+				
+				area.lineTo(X(i), Y(0));
+				area.closePath();
+				ctx.save();
+				ctx.clip(area);
+				
+				const gradient = ctx.createLinearGradient(graphWidth/2, Y(lowestValue), graphWidth/2, Y(highestValue));
+				const z = (Y(0) - Y(lowestValue)) / (Y(highestValue) - Y(lowestValue));
+				gradient.addColorStop(0, getColor(200));
+				gradient.addColorStop(z, getColor(200) + '25');
+				gradient.addColorStop(z, getColor(100) + '25');
+				gradient.addColorStop(1, getColor(100))
+				
+				ctx.fillStyle = gradient;
+				ctx.fillRect(0, 0, graphWidth, graphHeight);
+				const lineGradient = ctx.createLinearGradient(graphWidth/2, Y(lowestValue), graphWidth/2, Y(highestValue))
+				lineGradient.addColorStop(0, getColor(200));
+				lineGradient.addColorStop(z, getColor(200));
+				lineGradient.addColorStop(z, getColor(100));
+				lineGradient.addColorStop(z, getColor(100));
+				ctx.lineWidth = 5;
+				ctx.strokeStyle = lineGradient
+				ctx.stroke(area);
+				ctx.restore();
+			}
+		});
 	});
 
 	function drawLine(
@@ -103,6 +174,7 @@
 		ctx.beginPath();
 		ctx.moveTo(x1, y1);
 		ctx.lineTo(x2, y2);
+		ctx.fill();
 		ctx.closePath();
 		ctx.stroke();
 	}
@@ -144,7 +216,7 @@
 			'white'
 		);
 		ctx.textAlign = 'center';
-		ctx.fillStyle = getLineColour(goldDiff.lowestValue);
+		ctx.fillStyle = getColor(200);
 		ctx.font = '25px arial';
 		ctx.fillText(
 			(goldDiff.lowestValue * -1).toString(),
@@ -152,7 +224,7 @@
 			scaleValueToGraph(goldDiff.lowestValue, yAxisIndex, graphOptions.yScale, 'y', 0.25)
 		);
 
-		ctx.fillStyle = getLineColour(goldDiff.highestValue);
+		ctx.fillStyle = getColor(100);
 		ctx.fillText(
 			goldDiff.highestValue.toString(),
 			scaleValueToGraph(goldDiff.goldDiffValues.length, yAxisIndex, graphOptions.xScale, 'x', 0.75),
@@ -160,76 +232,23 @@
 		);
 	}
 
-	function getLineColour(g: number) {
+	function getColor(team: 100 | 200) {
 		if (team100Won) {
 			if (visualStyle === 'NLC') {
-				return g >= 0 ? '#EFBF04' : 'white';
+				return team === 100 ? '#EFBF04' : '#FFFFFF';
 			} else {
-				return g >= 0 ? '#d3fe31' : 'white';
+				return team === 100 ? '#d3fe31' : '#FFFFFF';
 			}
 		} else {
 			if (visualStyle === 'NLC') {
-				return g >= 0 ? 'white' : '#EFBF04';
+				return team === 200 ? '#FFFFFF' : '#EFBF04';
 			} else {
-				return g >= 0 ? 'white' : '#d3fe31';
+				return team === 200 ? '#FFFFFF' : '#d3fe31';
 			}
 		}
 	}
 
-	function fillGraph(
-		ctx: CanvasRenderingContext2D,
-		graphOptions: GraphOptions,
-		yAxisIndex: number
-	) {
-		goldDiff.goldDiffValues.forEach((g, i) => {
-			const prevValue = goldDiff.goldDiffValues[i - 1];
-			const prevIndex = i - 1;
 
-			// Skip the first value, since there is no previous point available to draw from.
-			if (i !== 0) {
-				drawLine(
-					ctx,
-					graphOptions.xScale,
-					graphOptions.yScale,
-					yAxisIndex,
-					prevValue,
-					g,
-					prevIndex,
-					i,
-					3,
-					getLineColour(g)
-				);
-			}
-
-			// draw a horizontal line for each 5th minute
-			if (i !== 0 && i % 5 === 0) {
-				drawLine(
-					ctx,
-					graphOptions.xScale,
-					graphOptions.yScale,
-					yAxisIndex,
-					goldDiff.lowestValue,
-					goldDiff.highestValue,
-					i,
-					i,
-					1,
-					'grey'
-				);
-			}
-
-			// Add a x axis label every 10 minute mark
-			if (i % 10 === 0) {
-				ctx.textAlign = 'center';
-				ctx.fillStyle = 'white';
-				ctx.font = '20px arial';
-				ctx.fillText(
-					i.toString(),
-					scaleValueToGraph(i, yAxisIndex, graphOptions.xScale, 'x', 0.5),
-					scaleValueToGraph(goldDiff.highestValue, yAxisIndex, graphOptions.yScale, 'y', 0.5)
-				);
-			}
-		});
-	}
 </script>
 
 <canvas
