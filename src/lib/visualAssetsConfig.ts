@@ -134,8 +134,8 @@ export function getTeamIcon(
 	style: string | null | undefined,
 	teamName: string,
 	teamHasWon: boolean | null
-): string | undefined {
+): string {
 	const assets = getVisualAssets(style);
 	if (teamHasWon === false && assets.teamIconsLoss[teamName]) return assets.teamIconsLoss[teamName];
-	return assets.teamIcons[teamName];
+	return assets.teamIcons[teamName] ?? rolLogo;
 }

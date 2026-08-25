@@ -3,6 +3,8 @@
 	import magicDmgIcon from '$lib/assets/shared/statModsIcons/StatModsMagic DamageIcon.png';
 	import physicalDmgIcon from '$lib/assets/shared/statModsIcons/StatModsPhysical DamageIcon.png';
 	import { getVisualAssets } from '$lib/visualAssetsConfig';
+	import redBullLogo from '$lib/assets/shared/redBullLogo.avif';
+	import kitKatLogo from '$lib/assets/shared/kitKatLogo.svg'
 	let { children } = $props();
 
 	let visualStyle = $state<string | null>();
@@ -20,6 +22,8 @@
 	<link rel="preload" href={visualAssets.background} as="image" type="image/avif" />
 	<link rel="preload" href={visualAssets.logo} as="image" type="image/avif" />
 	<link rel="preload" href={visualAssets.spotlightLogo} as="image" type="image/avif" />
+	<link rel="preload" href={redBullLogo} as="image" type="image/avif" />
+	<link rel="preload" href={kitKatLogo} as="image" type="image/avif" />
 
 	{#each Object.values(visualAssets.roleIcons) as roleIcon}
 		<link rel="preload" href={roleIcon} as="image" type="image/avif" />

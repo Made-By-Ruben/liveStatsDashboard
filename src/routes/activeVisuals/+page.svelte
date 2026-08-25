@@ -9,6 +9,16 @@
 	import { cacheImages } from '$lib/utils/cacheImages';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';
 	import { onMount } from 'svelte';
+	import { getTeamIcon } from '$lib/visualAssetsConfig';
+	let { data } = $props();
+
+	function cacheAssets() {
+		cacheImages(data.gameInfo.participants);
+		const team100Image = new Image();
+		team100Image.src = getTeamIcon(visualStyle, data.gameInfo.team100.name, null);
+		const team200Image = new Image();
+		team200Image.src = getTeamIcon(visualStyle, data.gameInfo.team200.name, null)
+	}
 
 	let visualState = $state<VisualState>(null);
 	let event = $state<CompanionEvent>();
@@ -18,6 +28,7 @@
 
 	onMount(() => {
 		visualStyle = getVisualStyle();
+		cacheAssets()
 	});
 	$effect(() => {
 		const stream = new EventSource(`${PUBLIC_SERVER_URL}companionRelay/stream`);
@@ -69,7 +80,7 @@
 					}}
 				/>
 			{:else if visualState === 'live'}
-				<LiveVisual {visual} {visualStyle} onFadedOut={() => visualState = 'stingerOut'} />
+				<LiveVisual {visual} {visualStyle} onFadedOut={() => (visualState = 'stingerOut')} />
 			{:else if visualState === 'stingerOut'}
 				<StingerBig
 					onComplete={() => {
@@ -101,7 +112,7 @@
 				/>
 			{/if}
 			{#if visualState === 'live'}
-				<LiveVisual {visual} {visualStyle} onFadedOut={() => visualState = 'animateOut'}  />
+				<LiveVisual {visual} {visualStyle} onFadedOut={() => (visualState = 'animateOut')} />
 			{/if}
 			{#if visualState === 'animateOut'}
 				<StingerOut
