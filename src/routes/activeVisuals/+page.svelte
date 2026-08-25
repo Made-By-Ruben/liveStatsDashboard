@@ -35,7 +35,6 @@
 
 		stream.addEventListener('animateIn', onAnimateIn);
 		stream.addEventListener('animateOut', onAnimateOut);
-		stream.addEventListener('refreshAssets', onRefreshAssets);
 
 		return () => stream.close();
 	});
@@ -53,11 +52,6 @@
 	async function onAnimateOut(e: MessageEvent) {
 		visualState = 'animateOut';
 		visual?.clearVisual();
-	}
-
-	async function onRefreshAssets(e: MessageEvent) {
-		const data = JSON.parse(e.data);
-		cacheImages(data.participants);
 	}
 </script>
 
