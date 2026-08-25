@@ -1,12 +1,7 @@
 <script lang="ts">
 	import type { GoldDiffGraph } from '$lib/types/postGameStats';
 	import { onMount } from 'svelte';
-	let {
-		goldDiff,
-		team100Won,
-		visualStyle
-	}: { goldDiff: GoldDiffGraph; team100Won: boolean | null; visualStyle: string | undefined } =
-		$props();
+	let {goldDiff, team100Won, visualStyle}: { goldDiff: GoldDiffGraph; team100Won: boolean | null; visualStyle: string | undefined } = $props();
 
 	type GraphOptions = {
 		xScale: number;
@@ -20,6 +15,36 @@
 	let graphHeight = $state(0);
 	let xBounds = $derived(graphWidth * 0.2);
 	let yBounds = $derived(graphHeight * 0.3);
+	
+	onMount(() => {
+		if (!canvas) {
+			return;
+		}
+		canvas.width = graphWidth;
+		canvas.height = graphHeight;
+
+		const ctx = canvas.getContext('2d');
+		if (ctx === null) {
+			return;
+		}
+
+		createGraph(ctx);
+	});
+
+	function createGraph(ctx: CanvasRenderingContext2D){
+		let graphOptions: GraphOptions = {
+			xScale: (graphWidth - xBounds) / goldDiff.goldDiffValues.length,
+			yScale: (graphHeight - yBounds) / (goldDiff.highestValue - goldDiff.lowestValue),
+			xBounds: xBounds,
+			yBounds: yBounds
+		};
+		let yAxisIndex = goldDiff.lowestValue * graphOptions.yScale * -1; // * -1  to make it non-negative
+
+		drawYAxis(ctx, graphOptions, yAxisIndex);
+		drawXAxis(ctx, graphOptions, yAxisIndex);
+		drawLine(ctx, graphOptions.xScale, graphOptions.yScale, yAxisIndex, 0, 0, 0, goldDiff.goldDiffValues.length, 1,'grey');
+		fillGraph(ctx, yAxisIndex, graphOptions);
+	}
 
 	function scaleValueToGraph(
 		value: number,
@@ -42,43 +67,7 @@
 		}
 	}
 
-	onMount(() => {
-		if (!canvas) {
-			return;
-		}
-		const ctx = canvas.getContext('2d');
-		if (ctx === null) {
-			return;
-		}
-
-		let graphOptions: GraphOptions = {
-			xScale: (graphWidth - xBounds) / goldDiff.goldDiffValues.length,
-			yScale: (graphHeight - yBounds) / (goldDiff.highestValue - goldDiff.lowestValue),
-			xBounds: xBounds,
-			yBounds: yBounds
-		};
-
-		let yAxisIndex = goldDiff.lowestValue * graphOptions.yScale * -1; // * -1  to make it non-negative
-
-		canvas.width = graphWidth;
-		canvas.height = graphHeight;
-
-		drawYAxis(ctx, graphOptions, yAxisIndex);
-		drawXAxis(ctx, graphOptions, yAxisIndex);
-		// 0 line
-		drawLine(
-			ctx,
-			graphOptions.xScale,
-			graphOptions.yScale,
-			yAxisIndex,
-			0,
-			0,
-			0,
-			goldDiff.goldDiffValues.length,
-			1,
-			'grey'
-		);
-
+	function fillGraph(ctx: CanvasRenderingContext2D, yAxisIndex: number, graphOptions: GraphOptions) {
 		ctx.lineWidth = 3;
 		ctx.save();
 		ctx.beginPath();
@@ -150,7 +139,7 @@
 				ctx.restore();
 			}
 		});
-	});
+	}
 
 	function drawLine(
 		ctx: CanvasRenderingContext2D,
@@ -198,11 +187,7 @@
 		);
 	}
 
-	function drawYAxis(
-		ctx: CanvasRenderingContext2D,
-		graphOptions: GraphOptions,
-		yAxisIndex: number
-	) {
+	function drawYAxis(ctx: CanvasRenderingContext2D, graphOptions: GraphOptions, yAxisIndex: number) {
 		drawLine(
 			ctx,
 			graphOptions.xScale,
@@ -215,9 +200,11 @@
 			2,
 			'white'
 		);
+
 		ctx.textAlign = 'center';
-		ctx.fillStyle = getColor(200);
 		ctx.font = '25px arial';
+		
+		ctx.fillStyle = getColor(200);
 		ctx.fillText(
 			(goldDiff.lowestValue * -1).toString(),
 			scaleValueToGraph(0, yAxisIndex, graphOptions.xScale, 'x', 0.25),
@@ -247,8 +234,6 @@
 			}
 		}
 	}
-
-
 </script>
 
 <canvas
