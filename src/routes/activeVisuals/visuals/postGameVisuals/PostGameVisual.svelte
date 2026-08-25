@@ -1,12 +1,13 @@
 <script lang="ts">
-	import TotalDamageDone from './TotalDamageDone.svelte';
 	import type { ApiResponse } from '$lib/types/api';
 	import type { PostMatchStats } from '$lib/types/postGameStats';
-	import GoldDiffGraph from './GoldDiffGraph.svelte';
-	import ComparisonRows from './ComparisonRows.svelte';
-	import GameScore from './GameScore.svelte';
+
 	import redBullLogo from '$lib/assets/shared/redBullLogo.avif';
 	import kitKatLogo from '$lib/assets/shared/kitKatLogo.svg';
+	import GoldDiffGraph from '../goldDiffGraph/GoldDiffGraph.svelte';
+	import TotalDamageDone from '../totalDmgVisual/TotalDamageDone.svelte';
+	import ComparisonRows from './components/ComparisonRows.svelte';
+	import GameScore from './components/GameScore.svelte';
 
 	let {
 		data,
@@ -20,17 +21,17 @@
 	let goldDiff = $derived(data.data.goldDiffGraph);
 </script>
 
-<main class='flex h-full w-full flex-col gap-2.5 p-5'>
+<main class="flex h-full w-full flex-col gap-2.5 p-5">
 	<section class="flex w-full items-center justify-between">
 		<GameScore {meta} {team100} {team200} {visualStyle} />
 	</section>
 
 	<section class="flex h-full w-full justify-between gap-2.5">
-		<div class="w-2/5 h-full">
+		<div class="h-full w-2/5">
 			<ComparisonRows {comparisonRows} {team100} {team200} />
 		</div>
 
-		<div class="w-3/5 flex flex-col gap-2">
+		<div class="flex w-3/5 flex-col gap-2">
 			<div class="w-full border border-brand-border text-center">
 				<h1 class="font-label text-3xl font-bold text-brand-off-white/90">
 					DAMAGE DEALT TO CHAMPIONS

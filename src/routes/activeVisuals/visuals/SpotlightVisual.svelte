@@ -1,5 +1,5 @@
 <script lang="ts">
-	import StatBadge from '$lib/components/StatBadge.svelte';
+	import StatBadge from '$lib/components/shared/StatBadge.svelte';
 	import Arrow from '$lib/assets/rol/arrow.png';
 	import { fade } from 'svelte/transition';
 	import { getVisualAssets } from '$lib/visualAssetsConfig';

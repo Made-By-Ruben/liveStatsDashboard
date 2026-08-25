@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { PUBLIC_SERVER_URL } from '$env/static/public';
 	import { ActiveVisual } from '$lib/activeVisual.svelte.js';
-	import LiveVisual from '$lib/components/visuals/LiveVisual.svelte';
-	import Stinger from '$lib/components/visuals/stingers/Stinger.svelte';
-	import StingerBig from '$lib/components/visuals/stingers/StingerBig.svelte';
-	import StingerOut from '$lib/components/visuals/stingers/StingerOut.svelte';
+	import LiveVisual from './visuals/LiveVisual.svelte';
+	import Stinger from './visuals/stingers/Stinger.svelte';
+	import StingerBig from './visuals/stingers/StingerBig.svelte';
+	import StingerOut from './visuals/stingers/StingerOut.svelte';
 	import type { VisualState, CompanionEvent } from '$lib/types/activeVisuals';
 	import { cacheImages } from '$lib/utils/cacheImages';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle.js';

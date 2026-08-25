@@ -1,7 +1,7 @@
 <script lang="ts">
+	import StatBadgeV2 from "$lib/components/shared/StatBadgeV2.svelte";
 	import type { FinishedGameMetaInfo, LiveGameMetaInfo, TeamInfo } from "$lib/types/postGameStats";
 	import { getTeamIcon } from "$lib/visualAssetsConfig";
-	import StatBadgeV2 from "../StatBadgeV2.svelte";
 
     let {team100, team200, meta, visualStyle}: {team100: TeamInfo, team200: TeamInfo, meta: FinishedGameMetaInfo | LiveGameMetaInfo, visualStyle: string|undefined} = $props()
 	let team100Icon = $derived(getTeamIcon(visualStyle, team100.teamName, team100.teamHasWon))

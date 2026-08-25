@@ -3,7 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import type { PageProps } from './$types';
 	import { enhance } from '$app/forms';
-	import EditVisual from '$lib/components/visuals/EditVisual.svelte';
+	import EditVisual from '$lib/components/ui/EditVisual.svelte';
 	import { onMount } from 'svelte';
 	import { getVisualStyle } from '$lib/utils/getVisualStyle';
 	import Header from './components/Header.svelte';

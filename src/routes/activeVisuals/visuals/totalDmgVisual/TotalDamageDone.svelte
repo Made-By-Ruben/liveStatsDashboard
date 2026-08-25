@@ -1,6 +1,6 @@
 <script lang="ts">
-	import GraphLegend from '../GraphLegend.svelte';
-	import TeamChart from '../TeamChart.svelte';
+	import GraphLegend from './components/GraphLegend.svelte';
+	import TeamChart from './components/TeamChart.svelte';
 
 	let { data, isPostGame, team100Won } = $props();
 </script>

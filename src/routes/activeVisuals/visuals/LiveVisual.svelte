@@ -1,21 +1,27 @@
 <script lang="ts">
-	import TotalDamageDone from './TotalDamageDone.svelte';
-	import { fade } from 'svelte/transition';
-	import SpotlightVisual from './SpotlightVisual.svelte';
-	import SocialsVisual from './SocialsVisual.svelte';
 	import type { ActiveVisual } from '$lib/activeVisual.svelte';
-	import PostGameVisual from './PostGameVisual.svelte';
+	import { fade } from 'svelte/transition';
+	import TotalDamageDone from './totalDmgVisual/TotalDamageDone.svelte';
+	import PostGameVisual from './postGameVisuals/PostGameVisual.svelte';
+	import SocialsVisual from './SocialsVisual.svelte';
+	import SpotlightVisual from './SpotlightVisual.svelte';
 
 	let {
 		visual,
 		visualStyle,
 		onFadedOut
-	}: { visual: ActiveVisual | undefined; visualStyle: string | undefined; onFadedOut: () => void } = $props();
+	}: { visual: ActiveVisual | undefined; visualStyle: string | undefined; onFadedOut: () => void } =
+		$props();
 </script>
 
-<div class="h-full w-full" onoutroend={(ev) => {
-	onFadedOut()
-}} in:fade={{ duration: 500 }} out:fade={{ duration: 100 }}>
+<div
+	class="h-full w-full"
+	onoutroend={(ev) => {
+		onFadedOut();
+	}}
+	in:fade={{ duration: 500 }}
+	out:fade={{ duration: 100 }}
+>
 	{#if visual?.status === 'success'}
 		{#if visual.visualType === 'customVisuals'}
 			<SpotlightVisual data={visual.data.data} {visualStyle} />

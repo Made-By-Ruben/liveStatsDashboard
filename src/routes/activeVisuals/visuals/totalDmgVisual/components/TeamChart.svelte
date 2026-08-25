@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { calcPercentage } from '$lib/utils/calcPercentage';
 	import Bar from './Bar.svelte';
-	import StatBadge from './StatBadge.svelte';
+	import StatBadge from '../../../../../lib/components/shared/StatBadge.svelte';
 
 	let { team, teamIndex, maxDamage, isPostGame, team100Won } = $props();
 
