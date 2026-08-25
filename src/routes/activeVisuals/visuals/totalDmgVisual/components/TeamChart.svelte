@@ -13,8 +13,6 @@
 	const isRight = $derived(teamIndex === 1);
 </script>
 
-<!-- TODO: move Percentage calculation to the back-end -->
-
 <div class={['flex w-1/2 flex-col border-brand-border', isRight ? 'border-l' : 'border-r']}>
 	{#each team as player, index}
 		{@const barWidth = calcPercentage(player.filteredStats[totalDmgChamps], maxDamage)}
@@ -34,7 +32,7 @@
 		<div class="flex h-1/5 w-full px-2 py-2 {isRight ? 'flex-row-reverse' : ''} ">
 			<div class="flex w-full items-center gap-2 {isRight ? 'flex-row-reverse' : ''} ">
 				<img
-					class="size-10 border-2 border-brand-border"
+					class={["border-2 border-brand-border", !isPostGame && 'size-10', isPostGame && 'size-16']}
 					src={`https://cdn.communitydragon.org/latest/champion/${player.championName}/square`}
 					alt={player.championName}
 				/>

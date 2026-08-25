@@ -51,8 +51,8 @@
 			</div>
 
 			<div class="flex h-full items-center justify-evenly border border-brand-border">
-				<img class="h-40" src={redBullLogo} />
-				<img class="h-40" src={kitKatLogo} />
+				<img class="h-28" src={redBullLogo} />
+				<img class="h-28" src={kitKatLogo} />
 			</div>
 		</div>
 	</section>
