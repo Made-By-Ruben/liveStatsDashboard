@@ -36,13 +36,24 @@ import rolBottom from '$lib/assets/rol/roleIcons/Bot.avif';
 import rolSupport from '$lib/assets/rol/roleIcons/Support.avif';
 
 import rolBandits from '$lib/assets/rol/teamIcons/BAN.avif';
+import rolBanditsLoss from '$lib/assets/rol/teamIcons/BAN_LOSS.avif';
 import rolDynasty from '$lib/assets/rol/teamIcons/DYN.avif';
+import rolDynastyLoss from '$lib/assets/rol/teamIcons/DYN_LOSS.avif';
 import rolFrites from '$lib/assets/rol/teamIcons/FEC.avif';
+import rolFritesLoss from '$lib/assets/rol/teamIcons/FEC_LOSS.avif';
 import rolMcon from '$lib/assets/rol/teamIcons/MCON.avif';
+import rolMconLoss from '$lib/assets/rol/teamIcons/MCON_LOSS.avif';
 import rolMyth from '$lib/assets/rol/teamIcons/MYTH.avif';
+import rolMythLoss from '$lib/assets/rol/teamIcons/MYTH_LOSS.avif';
 import rolOnceUponATeam from '$lib/assets/rol/teamIcons/OUAT.avif';
+import rolOnceUponATeamLoss from '$lib/assets/rol/teamIcons/OUAT_LOSS.avif';
+import rolRichGang from '$lib/assets/rol/teamIcons/RG.avif';
+import rolSnooze from '$lib/assets/rol/teamIcons/SE.avif';
+import rolSnoozeLoss from '$lib/assets/rol/teamIcons/SE_LOSS.avif';
 import rolSenshi from '$lib/assets/rol/teamIcons/SNSH.avif';
+import rolSenshiLoss from '$lib/assets/rol/teamIcons/SNSH_LOSS.avif';
 import rolZennit from '$lib/assets/rol/teamIcons/ZNT.avif';
+import rolZennitLoss from '$lib/assets/rol/teamIcons/ZNT_LOSS.avif';
 
 const rolRoleIcons: Record<string, string> = {
 	Top: rolTop,
@@ -59,8 +70,23 @@ const rolTeamIcons: Record<string, string> = {
 	MCON: rolMcon,
 	MYTH: rolMyth,
 	OUAT: rolOnceUponATeam,
+	RG: rolRichGang,
+	SE: rolSnooze,
 	SNSH: rolSenshi,
 	ZNT: rolZennit
+};
+
+// RG is the one team with no dimmed artwork, so it keeps its normal mark on a loss.
+const rolTeamIconsLoss: Record<string, string> = {
+	BAN: rolBanditsLoss,
+	DYN: rolDynastyLoss,
+	FEC: rolFritesLoss,
+	MCON: rolMconLoss,
+	MYTH: rolMythLoss,
+	OUAT: rolOnceUponATeamLoss,
+	SE: rolSnoozeLoss,
+	SNSH: rolSenshiLoss,
+	ZNT: rolZennitLoss
 };
 
 const nlcRoleIcons: Record<string, string> = {
@@ -122,7 +148,7 @@ export const visualAssets: VisualAssetsSet = {
 		roleIcons: rolRoleIcons,
 		spotlightLogo: rolSpotlightLogo,
 		teamIcons: rolTeamIcons,
-		teamIconsLoss: {}
+		teamIconsLoss: rolTeamIconsLoss
 	}
 };
 

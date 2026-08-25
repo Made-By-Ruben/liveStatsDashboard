@@ -14,10 +14,14 @@
 
 	function cacheAssets() {
 		cacheImages(data.gameInfo.participants);
-		const team100Image = new Image();
-		team100Image.src = getTeamIcon(visualStyle, data.gameInfo.team100.name, null);
-		const team200Image = new Image();
-		team200Image.src = getTeamIcon(visualStyle, data.gameInfo.team200.name, null)
+		const team100Win = new Image();
+		const team100Loss = new Image()
+		team100Win.src = getTeamIcon(visualStyle, data.gameInfo.team100.name, true);
+		team100Loss.src = getTeamIcon(visualStyle, data.gameInfo.team100.name, true);
+		const team200Win = new Image();
+		const team200Loss = new Image()
+		team200Win.src = getTeamIcon(visualStyle, data.gameInfo.team200.name, true);
+		team200Loss.src = getTeamIcon(visualStyle, data.gameInfo.team200.name, true);
 	}
 
 	let visualState = $state<VisualState>(null);
