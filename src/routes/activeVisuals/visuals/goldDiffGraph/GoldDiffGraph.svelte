@@ -38,11 +38,11 @@
 			xBounds: xBounds,
 			yBounds: yBounds
 		};
-		let yAxisIndex = goldDiff.lowestValue * graphOptions.yScale * -1; // * -1  to make it non-negative
+		let yAxisIndex = goldDiff.highestValue * graphOptions.yScale;
 
 		drawYAxis(ctx, graphOptions, yAxisIndex);
 		drawXAxis(ctx, graphOptions, yAxisIndex);
-		drawLine(ctx, graphOptions.xScale, graphOptions.yScale, yAxisIndex, 0, 0, 0, goldDiff.goldDiffValues.length, 1,'grey');
+		drawLine(ctx, graphOptions.xScale, graphOptions.yScale, yAxisIndex, 0, 0, 0, goldDiff.goldDiffValues.length, 2, 'grey');
 		fillGraph(ctx, yAxisIndex, graphOptions);
 	}
 
@@ -75,7 +75,7 @@
 		const area = new Path2D();
 		goldDiff.goldDiffValues.forEach((g, i) => {
 			const X = (i: number) => scaleValueToGraph(i, yAxisIndex, graphOptions.xScale, 'x', 0.5);
-			const Y = (g: number) => scaleValueToGraph(g, yAxisIndex, graphOptions.yScale, 'y', 0.25);
+			const Y = (g: number) => scaleValueToGraph(g * -1, yAxisIndex, graphOptions.yScale, 'y', 0.25);
 
 			const highestValue = goldDiff.highestValue;
 			const lowestValue = goldDiff.lowestValue;
@@ -90,7 +90,7 @@
 					ctx,
 					graphOptions.xScale,
 					graphOptions.yScale,
-					yAxisIndex,
+					goldDiff.lowestValue * graphOptions.yScale * -1,
 					goldDiff.lowestValue,
 					goldDiff.highestValue,
 					i,
@@ -107,8 +107,8 @@
 				ctx.font = '20px arial';
 				ctx.fillText(
 					i.toString(),
-					scaleValueToGraph(i, yAxisIndex, graphOptions.xScale, 'x', 0.5),
-					scaleValueToGraph(goldDiff.highestValue, yAxisIndex, graphOptions.yScale, 'y', 0.5)
+					scaleValueToGraph(i, goldDiff.lowestValue * graphOptions.yScale * -1, graphOptions.xScale, 'x', 0.5),
+					scaleValueToGraph(goldDiff.highestValue, goldDiff.lowestValue * graphOptions.yScale * -1, graphOptions.yScale, 'y', 0.5)
 				);
 			}
 
@@ -132,7 +132,7 @@
 				lineGradient.addColorStop(0, getColor(200));
 				lineGradient.addColorStop(z, getColor(200));
 				lineGradient.addColorStop(z, getColor(100));
-				lineGradient.addColorStop(z, getColor(100));
+				lineGradient.addColorStop(1, getColor(100));
 				ctx.lineWidth = 5;
 				ctx.strokeStyle = lineGradient
 				ctx.stroke(area);
@@ -177,7 +177,7 @@
 			ctx,
 			graphOptions.xScale,
 			graphOptions.yScale,
-			yAxisIndex,
+			goldDiff.lowestValue * graphOptions.yScale * -1,
 			goldDiff.highestValue,
 			goldDiff.highestValue,
 			0,
@@ -192,7 +192,7 @@
 			ctx,
 			graphOptions.xScale,
 			graphOptions.yScale,
-			yAxisIndex,
+			goldDiff.lowestValue * graphOptions.yScale * -1,
 			goldDiff.lowestValue,
 			goldDiff.highestValue,
 			0,
@@ -207,15 +207,15 @@
 		ctx.fillStyle = getColor(200);
 		ctx.fillText(
 			(goldDiff.lowestValue * -1).toString(),
-			scaleValueToGraph(0, yAxisIndex, graphOptions.xScale, 'x', 0.25),
-			scaleValueToGraph(goldDiff.lowestValue, yAxisIndex, graphOptions.yScale, 'y', 0.25)
+			scaleValueToGraph(0, (goldDiff.lowestValue * graphOptions.yScale * -1), graphOptions.xScale, 'x', 0.25),
+			scaleValueToGraph(goldDiff.highestValue, (goldDiff.lowestValue * graphOptions.yScale * -1) + 12.5, graphOptions.yScale, 'y', 0.25)
 		);
 
 		ctx.fillStyle = getColor(100);
 		ctx.fillText(
 			goldDiff.highestValue.toString(),
-			scaleValueToGraph(goldDiff.goldDiffValues.length, yAxisIndex, graphOptions.xScale, 'x', 0.75),
-			scaleValueToGraph(goldDiff.highestValue, yAxisIndex, graphOptions.yScale, 'y', 0.25)
+			scaleValueToGraph(goldDiff.goldDiffValues.length, goldDiff.lowestValue * graphOptions.yScale * -1, graphOptions.xScale, 'x', 0.75),
+			scaleValueToGraph(goldDiff.lowestValue, (goldDiff.lowestValue * graphOptions.yScale * -1) + 12.5, graphOptions.yScale, 'y', 0.25)
 		);
 	}
 
