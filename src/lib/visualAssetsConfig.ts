@@ -8,22 +8,33 @@ import nlcMiddle from '$lib/assets/nlc/roleIcons/Mid.avif';
 import nlcBottom from '$lib/assets/nlc/roleIcons/Bot.avif';
 import nlcSupport from '$lib/assets/nlc/roleIcons/Support.avif';
 
+import nlcTwoM from '$lib/assets/nlc/teamIcons/2M.avif';
+import nlcTwoMLoss from '$lib/assets/nlc/teamIcons/2M_LOSS.avif';
+import nlcAbv from '$lib/assets/nlc/teamIcons/ABV.avif';
+import nlcAbvLoss from '$lib/assets/nlc/teamIcons/ABV_LOSS.avif';
 import nlcArcticPandas from '$lib/assets/nlc/teamIcons/AP.avif';
 import nlcArcticPandasLoss from '$lib/assets/nlc/teamIcons/AP_LOSS.avif';
+import nlcB2u from '$lib/assets/nlc/teamIcons/B2U.avif';
 import nlcBulldog from '$lib/assets/nlc/teamIcons/BDG.avif';
 import nlcBulldogLoss from '$lib/assets/nlc/teamIcons/BDG_LOSS.avif';
+import nlcBrod from '$lib/assets/nlc/teamIcons/BROD.avif';
 import nlcDeerGaming from '$lib/assets/nlc/teamIcons/DEER.avif';
 import nlcDeerGamingLoss from '$lib/assets/nlc/teamIcons/DEER_LOSS.avif';
 import nlcDmg from '$lib/assets/nlc/teamIcons/DMG.avif';
 import nlcDmgLoss from '$lib/assets/nlc/teamIcons/DMG_LOSS.avif';
+import nlcEpicAvalanche from '$lib/assets/nlc/teamIcons/EA.avif';
 import nlcLeo from '$lib/assets/nlc/teamIcons/LEO.avif';
 import nlcLeoLoss from '$lib/assets/nlc/teamIcons/LEO_LOSS.avif';
 import nlcLundqvist from '$lib/assets/nlc/teamIcons/LLS.avif';
 import nlcLundqvistLoss from '$lib/assets/nlc/teamIcons/LLS_LOSS.avif';
+import nlcRichGang from '$lib/assets/nlc/teamIcons/RG.avif';
+import nlcRichGangLoss from '$lib/assets/nlc/teamIcons/RG_LOSS.avif';
 import nlcRuddy from '$lib/assets/nlc/teamIcons/RUD.avif';
 import nlcRuddyLoss from '$lib/assets/nlc/teamIcons/RUD_LOSS.avif';
+import nlcSorby from '$lib/assets/nlc/teamIcons/SE.avif';
 import nlcVerdant from '$lib/assets/nlc/teamIcons/VER.avif';
 import nlcVerdantLoss from '$lib/assets/nlc/teamIcons/VER_LOSS.avif';
+import nlcVes from '$lib/assets/nlc/teamIcons/VES.avif';
 
 import rolLogo from '$lib/assets/rol/rolLogoVertical.avif';
 import rolBackground from '$lib/assets/rol/rolBg.avif';
@@ -98,23 +109,36 @@ const nlcRoleIcons: Record<string, string> = {
 };
 
 const nlcTeamIcons: Record<string, string> = {
+	'2M': nlcTwoM,
+	ABV: nlcAbv,
 	AP: nlcArcticPandas,
+	B2U: nlcB2u,
 	BDG: nlcBulldog,
+	BROD: nlcBrod,
 	DEER: nlcDeerGaming,
 	DMG: nlcDmg,
+	EA: nlcEpicAvalanche,
 	LEO: nlcLeo,
 	LLS: nlcLundqvist,
+	RG: nlcRichGang,
 	RUD: nlcRuddy,
-	VER: nlcVerdant
+	SE: nlcSorby,
+	VER: nlcVerdant,
+	VES: nlcVes
 };
 
+// B2U, BROD, EA, SE and VES ship full-colour badges with no dimmed version, so
+// they keep their normal mark on a loss.
 const nlcTeamIconsLoss: Record<string, string> = {
+	'2M': nlcTwoMLoss,
+	ABV: nlcAbvLoss,
 	AP: nlcArcticPandasLoss,
 	BDG: nlcBulldogLoss,
 	DEER: nlcDeerGamingLoss,
 	DMG: nlcDmgLoss,
 	LEO: nlcLeoLoss,
 	LLS: nlcLundqvistLoss,
+	RG: nlcRichGangLoss,
 	RUD: nlcRuddyLoss,
 	VER: nlcVerdantLoss
 };
@@ -163,5 +187,7 @@ export function getTeamIcon(
 ): string {
 	const assets = getVisualAssets(style);
 	if (teamHasWon === false && assets.teamIconsLoss[teamName]) return assets.teamIconsLoss[teamName];
-	return assets.teamIcons[teamName] ?? rolLogo;
+	if (teamHasWon === true && assets.teamIcons[teamName] ) return assets.teamIcons[teamName];
+
+	return assets.teamIcons[teamName]
 }

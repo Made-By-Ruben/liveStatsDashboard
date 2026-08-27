@@ -50,10 +50,12 @@
 				<GoldDiffGraph {goldDiff} winningTeam={meta.gameState === 'finished' ? meta.winningTeam : null} {visualStyle} />
 			</div>
 
+			{#if visualStyle === 'ROL'}
 			<div class="flex h-full items-center justify-evenly border border-brand-border">
 				<img class="h-28" src={redBullLogo} />
 				<img class="h-28" src={kitKatLogo} />
 			</div>
+			{/if}
 		</div>
 	</section>
 </main>
