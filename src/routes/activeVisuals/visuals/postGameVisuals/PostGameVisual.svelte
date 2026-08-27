@@ -47,7 +47,7 @@
 				<h1 class="font-label text-3xl font-bold text-brand-off-white/90">
 					GOLD DIFFERENCE OVER TIME
 				</h1>
-				<GoldDiffGraph {goldDiff} team100Won={team100.teamHasWon} {visualStyle} />
+				<GoldDiffGraph {goldDiff} winningTeam={meta.gameState === 'finished' ? meta.winningTeam : null} {visualStyle} />
 			</div>
 
 			<div class="flex h-full items-center justify-evenly border border-brand-border">

@@ -4,8 +4,14 @@
 	import { getTeamIcon } from "$lib/visualAssetsConfig";
 
     let {team100, team200, meta, visualStyle}: {team100: TeamInfo, team200: TeamInfo, meta: FinishedGameMetaInfo | LiveGameMetaInfo, visualStyle: string|undefined} = $props()
-	let team100Icon = $derived(getTeamIcon(visualStyle, team100.teamName, team100.teamHasWon))
-	let team200Icon = $derived(getTeamIcon(visualStyle, team200.teamName, team200.teamHasWon))
+	let team100Icon = $derived(getTeamIcon(visualStyle, team100.teamName, team100.teamHasWon));
+	let team200Icon = $derived(getTeamIcon(visualStyle, team200.teamName, team200.teamHasWon));
+
+	function resultDisplay(team: TeamInfo) {
+		if (meta.gameState === 'finished') {
+			return team.teamHasWon ? 'WIN' : 'LOSS'
+		} else return ' - '
+	}
 </script>
 
 <div class="flex h-full w-full items-center justify-evenly border border-brand-border">
@@ -22,7 +28,7 @@
 		class="font-label text-4xl font-bold text-brand-off-white/90"
 		style={team100.teamHasWon ? 'color: var(--color-brand-highlight-1);' : ''}
 	>
-		{team100.teamHasWon ? 'WIN' : 'LOSS'}
+		{resultDisplay(team100)}
 	</p>
 	<h1 class="postGameHeader">	<StatBadgeV2 stat={team100.teamScore} /></h1>
 </div>
@@ -38,9 +44,9 @@
 		class="font-label text-4xl font-bold text-brand-off-white/90"
 		style={team200.teamHasWon ? 'color: var(--color-brand-highlight-1);' : ''}
 	>
-		{team200.teamHasWon ? 'WIN' : 'LOSS'}
+		{resultDisplay(team200)}
 	</p>
-	<h1 class="postGameHeader">{team200.teamName}</h1>
+	<h1 class="postGameHeader" style={team200.teamHasWon ? 'color: var(--color-brand-highlight-1);' : ''}>{team200.teamName}</h1>
 	{#if team200Icon}
 		<img class="size-25" src={team200Icon} alt={team200.teamName} />
 	{/if}
