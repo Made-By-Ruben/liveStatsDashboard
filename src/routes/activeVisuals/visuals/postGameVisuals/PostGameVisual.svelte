@@ -47,15 +47,19 @@
 				<h1 class="font-label text-3xl font-bold text-brand-off-white/90">
 					GOLD DIFFERENCE OVER TIME
 				</h1>
-				<GoldDiffGraph {goldDiff} winningTeam={meta.gameState === 'finished' ? meta.winningTeam : null} {visualStyle} />
+				<GoldDiffGraph
+					{goldDiff}
+					winningTeam={meta.gameState === 'finished' ? meta.winningTeam : null}
+					{visualStyle}
+				/>
 			</div>
 
-			{#if visualStyle === 'ROL'}
 			<div class="flex h-full items-center justify-evenly border border-brand-border">
-				<img class="h-28" src={redBullLogo} />
+				{#if visualStyle === 'ROL'}
+					<img class="h-28" src={redBullLogo} />
+				{/if}
 				<img class="h-28" src={kitKatLogo} />
 			</div>
-			{/if}
 		</div>
 	</section>
 </main>
