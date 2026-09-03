@@ -13,7 +13,6 @@
 	let { data } = $props();
 
 	function cacheAssets() {
-		cacheImages(data.gameInfo.participants);
 		const team100Win = new Image();
 		const team100Loss = new Image()
 		team100Win.src = getTeamIcon(visualStyle, data.gameInfo.team100.name, true);

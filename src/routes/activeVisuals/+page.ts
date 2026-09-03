@@ -2,9 +2,6 @@ import { PUBLIC_SERVER_URL } from '$env/static/public';
 import type { PageLoad } from './$types';
 
 type GameInfo = {
-	participants: {
-		championName: string;
-	}[];
 	gameID: number;
 	team100: {
 		ID: number;
@@ -16,7 +13,7 @@ type GameInfo = {
 	};
 };
 
-export const load: PageLoad = (async ({fetch, params}) => {
+export const load: PageLoad = (async ({ fetch, params }) => {
 	const apiResponse = await fetch(`${PUBLIC_SERVER_URL}connectMatch/gameInfo`);
 	if (!apiResponse.ok) {
 		throw new Error(apiResponse.statusText);
@@ -25,6 +22,6 @@ export const load: PageLoad = (async ({fetch, params}) => {
 	const data = (await apiResponse.json()).data as GameInfo;
 
 	return {
-        gameInfo: data
-    };
+		gameInfo: data
+	};
 }) satisfies PageLoad;
